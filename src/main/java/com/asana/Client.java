@@ -1,9 +1,166 @@
 package com.asana;
 
-public class Client 
+import com.asana.dispatcher.BasicAuthDispatcher;
+import com.asana.dispatcher.Dispatcher;
+import com.asana.models.ResultBody;
+import com.asana.models.Task;
+import com.asana.models.User;
+import com.asana.requests.Request;
+import com.asana.resources.Tasks;
+import com.asana.resources.Users;
+import com.google.api.client.http.*;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.common.collect.ImmutableList;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Client
 {
-    public static void main( String[] args )
+    public Dispatcher dispatcher;
+    public Map<String, Object> options;
+
+    public Users users;
+    public Tasks tasks;
+
+    public static final Map<String, Object> DEFAULTS = new HashMap<String, Object>() {{
+        put("base_url", "https://app.asana.com/api/1.0");
+        put("item_limit", null);
+        put("page_size", 50);
+        put("poll_interval", 5);
+        put("max_retries", 5);
+        put("full_payload", false);
+    }};
+
+    public static final String[] CLIENT_OPTIONS  = DEFAULTS.keySet().toArray(new String[] {});
+    public static final String[] QUERY_OPTIONS   = new String[] { "limit", "offset", "sync" };
+    public static final String[] API_OPTIONS     = new String[] { "pretty", "fields", "expand" };
+
+    static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+
+    public Client(Dispatcher dispatcher)
     {
-        System.out.println( "Hello World!" );
+        this(dispatcher, null);
+    }
+
+    public Client(Dispatcher dispatcher, HashMap<String, Object> options)
+    {
+        this.dispatcher = dispatcher;
+
+        this.options = new HashMap<String, Object>();
+        this.options.putAll(DEFAULTS);
+        if (options != null) {
+            this.options.putAll(options);
+        }
+
+        this.users = new Users(this);
+        this.tasks = new Tasks(this);
+    }
+
+    public HttpResponse request(Request request) throws IOException
+    {
+        HashMap<String, Object> options = new HashMap<String, Object>();
+        options.putAll(this.options);
+        options.putAll(request.options);
+
+        GenericUrl url = new GenericUrl(this.options.get("base_url") + request.path);
+
+        ByteArrayContent content = null;
+        Map<String,Object> body = new HashMap<String, Object>();
+
+        // Query string
+        for (Map.Entry<String, Object> entry : request.query.entrySet()) {
+            url.put(entry.getKey(), entry.getValue());
+        }
+
+        // API options
+        if (request.method == "GET") {
+            for (String key: API_OPTIONS) {
+                if (request.options.containsKey(key)) {
+                    Object value = request.options.get(key);
+                    url.put("opt_" + key, value);
+                }
+            }
+        } else if (request.method == "POST" || request.method == "PUT") {
+            Map<String,Object> opts= new HashMap<String, Object>();
+            for (String key: API_OPTIONS) {
+                if (request.options.containsKey(key)) {
+                    opts.put(key, request.options.get(key));
+                }
+            }
+            if (opts.size() > 0) {
+                body.put("options", opts);
+            }
+        }
+
+        // JSON body
+        if (request.method == "POST" || request.method == "PUT") {
+            Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX").create();
+            body.put("data", request.data);
+            String json = gson.toJson(body);
+            System.out.println("!!! > " + json);
+            content = new ByteArrayContent("application/json", json.getBytes());
+        }
+
+        HttpRequest httpRequest = HTTP_TRANSPORT.createRequestFactory().buildRequest(request.method, url, content);
+
+        this.dispatcher.authenticate(httpRequest);
+
+        HttpResponse response = httpRequest.execute();
+
+        return response;
+    }
+
+    public static Client basicAuth(String apiKey, HashMap<String,Object> options)
+    {
+        return new Client(new BasicAuthDispatcher(apiKey), options);
+    }
+
+    public static Client basicAuth(String apiKey)
+    {
+        return Client.basicAuth(apiKey, null);
+    }
+
+    public static void main( String[] args) throws Exception
+    {
+        Client client = Client.basicAuth("5KuX5z.S5flgfi1yPUDyjUKHVfwOcdoA");
+//        client.options.put("base_url", "http://localhost:8080");
+
+        ResultBody<User> user = client.users.me()
+                .option("pretty", true)
+                .executeRaw();
+
+        System.out.println(user.data.name);
+        System.out.println(user.data.id);
+        System.out.println(user.data.photo.image_128x128);
+        System.out.println(user.data.workspaces.iterator().next().name);
+
+//        Collection<User> users = client.users.findAll();
+//        for (User u: users) {
+//            System.out.println(u.name);
+//        }
+
+        Task task = client.tasks.create()
+                .option("pretty", true)
+                .data("name", "hello2")
+                .data("workspace", "498346170860")
+                .data("projects", ImmutableList.of("29898626391464"))
+                .execute();
+
+        System.out.println(task.id);
+
+        client.tasks.update(task.id)
+                .data("name", "barrrr2")
+                .execute();
+
+        task = client.tasks.findById(task.id).execute();
+        System.out.println(task.id);
+        System.out.println(task.name);
+
+        client.tasks.delete(task.id).execute();
     }
 }

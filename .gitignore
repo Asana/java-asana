@@ -1,3 +1,9 @@
+# Mac OS X
 .DS_Store
 
+# Build
 /target
+
+# IntelliJ IDEA
+/.idea
+/*.iml

@@ -7,7 +7,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for Client.
  */
-public class ClientTest 
+public class AsanaTest
     extends TestCase
 {
     /**
@@ -15,7 +15,7 @@ public class ClientTest
      *
      * @param testName name of the test case
      */
-    public ClientTest( String testName )
+    public AsanaTest( String testName )
     {
         super( testName );
     }
@@ -25,7 +25,7 @@ public class ClientTest
      */
     public static Test suite()
     {
-        return new TestSuite( ClientTest.class );
+        return new TestSuite( AsanaTest.class );
     }
 
     /**
