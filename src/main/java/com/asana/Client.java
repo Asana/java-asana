@@ -2,6 +2,7 @@ package com.asana;
 
 import com.asana.dispatcher.BasicAuthDispatcher;
 import com.asana.dispatcher.Dispatcher;
+import com.asana.errors.AsanaError;
 import com.asana.models.ResultBody;
 import com.asana.models.Task;
 import com.asana.models.User;
@@ -108,9 +109,13 @@ public class Client
 
         this.dispatcher.authenticate(httpRequest);
 
-        HttpResponse response = httpRequest.execute();
-
-        return response;
+        try {
+            HttpResponse response = httpRequest.execute();
+            return response;
+        } catch (HttpResponseException error) {
+            AsanaError.handleErrorResponse(error);
+        }
+        return null;
     }
 
     public static Client basicAuth(String apiKey, HashMap<String,Object> options)

@@ -2,18 +2,15 @@ package com.asana;
 
 import com.asana.dispatcher.MockDispatcher;
 import junit.framework.TestCase;
+import org.junit.Before;
 
-public class AsanaTest extends TestCase
+public class AsanaTest
 {
     protected Client client;
     protected MockDispatcher dispatcher;
 
-    public AsanaTest( String testName )
-    {
-        super( testName );
-    }
-
-    protected void setUp()
+    @Before
+    public void setUp()
     {
         this.dispatcher = new MockDispatcher();
         this.client =  new Client(this.dispatcher);
