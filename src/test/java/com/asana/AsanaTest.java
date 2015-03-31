@@ -1,38 +1,23 @@
 package com.asana;
 
-import junit.framework.Test;
+import com.asana.dispatcher.MockDispatcher;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
-/**
- * Unit test for Client.
- */
-public class AsanaTest
-    extends TestCase
+public class AsanaTest extends TestCase
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
+    protected Client client;
+    protected MockDispatcher dispatcher;
+
     public AsanaTest( String testName )
     {
         super( testName );
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
+    protected void setUp()
     {
-        return new TestSuite( AsanaTest.class );
+        this.dispatcher = new MockDispatcher();
+        this.client =  new Client(this.dispatcher);
+        this.client.options.put("base_url", "http://app");
     }
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testClient()
-    {
-        assertTrue( true );
-    }
 }

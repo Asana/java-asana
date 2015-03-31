@@ -39,8 +39,6 @@ public class Client
     public static final String[] QUERY_OPTIONS   = new String[] { "limit", "offset", "sync" };
     public static final String[] API_OPTIONS     = new String[] { "pretty", "fields", "expand" };
 
-    static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-
     public Client(Dispatcher dispatcher)
     {
         this(dispatcher, null);
@@ -106,7 +104,7 @@ public class Client
             content = new ByteArrayContent("application/json", json.getBytes());
         }
 
-        HttpRequest httpRequest = HTTP_TRANSPORT.createRequestFactory().buildRequest(request.method, url, content);
+        HttpRequest httpRequest = this.dispatcher.buildRequest(request.method, url, content);
 
         this.dispatcher.authenticate(httpRequest);
 
