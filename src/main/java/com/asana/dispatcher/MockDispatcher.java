@@ -4,6 +4,8 @@ import com.google.api.client.http.*;
 import com.google.api.client.testing.http.MockHttpTransport;
 import com.google.api.client.testing.http.MockLowLevelHttpRequest;
 import com.google.api.client.testing.http.MockLowLevelHttpResponse;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -16,12 +18,17 @@ public class MockDispatcher extends Dispatcher {
         public LowLevelHttpRequest request;
         public LowLevelHttpResponse response;
         public String requestBody;
+        public JsonElement parsedRequestBody;
 
         public Call(LowLevelHttpRequest request, LowLevelHttpResponse response, String requestBody)
         {
             this.request = request;
             this.response = response;
             this.requestBody = requestBody;
+            try {
+                this.parsedRequestBody = new JsonParser().parse(requestBody);
+            } catch (Exception e) {
+            }
         }
     }
 
