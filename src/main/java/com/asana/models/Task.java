@@ -10,13 +10,7 @@ public class Task
     public static class Membership
     {
         public Project project;
-        public Section section;
-    }
-
-    public static class Section
-    {
-        public String id;
-        public String name;
+        public Entity section;
     }
 
     public static class Heart

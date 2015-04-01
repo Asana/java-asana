@@ -1,0 +1,42 @@
+package com.asana.resources.gen;
+
+import com.asana.Client;
+import com.asana.models.<%= cap(resource.name) %>;
+import com.asana.resources.Resource;
+import com.asana.requests.ItemRequest;
+import com.asana.requests.CollectionRequest;
+
+public class <%= plural(cap(resource.name)) + "Base" %> extends Resource
+{
+    public <%= plural(cap(resource.name)) + "Base" %>(Client client)
+    {
+        super(client);
+    }<% _.forEach(resource.actions, function(action) {
+    if (action.no_code) {
+      return;
+    }
+
+    var name = snake(action.name);
+    var path = action.path.replace(/%d/g, "%s");
+    var method = action.method.toUpperCase();
+    var modelClass = cap(resource.name);
+    var returnClass;
+    if (action.collection) {
+        returnClass = "CollectionRequest<" + modelClass + ">";
+    } else {
+        returnClass = "ItemRequest<" + modelClass + ">";
+    }
+
+    var params = paramsForAction(action);
+    var pathParamNames = params.pathParams.map(function(param) { return param.name; });
+    var pathParamNamesAndTypes = params.pathParams.map(function(param) { return typeName(param.type) + " " + param.name; });
+  %>
+
+    public <%= returnClass %> <%= action.name %>(<%= pathParamNamesAndTypes.join(", ") %>)
+    {<% if (pathParamNames.length > 0) { %>
+        String path = String.format(<%= JSON.stringify(path) %>, <%= pathParamNames.join(", ") %>);
+        return new <%= returnClass %>(this, <%= modelClass %>.class, path, <%= JSON.stringify(method) %>);
+    <% } else { %>
+        return new <%= returnClass %>(this, <%= modelClass %>.class, <%= JSON.stringify(action.path) %>, <%= JSON.stringify(method) %>);
+    <% } %>}<% }); %>
+}

@@ -9,22 +9,23 @@ public class Project
 {
     public String id;
     public String name;
-    public String notes;
 
+    public String notes;
+    public String color;
     @SerializedName("archived") public boolean isArchived;
     @SerializedName("public") public boolean isPublic;
-    public String color;
 
-    public Collection<User> followers;
-    public Collection<User> members;
+    public Collection<Entity> followers;
+    public Collection<Entity> members;
 
-    public Team team;
-    public Workspace workspace;
+    public Entity team;
+    public Entity workspace;
 
     @SerializedName("created_at") public Date createdAt;
     @SerializedName("modified_at") public Date modifiedAt;
 
-    public Project(String id) {
+    public Project(String id)
+    {
         this.id = id;
     }
 }

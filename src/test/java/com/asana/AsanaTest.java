@@ -1,7 +1,6 @@
 package com.asana;
 
 import com.asana.dispatcher.MockDispatcher;
-import junit.framework.TestCase;
 import org.junit.Before;
 
 public class AsanaTest

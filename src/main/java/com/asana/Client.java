@@ -7,8 +7,7 @@ import com.asana.models.ResultBody;
 import com.asana.models.Task;
 import com.asana.models.User;
 import com.asana.requests.Request;
-import com.asana.resources.Tasks;
-import com.asana.resources.Users;
+import com.asana.resources.*;
 import com.google.api.client.http.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.common.collect.ImmutableList;
@@ -24,8 +23,15 @@ public class Client
     public Dispatcher dispatcher;
     public Map<String, Object> options;
 
-    public Users users;
+    public Attachments attachments;
+    public Events events;
+    public Projects projects;
+    public Stories stories;
+    public Tags tags;
     public Tasks tasks;
+    public Teams teams;
+    public Users users;
+    public Workspaces workspaces;
 
     public static final Map<String, Object> DEFAULTS = new HashMap<String, Object>() {{
         put("base_url", "https://app.asana.com/api/1.0");
