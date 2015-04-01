@@ -62,8 +62,15 @@ public class Client
             this.options.putAll(options);
         }
 
-        this.users = new Users(this);
+        this.attachments = new Attachments(this);
+        this.events = new Events(this);
+        this.projects = new Projects(this);
+        this.stories = new Stories(this);
+        this.tags = new Tags(this);
         this.tasks = new Tasks(this);
+        this.teams = new Teams(this);
+        this.users = new Users(this);
+        this.workspaces = new Workspaces(this);
     }
 
     public HttpResponse request(Request request) throws IOException
