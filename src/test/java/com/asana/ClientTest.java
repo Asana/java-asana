@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ClientTest extends AsanaTest
 {
@@ -75,5 +76,59 @@ public class ClientTest extends AsanaTest
             return;
         }
         Assert.fail("expected ForbiddenError to be thrown");
+    }
+
+    @Test
+    public void testOptionPretty() throws IOException
+    {
+        dispatcher.registerResponse("GET", "http://app/users/me?opt_pretty=true", 200, "{ \"data\": { \"name\": \"me\" } }");
+        assertEquals(client.users.me()
+                .option("pretty", true)
+                .execute().name,
+                "me");
+    }
+
+    @Test
+    public void testOptionPrettyPOST() throws IOException
+    {
+        dispatcher.registerResponse("POST", "http://app/tasks", 200, "{ \"data\": { \"name\": \"task\" } }");
+        assertEquals(client.tasks.create()
+                .option("pretty", true)
+                .execute().name,
+                "task");
+        assertEquals(dispatcher.calls.get(0).requestBody, "{\"data\":{},\"options\":{\"pretty\":true}}");
+    }
+
+    @Test
+    public void testOptionFields() throws IOException
+    {
+        dispatcher.registerResponse("GET", "http://app/users/me?opt_fields=name,notes", 200, "{ \"data\": { \"name\": \"me\" } }");
+        assertEquals(client.users.me()
+                .option("fields", Arrays.asList("name", "notes"))
+                .execute().name,
+                "me");
+    }
+
+    @Test
+    public void testOptionFieldsPOST() throws IOException
+    {
+        dispatcher.registerResponse("POST", "http://app/tasks", 200, "{ \"data\": { \"name\": \"task\" } }");
+        assertEquals(client.tasks.create()
+                .option("fields", Arrays.asList("name", "notes"))
+                .execute().name,
+                "task");
+        assertEquals(dispatcher.calls.get(0).requestBody, "{\"data\":{},\"options\":{\"fields\":[\"name\",\"notes\"]}}");
+    }
+
+    @Test
+    public void testOptionExpand() throws IOException
+    {
+        dispatcher.registerResponse("PUT", "http://app/tasks/1001", 200, "{ \"data\": { \"name\": \"me\" } }");
+        assertEquals(client.tasks.update("1001")
+                .data("assignee", "1234")
+                .option("expand", Arrays.asList("projects"))
+                .execute().name,
+                "me");
+        assertEquals(dispatcher.calls.get(0).requestBody, "{\"data\":{\"assignee\":\"1234\"},\"options\":{\"expand\":[\"projects\"]}}");
     }
 }

@@ -1,6 +1,5 @@
 package com.asana.errors;
 
-import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
 
 public class ForbiddenError extends AsanaError

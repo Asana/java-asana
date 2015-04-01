@@ -5,6 +5,7 @@ import com.google.api.client.testing.http.MockHttpTransport;
 import com.google.api.client.testing.http.MockLowLevelHttpRequest;
 import com.google.api.client.testing.http.MockLowLevelHttpResponse;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,10 +15,13 @@ public class MockDispatcher extends Dispatcher {
     {
         public LowLevelHttpRequest request;
         public LowLevelHttpResponse response;
-        public Call(LowLevelHttpRequest request, LowLevelHttpResponse response)
+        public String requestBody;
+
+        public Call(LowLevelHttpRequest request, LowLevelHttpResponse response, String requestBody)
         {
             this.request = request;
             this.response = response;
+            this.requestBody = requestBody;
         }
     }
 
@@ -36,9 +40,20 @@ public class MockDispatcher extends Dispatcher {
                 return new MockLowLevelHttpRequest() {
                     @Override
                     public LowLevelHttpResponse execute() throws IOException {
-                        LowLevelHttpResponse response = responses.get(method + ":" + url);
-                        calls.add(new Call(this, response));
-                        return response;
+                        String key = method + ":" + url;
+                        if (responses.containsKey(key)) {
+                            LowLevelHttpResponse response = responses.get(key);
+
+                            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                            if (this.getStreamingContent() != null) {
+                                this.getStreamingContent().writeTo(buffer);
+                            }
+                            calls.add(new Call(this, response, buffer.toString()));
+
+                            return response;
+                        } else {
+                            throw new IOException("No response registered for " + key);
+                        }
                     }
                 };
             }

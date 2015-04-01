@@ -1,13 +1,9 @@
 package com.asana.errors;
 
-import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
 
 import java.io.IOException;
 
-/**
- * Created by tlrobinson on 3/31/15.
- */
 public class AsanaError extends IOException
 {
     public String message;

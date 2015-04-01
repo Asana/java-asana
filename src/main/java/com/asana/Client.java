@@ -9,13 +9,14 @@ import com.asana.models.User;
 import com.asana.requests.Request;
 import com.asana.resources.*;
 import com.google.api.client.http.*;
-import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Client
@@ -42,7 +43,7 @@ public class Client
         put("full_payload", false);
     }};
 
-    public static final String[] CLIENT_OPTIONS  = DEFAULTS.keySet().toArray(new String[] {});
+    public static final String[] CLIENT_OPTIONS  = DEFAULTS.keySet().toArray(new String[DEFAULTS.size()]);
     public static final String[] QUERY_OPTIONS   = new String[] { "limit", "offset", "sync" };
     public static final String[] API_OPTIONS     = new String[] { "pretty", "fields", "expand" };
 
@@ -76,24 +77,18 @@ public class Client
         ByteArrayContent content = null;
         Map<String,Object> body = new HashMap<String, Object>();
 
-        // Query string
-        for (Map.Entry<String, Object> entry : request.query.entrySet()) {
-            url.put(entry.getKey(), entry.getValue());
-        }
-
         // API options
-        if (request.method == "GET") {
+        if (request.method.equals("GET")) {
             for (String key: API_OPTIONS) {
-                if (request.options.containsKey(key)) {
-                    Object value = request.options.get(key);
-                    url.put("opt_" + key, value);
+                if (options.containsKey(key) && !request.query.containsKey("opt_" + key)) {
+                    request.query.put("opt_" + key, options.get(key));
                 }
             }
-        } else if (request.method == "POST" || request.method == "PUT") {
+        } else if (request.method.equals("POST") || request.method.equals("PUT")) {
             Map<String,Object> opts= new HashMap<String, Object>();
             for (String key: API_OPTIONS) {
-                if (request.options.containsKey(key)) {
-                    opts.put(key, request.options.get(key));
+                if (options.containsKey(key)) {
+                    opts.put(key, options.get(key));
                 }
             }
             if (opts.size() > 0) {
@@ -101,8 +96,17 @@ public class Client
             }
         }
 
+        // Query string
+        for (Map.Entry<String, Object> entry : request.query.entrySet()) {
+            Object value = entry.getValue();
+            if (value instanceof List) {
+                value = Joiner.on(",").join((List)value);
+            }
+            url.put(entry.getKey(), value);
+        }
+
         // JSON body
-        if (request.method == "POST" || request.method == "PUT") {
+        if (request.method.equals("POST") || request.method.equals("PUT")) {
             Gson gson = new GsonBuilder()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX").create();
             body.put("data", request.data);
@@ -116,8 +120,7 @@ public class Client
         this.dispatcher.authenticate(httpRequest);
 
         try {
-            HttpResponse response = httpRequest.execute();
-            return response;
+            return httpRequest.execute();
         } catch (HttpResponseException error) {
             AsanaError.handleErrorResponse(error);
         }
