@@ -16,6 +16,14 @@ public abstract class Dispatcher
     {
     }
 
+    public void sleep(long millis)
+    {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+        }
+    }
+
     public HttpRequest buildRequest(String method, GenericUrl url, ByteArrayContent content) throws IOException
     {
         return HTTP_TRANSPORT.createRequestFactory().buildRequest(method, url, content);

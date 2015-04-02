@@ -17,23 +17,25 @@ public class AsanaError extends IOException
         this.response = exception;
     }
 
-    public static void handleErrorResponse(HttpResponseException exception) throws AsanaError
+    public static AsanaError mapException(HttpResponseException exception) throws AsanaError
     {
         switch (exception.getStatusCode()) {
             case ForbiddenError.STATUS:
-                throw new ForbiddenError(exception);
+                return new ForbiddenError(exception);
             case InvalidRequestError.STATUS:
-                throw new InvalidRequestError(exception);
+                return new InvalidRequestError(exception);
             case InvalidTokenError.STATUS:
-                throw new InvalidTokenError(exception);
+                return new InvalidTokenError(exception);
             case NoAuthorizationError.STATUS:
-                throw new NoAuthorizationError(exception);
+                return new NoAuthorizationError(exception);
             case NotFoundError.STATUS:
-                throw new NotFoundError(exception);
+                return new NotFoundError(exception);
             case RateLimitEnforcedError.STATUS:
-                throw new RateLimitEnforcedError(exception);
+                return new RateLimitEnforcedError(exception);
             case ServerError.STATUS:
-                throw new ServerError(exception);
+                return new ServerError(exception);
+            default:
+                return new AsanaError(exception.getStatusMessage(), exception.getStatusCode(), exception);
         }
     }
 }

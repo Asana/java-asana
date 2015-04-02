@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class MockDispatcher extends Dispatcher {
     public class Call
@@ -33,13 +34,15 @@ public class MockDispatcher extends Dispatcher {
     }
 
     private HttpTransport transport;
-    private HashMap<String,MockLowLevelHttpResponse> responses;
+    private HashMap<String,LinkedList<MockLowLevelHttpResponse>> responses;
     public ArrayList<Call> calls;
+    public ArrayList<Integer> sleepCalls;
 
     public MockDispatcher()
     {
         this.calls = new ArrayList<Call>();
-        this.responses = new HashMap<String,MockLowLevelHttpResponse>();
+        this.sleepCalls = new ArrayList<Integer>();
+        this.responses = new HashMap<String,LinkedList<MockLowLevelHttpResponse>>();
 
         this.transport = new MockHttpTransport() {
             @Override
@@ -48,8 +51,8 @@ public class MockDispatcher extends Dispatcher {
                     @Override
                     public LowLevelHttpResponse execute() throws IOException {
                         String key = method + ":" + url;
-                        if (responses.containsKey(key)) {
-                            LowLevelHttpResponse response = responses.get(key);
+                        if (responses.containsKey(key) && responses.get(key).size() > 0) {
+                            LowLevelHttpResponse response = responses.get(key).removeFirst();
 
                             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
                             if (this.getStreamingContent() != null) {
@@ -72,17 +75,34 @@ public class MockDispatcher extends Dispatcher {
         return this.transport.createRequestFactory().buildRequest(method, url, content);
     }
 
-    public MockLowLevelHttpResponse registerResponse(String method, String path, int status) {
-        return this.registerResponse(method, path, status, null);
+    public void sleep(long millis)
+    {
+        System.out.println("sleeping for " + millis);
+        this.sleepCalls.add(new Integer((int)millis));
     }
 
-    public MockLowLevelHttpResponse registerResponse(String method, String path, int status, String content) {
-        MockLowLevelHttpResponse response = new MockLowLevelHttpResponse();
-        response.setStatusCode(status);
-        if (content != null) {
-            response.setContent(content);
+    public MockHttpResponse registerResponse(String method, String path) {
+        MockHttpResponse response = new MockHttpResponse();
+
+        String key = method + ":" + path;
+        if (!responses.containsKey(key)) {
+            responses.put(key, new LinkedList<MockLowLevelHttpResponse>());
         }
-        responses.put(method + ":" + path, response);
+        responses.get(key).add(response);
+
         return response;
+    }
+
+    public class MockHttpResponse extends MockLowLevelHttpResponse
+    {
+        public MockHttpResponse code(int statusCode) {
+            return (MockHttpResponse)super.setStatusCode(statusCode);
+        }
+        public MockHttpResponse content(String content) {
+            return (MockHttpResponse)super.setContent(content);
+        }
+        public MockHttpResponse header(String name, String value) {
+            return (MockHttpResponse)super.addHeader(name, value);
+        }
     }
 }

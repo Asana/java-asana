@@ -3,6 +3,8 @@ package com.asana;
 import com.asana.dispatcher.BasicAuthDispatcher;
 import com.asana.dispatcher.Dispatcher;
 import com.asana.errors.AsanaError;
+import com.asana.errors.RateLimitEnforcedError;
+import com.asana.errors.RetryableAsanaError;
 import com.asana.models.ResultBody;
 import com.asana.models.Task;
 import com.asana.models.User;
@@ -21,18 +23,8 @@ import java.util.Map;
 
 public class Client
 {
-    public Dispatcher dispatcher;
-    public Map<String, Object> options;
-
-    public Attachments attachments;
-    public Events events;
-    public Projects projects;
-    public Stories stories;
-    public Tags tags;
-    public Tasks tasks;
-    public Teams teams;
-    public Users users;
-    public Workspaces workspaces;
+    public static double RETRY_DELAY = 1000.0;
+    public static double RETRY_BACKOFF = 2.0;
 
     public static final Map<String, Object> DEFAULTS = new HashMap<String, Object>() {{
         put("base_url", "https://app.asana.com/api/1.0");
@@ -46,6 +38,19 @@ public class Client
     public static final String[] CLIENT_OPTIONS  = DEFAULTS.keySet().toArray(new String[DEFAULTS.size()]);
     public static final String[] QUERY_OPTIONS   = new String[] { "limit", "offset", "sync" };
     public static final String[] API_OPTIONS     = new String[] { "pretty", "fields", "expand" };
+
+    public Dispatcher dispatcher;
+    public Map<String, Object> options;
+
+    public Attachments attachments;
+    public Events events;
+    public Projects projects;
+    public Stories stories;
+    public Tags tags;
+    public Tasks tasks;
+    public Teams teams;
+    public Users users;
+    public Workspaces workspaces;
 
     public Client(Dispatcher dispatcher)
     {
@@ -122,16 +127,37 @@ public class Client
             content = new ByteArrayContent("application/json", json.getBytes());
         }
 
-        HttpRequest httpRequest = this.dispatcher.buildRequest(request.method, url, content);
+        int retryCount = 0;
+        int maxRetries = (Integer) options.get("max_retries");
+        while (true) {
+            try {
+                HttpRequest httpRequest = this.dispatcher.buildRequest(request.method, url, content);
 
-        this.dispatcher.authenticate(httpRequest);
+                this.dispatcher.authenticate(httpRequest);
 
-        try {
-            return httpRequest.execute();
-        } catch (HttpResponseException error) {
-            AsanaError.handleErrorResponse(error);
+                try {
+                    return httpRequest.execute();
+                } catch (HttpResponseException e) {
+                    throw AsanaError.mapException(e);
+                }
+            } catch (RetryableAsanaError e) {
+                if (retryCount < maxRetries) {
+                    this.handleRetryableError(e, retryCount);
+                    retryCount++;
+                } else {
+                    throw e;
+                }
+            }
         }
-        return null;
+    }
+
+    private void handleRetryableError(RetryableAsanaError e, int retryCount)
+    {
+        if (e instanceof RateLimitEnforcedError) {
+            this.dispatcher.sleep(((RateLimitEnforcedError)e).retryAfter);
+        } else {
+            this.dispatcher.sleep((long)(RETRY_DELAY * Math.pow(RETRY_BACKOFF, retryCount)));
+        }
     }
 
     public static Client basicAuth(String apiKey, HashMap<String,Object> options)

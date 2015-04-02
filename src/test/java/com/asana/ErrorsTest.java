@@ -11,7 +11,7 @@ public class ErrorsTest extends AsanaTest
     @Test
     public void testNotAuthorized() throws IOException
     {
-        dispatcher.registerResponse("GET", "http://app/users/me", 401, "{ \"errors\": [{ \"message\": \"Not Authorized\" }]}");
+        dispatcher.registerResponse("GET", "http://app/users/me").code(401).content("{ \"errors\": [{ \"message\": \"Not Authorized\" }]}");
         try {
             client.users.me().execute();
         } catch (NoAuthorizationError error) {
@@ -23,7 +23,7 @@ public class ErrorsTest extends AsanaTest
     @Test
     public void testInvalidRequest() throws IOException
     {
-        dispatcher.registerResponse("GET", "http://app/users/me", 400, "{ \"errors\": [{ \"message\": \"Missing input\" }] }");
+        dispatcher.registerResponse("GET", "http://app/users/me").code(400).content("{ \"errors\": [{ \"message\": \"Missing input\" }] }");
         try {
             client.users.me().execute();
         } catch (InvalidRequestError error) {
@@ -35,9 +35,9 @@ public class ErrorsTest extends AsanaTest
     @Test
     public void testServerError() throws IOException
     {
-        dispatcher.registerResponse("GET", "http://app/users/me", 500, "{ \"errors\": [ { \"message\": \"Server Error\", \"phrase\": \"6 sad squid snuggle softly\" } ] }");
+        dispatcher.registerResponse("GET", "http://app/users/me").code(500).content("{ \"errors\": [ { \"message\": \"Server Error\", \"phrase\": \"6 sad squid snuggle softly\" } ] }");
         try {
-            client.users.me().execute();
+            client.users.me().option("max_retries", 0).execute();
         } catch (ServerError error) {
             return;
         }
@@ -47,7 +47,7 @@ public class ErrorsTest extends AsanaTest
     @Test
     public void testNotFound() throws IOException
     {
-        dispatcher.registerResponse("GET", "http://app/users/me", 404, "{ \"errors\": [ { \"message\": \"user: Unknown object: 1234\" } ] }");
+        dispatcher.registerResponse("GET", "http://app/users/me").code(404).content("{ \"errors\": [ { \"message\": \"user: Unknown object: 1234\" } ] }");
         try {
             client.users.me().execute();
         } catch (NotFoundError error) {
@@ -59,7 +59,7 @@ public class ErrorsTest extends AsanaTest
     @Test
     public void testForbidden() throws IOException
     {
-        dispatcher.registerResponse("GET", "http://app/users/me", 403, "{ \"errors\": [ { \"message\": \"user: Forbidden\" } ] }");
+        dispatcher.registerResponse("GET", "http://app/users/me").code(403).content("{ \"errors\": [ { \"message\": \"user: Forbidden\" } ] }");
         try {
             client.users.me().execute();
         } catch (ForbiddenError error) {
