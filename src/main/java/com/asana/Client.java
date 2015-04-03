@@ -28,11 +28,10 @@ public class Client
 
     public static final Map<String, Object> DEFAULTS = new HashMap<String, Object>() {{
         put("base_url", "https://app.asana.com/api/1.0");
-        put("item_limit", null);
+        put("item_limit", -1);
         put("page_size", 50);
         put("poll_interval", 5);
         put("max_retries", 5);
-        put("full_payload", false);
     }};
 
     public static final String[] CLIENT_OPTIONS  = DEFAULTS.keySet().toArray(new String[DEFAULTS.size()]);
@@ -80,9 +79,7 @@ public class Client
 
     public HttpResponse request(Request request) throws IOException
     {
-        HashMap<String, Object> options = new HashMap<String, Object>();
-        options.putAll(this.options);
-        options.putAll(request.options);
+        Map<String, Object> options = request.getOptions();
 
         GenericUrl url = new GenericUrl(this.options.get("base_url") + request.path);
 
@@ -94,6 +91,11 @@ public class Client
             for (String key: API_OPTIONS) {
                 if (options.containsKey(key) && !request.query.containsKey("opt_" + key)) {
                     request.query.put("opt_" + key, options.get(key));
+                }
+            }
+            for (String key: QUERY_OPTIONS) {
+                if (options.containsKey(key) && !request.query.containsKey(key)) {
+                    request.query.put(key, options.get(key));
                 }
             }
         } else if (request.method.equals("POST") || request.method.equals("PUT")) {
@@ -111,6 +113,9 @@ public class Client
         // Query string
         for (Map.Entry<String, Object> entry : request.query.entrySet()) {
             Object value = entry.getValue();
+            if (value == null || value == "") {
+                continue;
+            }
             if (value instanceof List) {
                 value = Joiner.on(",").join((List)value);
             }

@@ -1,8 +1,20 @@
 package com.asana.models;
 
-import java.util.Collection;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class ResultBodyCollection<T>
 {
-    public Collection<T> data;
+    public class NextPage
+    {
+        public String offset;
+        public String path;
+        public String uri;
+    }
+
+    public List<T> data;
+
+    public String sync;
+    @SerializedName("next_page") public NextPage nextPage;
 }

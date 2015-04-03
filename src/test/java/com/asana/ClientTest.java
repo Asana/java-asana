@@ -2,6 +2,8 @@ package com.asana;
 
 import static org.junit.Assert.assertEquals;
 
+import com.asana.models.ResultBody;
+import com.asana.models.ResultBodyCollection;
 import com.asana.models.Task;
 import com.google.gson.JsonElement;
 import org.junit.Test;
@@ -56,5 +58,21 @@ public class ClientTest extends AsanaTest {
                 .execute();
         assertEquals(result.id, "1");
         assertEquals(dispatcher.calls.get(0).parsedRequestBody, req);
+    }
+
+    @Test
+    public void testPagination() throws IOException
+    {
+        String req = "{ \"data\": [ { \"id\": 1 }],\"next_page\": {\"offset\": \"b\",\"path\": \"/tasks?project=1&limit=5&offset=b\",\"uri\": \"https://app.asana.com/api/1.0/tasks?project=1&limit=5&offset=b\"}}";
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=5&offset=a").code(200).content(req);
+
+        ResultBodyCollection<Task> result = client.tasks.findByProject("1")
+                .option("limit", 5).option("offset", "a")
+                .executeRaw();
+
+        assertEquals("1", result.data.get(0).id);
+        assertEquals("b", result.nextPage.offset);
+        assertEquals("/tasks?project=1&limit=5&offset=b", result.nextPage.path);
+        assertEquals("https://app.asana.com/api/1.0/tasks?project=1&limit=5&offset=b", result.nextPage.uri);
     }
 }

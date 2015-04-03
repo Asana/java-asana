@@ -4,14 +4,13 @@ import com.google.api.client.http.*;
 import com.google.api.client.testing.http.MockHttpTransport;
 import com.google.api.client.testing.http.MockLowLevelHttpRequest;
 import com.google.api.client.testing.http.MockLowLevelHttpResponse;
+import com.google.common.base.Joiner;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 public class MockDispatcher extends Dispatcher {
     public class Call
@@ -50,7 +49,7 @@ public class MockDispatcher extends Dispatcher {
                 return new MockLowLevelHttpRequest() {
                     @Override
                     public LowLevelHttpResponse execute() throws IOException {
-                        String key = method + ":" + url;
+                        String key = formatRequestKey(method, url);
                         if (responses.containsKey(key) && responses.get(key).size() > 0) {
                             LowLevelHttpResponse response = responses.get(key).removeFirst();
 
@@ -84,7 +83,7 @@ public class MockDispatcher extends Dispatcher {
     public MockHttpResponse registerResponse(String method, String path) {
         MockHttpResponse response = new MockHttpResponse();
 
-        String key = method + ":" + path;
+        String key = formatRequestKey(method, path);
         if (!responses.containsKey(key)) {
             responses.put(key, new LinkedList<MockLowLevelHttpResponse>());
         }
@@ -104,5 +103,17 @@ public class MockDispatcher extends Dispatcher {
         public MockHttpResponse header(String name, String value) {
             return (MockHttpResponse)super.addHeader(name, value);
         }
+    }
+
+    private String formatRequestKey(String method, String path)
+    {
+        String[] components = path.split("\\?");
+        String result = method + ":" + components[0];
+        if (components.length == 2 && components[1].length() > 0) {
+            String[] params = components[1].split("&");
+            Arrays.sort(params);
+            result += "?" + Joiner.on("&").join(params);
+        }
+        return result;
     }
 }

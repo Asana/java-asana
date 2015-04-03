@@ -31,6 +31,13 @@ public abstract class Request
         this.options = new HashMap<String,Object>();
     }
 
+    public Map<String,Object> getOptions()
+    {
+        HashMap<String, Object> options = new HashMap<String, Object>();
+        options.putAll(this.resource.client.options);
+        options.putAll(this.options);
+        return options;
+    }
 
     public Request query(Map<String, Object> query)
     {
