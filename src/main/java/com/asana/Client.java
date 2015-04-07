@@ -35,12 +35,11 @@ public class Client
         put("max_retries", 5);
     }};
 
-    public static final String[] CLIENT_OPTIONS  = DEFAULTS.keySet().toArray(new String[DEFAULTS.size()]);
     public static final String[] QUERY_OPTIONS   = new String[] { "limit", "offset", "sync" };
     public static final String[] API_OPTIONS     = new String[] { "pretty", "fields", "expand" };
 
     public Dispatcher dispatcher;
-    public Map<String, Object> options;
+    public HashMap<String, Object> options;
 
     public Attachments attachments;
     public Events events;
@@ -51,6 +50,8 @@ public class Client
     public Teams teams;
     public Users users;
     public Workspaces workspaces;
+
+    public static final Gson parser = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX").create();
 
     public Client(Dispatcher dispatcher)
     {
@@ -80,9 +81,7 @@ public class Client
 
     public HttpResponse request(Request request) throws IOException
     {
-        Map<String, Object> options = request.getOptions();
-
-        GenericUrl url = new GenericUrl(this.options.get("base_url") + request.path);
+        GenericUrl url = new GenericUrl(request.options.get("base_url") + request.path);
 
         ByteArrayContent content = null;
         Map<String,Object> body = new HashMap<String, Object>();
@@ -90,20 +89,20 @@ public class Client
         // API options
         if (request.method.equals("GET")) {
             for (String key: API_OPTIONS) {
-                if (options.containsKey(key) && !request.query.containsKey("opt_" + key)) {
-                    request.query.put("opt_" + key, options.get(key));
+                if (request.options.containsKey(key) && !request.query.containsKey("opt_" + key)) {
+                    request.query.put("opt_" + key, request.options.get(key));
                 }
             }
             for (String key: QUERY_OPTIONS) {
-                if (options.containsKey(key) && !request.query.containsKey(key)) {
-                    request.query.put(key, options.get(key));
+                if (request.options.containsKey(key) && !request.query.containsKey(key)) {
+                    request.query.put(key, request.options.get(key));
                 }
             }
         } else if (request.method.equals("POST") || request.method.equals("PUT")) {
             Map<String,Object> opts= new HashMap<String, Object>();
             for (String key: API_OPTIONS) {
-                if (options.containsKey(key)) {
-                    opts.put(key, options.get(key));
+                if (request.options.containsKey(key)) {
+                    opts.put(key, request.options.get(key));
                 }
             }
             if (opts.size() > 0) {
@@ -125,16 +124,14 @@ public class Client
 
         // JSON body
         if (request.method.equals("POST") || request.method.equals("PUT")) {
-            Gson gson = new GsonBuilder()
-                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX").create();
             body.put("data", request.data);
-            String json = gson.toJson(body);
+            String json = parser.toJson(body);
             System.out.println("!!! > " + json);
             content = new ByteArrayContent("application/json", json.getBytes());
         }
 
         int retryCount = 0;
-        int maxRetries = (Integer) options.get("max_retries");
+        int maxRetries = (Integer) request.options.get("max_retries");
         while (true) {
             try {
                 HttpRequest httpRequest = this.dispatcher.buildRequest(request.method, url, content);

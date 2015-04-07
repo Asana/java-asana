@@ -28,8 +28,8 @@ public class CollectionRequest<T> extends Request implements Iterable<T>
 
     public ResultBodyCollection<T> executeRaw() throws IOException
     {
-        HttpResponse response = this.resource.client.request(this);
-        return this.resource.parser.fromJson(
+        HttpResponse response = this.client.request(this);
+        return this.client.parser.fromJson(
                 new InputStreamReader(this.logContent(response.getContent())),
                 new com.google.common.reflect.TypeToken<ResultBodyCollection<T>>(){}.where(
                         new TypeParameter<T>(){},

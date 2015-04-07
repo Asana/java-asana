@@ -25,8 +25,8 @@ public class ItemRequest<T> extends Request
 
     public ResultBody<T> executeRaw() throws IOException
     {
-        HttpResponse response = this.resource.client.request(this);
-        return this.resource.parser.fromJson(
+        HttpResponse response = this.client.request(this);
+        return this.client.parser.fromJson(
                 new InputStreamReader(this.logContent(response.getContent())),
                 new TypeToken<ResultBody<T>>(){}.where(
                         new TypeParameter<T>(){},

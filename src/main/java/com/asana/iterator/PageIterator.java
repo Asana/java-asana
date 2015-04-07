@@ -18,13 +18,11 @@ abstract public class PageIterator<T> implements Iterator<Collection<T>> {
 
     public PageIterator(CollectionRequest<T> request)
     {
-        Map<String, Object> opts = request.getOptions();
-
         this.request = request;
         this.continuation = "";
         this.count = 0;
-        this.pageSize = (Integer)opts.get("page_size");
-        this.itemLimit = opts.containsKey("item_limit") ? (Integer)opts.get("item_limit") : -1;
+        this.pageSize = (Integer)request.options.get("page_size");
+        this.itemLimit = request.options.containsKey("item_limit") ? (Integer)request.options.get("item_limit") : -1;
         if (this.itemLimit <= 0) {
             this.itemLimit = Long.MAX_VALUE;
         }

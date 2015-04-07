@@ -1,5 +1,6 @@
 package com.asana.requests;
 
+import com.asana.Client;
 import com.asana.resources.Resource;
 import com.google.common.io.CharStreams;
 
@@ -11,16 +12,17 @@ public abstract class Request
 {
     public String method;
     public String path;
+
     public Map<String,Object> data;
     public Map<String,Object> query;
     public Map<String,Object> options;
 
-    protected Resource resource;
+    protected Client client;
     protected Class elementClass; // required due to type erasure?
 
     public Request(Resource resource, Class elementClass, String path, String method)
     {
-        this.resource = resource;
+        this.client = resource.client;
         this.elementClass = elementClass;
 
         this.path = path;
@@ -29,14 +31,8 @@ public abstract class Request
         this.data = new HashMap<String,Object>();
         this.query = new HashMap<String,Object>();
         this.options = new HashMap<String,Object>();
-    }
 
-    public Map<String,Object> getOptions()
-    {
-        HashMap<String, Object> options = new HashMap<String, Object>();
-        options.putAll(this.resource.client.options);
-        options.putAll(this.options);
-        return options;
+        this.options.putAll(this.client.options);
     }
 
     public Request query(Map<String, Object> query)
