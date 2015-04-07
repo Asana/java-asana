@@ -1,6 +1,7 @@
 package com.asana.dispatcher;
 
 import com.google.api.client.auth.oauth2.*;
+import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpTransport;
@@ -9,7 +10,6 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class OAuthDispatcher extends Dispatcher
 {
@@ -28,6 +28,11 @@ public class OAuthDispatcher extends Dispatcher
 
     public OAuthDispatcher(String apiKey, String apiSecret, String redirectUri)
     {
+        this(apiKey, apiSecret, redirectUri, null);
+    }
+
+    public OAuthDispatcher(String apiKey, String apiSecret, String redirectUri, String accessToken)
+    {
         this.apiKey = apiKey;
         this.apiSecret = apiSecret;
         this.redirectUri = redirectUri;
@@ -41,11 +46,16 @@ public class OAuthDispatcher extends Dispatcher
                 apiKey,
                 AUTHORIZATION_SERVER_URL
         ).build();
+
+        if (accessToken != null) {
+            credential = new Credential(BearerToken.authorizationHeaderAccessMethod())
+                    .setAccessToken(accessToken);
+        }
     }
 
-    public String authorizationUrl()
+    public boolean authorized()
     {
-        return authorizationUrl(null);
+        return this.credential != null;
     }
 
     public String authorizationUrl(String state)
@@ -58,21 +68,30 @@ public class OAuthDispatcher extends Dispatcher
         return url.build();
     }
 
-    public String fetchToken(String code) throws IOException
+    public String authorizationUrl()
     {
-        TokenResponse tokenResponse = this.flow.newTokenRequest(code).setRedirectUri(this.redirectUri).execute();
-        this.credential = new Credential.Builder(BearerToken.authorizationHeaderAccessMethod())
-                .setTransport(HTTP_TRANSPORT)
-                .setJsonFactory(JSON_FACTORY)
-                .setTokenServerUrl(new GenericUrl(TOKEN_SERVER_URL))
-                .setClientAuthentication(new ClientParametersAuthentication(apiKey, apiSecret))
-                .build()
-                .setFromTokenResponse(tokenResponse);
+        return authorizationUrl(null);
+    }
+
+    public String fetchToken(String code, String userId) throws IOException
+    {
+        TokenResponse tokenResponse = this.flow.newTokenRequest(code)
+                .setRedirectUri(this.redirectUri)
+                .execute();
+        credential = this.flow.createAndStoreCredential(tokenResponse, userId);
         return credential.getAccessToken();
     }
 
-    public void authenticate(HttpRequest request)
+    public String fetchToken(String code) throws IOException
     {
-        request.getHeaders().setAuthorization("Bearer " + this.credential.getAccessToken());
+        return fetchToken(code, null);
+    }
+
+    public HttpRequest buildRequest(String method, GenericUrl url, ByteArrayContent content) throws IOException
+    {
+        if (credential == null) {
+            throw new IOException("OAuthDispatcher: access token not set");
+        }
+        return HTTP_TRANSPORT.createRequestFactory(credential).buildRequest(method, url, content);
     }
 }

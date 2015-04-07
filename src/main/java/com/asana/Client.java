@@ -173,11 +173,16 @@ public class Client
 
     public static Client basicAuth(String apiKey)
     {
-        return Client.basicAuth(apiKey, null);
+        return basicAuth(apiKey, null);
+    }
+
+    public static Client oauth(String apiKey, String apiSecret, String redirectUri, String accessToken)
+    {
+        return new Client(new OAuthDispatcher(apiKey, apiSecret, redirectUri, accessToken));
     }
 
     public static Client oauth(String apiKey, String apiSecret, String redirectUri)
     {
-        return new Client(new OAuthDispatcher(apiKey, apiSecret, redirectUri));
+        return oauth(apiKey, apiSecret, redirectUri, null);
     }
 }
