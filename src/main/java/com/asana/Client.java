@@ -2,6 +2,7 @@ package com.asana;
 
 import com.asana.dispatcher.BasicAuthDispatcher;
 import com.asana.dispatcher.Dispatcher;
+import com.asana.dispatcher.OAuthDispatcher;
 import com.asana.errors.AsanaError;
 import com.asana.errors.RateLimitEnforcedError;
 import com.asana.errors.RetryableAsanaError;
@@ -173,5 +174,10 @@ public class Client
     public static Client basicAuth(String apiKey)
     {
         return Client.basicAuth(apiKey, null);
+    }
+
+    public static Client oauth(String apiKey, String apiSecret, String redirectUri)
+    {
+        return new Client(new OAuthDispatcher(apiKey, apiSecret, redirectUri));
     }
 }
