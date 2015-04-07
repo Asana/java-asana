@@ -56,18 +56,13 @@ public class RateLimitTest extends AsanaTest
         assertEquals(Arrays.asList(1000), dispatcher.sleepCalls);
     }
 
-    @Test
+    @Test(expected = ServerError.class)
     public void testServerErrorRetryThenFail() throws IOException
     {
         dispatcher.registerResponse("GET", "http://app/users/me").code(500);
         dispatcher.registerResponse("GET", "http://app/users/me").code(500);
 
-        try {
-            client.users.me().option("max_retries", 1).execute();
-        } catch (ServerError e) {
-            return;
-        }
-        Assert.fail("expected ServerError to be thrown");
+        client.users.me().option("max_retries", 1).execute();
     }
 
     @Test
