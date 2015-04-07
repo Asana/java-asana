@@ -1,6 +1,5 @@
 package com.asana.iterator;
 
-import java.util.Collection;
 import java.util.Iterator;
 
 public class ItemIterator<T> implements Iterator<T>

@@ -2,9 +2,8 @@ package com.asana.examples;
 
 import com.asana.Client;
 import com.asana.dispatcher.OAuthDispatcher;
-import com.asana.models.ResultBody;
-import com.asana.models.Task;
-import com.asana.models.User;
+import com.asana.models.*;
+import com.asana.models.Event;
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.LineReader;
 
@@ -80,6 +79,10 @@ public class ExampleScript {
 
             User me = client.users.me().execute();
             System.out.println("me=" + me.name);
+
+            for (Event e: client.events.get("29898626391464")) {
+                System.out.println(e.action);
+            }
         }
 ////        Collection<User> users = client.users.findAll();
 ////        for (User u: users) {

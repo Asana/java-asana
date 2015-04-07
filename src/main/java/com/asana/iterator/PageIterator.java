@@ -6,7 +6,6 @@ import com.asana.requests.CollectionRequest;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 abstract public class PageIterator<T> implements Iterator<Collection<T>> {
@@ -66,7 +65,6 @@ abstract public class PageIterator<T> implements Iterator<Collection<T>> {
         return new ItemIterator<T>(this);
     }
 
-    abstract protected ResultBodyCollection<T> getInitial() throws IOException;
     abstract protected ResultBodyCollection<T> getNext() throws IOException;
     abstract protected Object getContinuation(ResultBodyCollection<T> result);
 }

@@ -1,22 +1,14 @@
 package com.asana.iterator;
 
-import com.asana.models.ResultBody;
 import com.asana.models.ResultBodyCollection;
 import com.asana.requests.CollectionRequest;
 
 import java.io.IOException;
-import java.util.Collection;
 
 public class CollectionPageIterator<T> extends PageIterator<T>
 {
     public CollectionPageIterator(CollectionRequest<T> request) {
         super(request);
-    }
-
-    @Override
-    protected ResultBodyCollection<T> getInitial() throws IOException
-    {
-        return this.request.executeRaw();
     }
 
     @Override

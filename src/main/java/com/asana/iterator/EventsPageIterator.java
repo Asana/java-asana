@@ -1,28 +1,52 @@
 package com.asana.iterator;
 
+import com.asana.errors.InvalidTokenError;
 import com.asana.models.ResultBodyCollection;
-import com.asana.requests.CollectionRequest;
+import com.asana.requests.EventsRequest;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.NoSuchElementException;
 
 public class EventsPageIterator<T> extends PageIterator<T>
 {
-    public EventsPageIterator(CollectionRequest<T> request) {
+    public EventsPageIterator(EventsRequest<T> request)
+    {
         super(request);
     }
 
     @Override
-    protected ResultBodyCollection<T> getInitial() throws IOException {
-        return null;
-    }
-
-    @Override
     protected ResultBodyCollection<T> getNext() throws IOException {
-        return null;
+        if (!request.query.containsKey("sync")) {
+            try {
+                this.request.executeRaw();
+            } catch (InvalidTokenError error) {
+                this.continuation = error.sync;
+            }
+        }
+        this.request.query("sync", this.continuation);
+        return this.request.executeRaw();
     }
 
     @Override
-    protected Object getContinuation(ResultBodyCollection<T> result) {
-        return null;
+    protected Object getContinuation(ResultBodyCollection<T> result)
+    {
+        return result.sync;
+    }
+
+    @Override
+    public Collection<T> next() throws NoSuchElementException
+    {
+        while (true) {
+            Collection<T> result = super.next();
+            if (result.size() > 0) {
+                return result;
+            } else {
+                try {
+                    Thread.sleep((Integer)request.options.get("poll_interval") * 1000);
+                } catch (InterruptedException e) {
+                }
+            }
+        }
     }
 }

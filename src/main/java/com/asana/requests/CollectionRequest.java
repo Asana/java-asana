@@ -1,7 +1,6 @@
 package com.asana.requests;
 
 import com.asana.iterator.CollectionPageIterator;
-import com.asana.iterator.PageIterator;
 import com.asana.models.ResultBodyCollection;
 import com.asana.resources.Resource;
 import com.google.api.client.http.HttpResponse;
@@ -9,7 +8,6 @@ import com.google.common.reflect.TypeParameter;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
