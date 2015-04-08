@@ -17,14 +17,16 @@ public class EventsPageIterator<T> extends PageIterator<T>
 
     @Override
     protected ResultBodyCollection<T> getNext() throws IOException {
-        if (!request.query.containsKey("sync")) {
+        if (request.query.get("sync") == null) {
             try {
                 this.request.executeRaw();
             } catch (InvalidTokenError error) {
                 this.continuation = error.sync;
             }
         }
-        this.request.query("sync", this.continuation);
+        if (this.continuation != "") {
+            this.request.query("sync", this.continuation);
+        }
         return this.request.executeRaw();
     }
 
