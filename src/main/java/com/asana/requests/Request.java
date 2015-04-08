@@ -2,6 +2,7 @@ package com.asana.requests;
 
 import com.asana.Client;
 import com.asana.resources.Resource;
+import com.google.api.client.http.*;
 import com.google.common.io.CharStreams;
 
 import java.io.*;
@@ -16,6 +17,7 @@ public abstract class Request
     public Map<String,Object> data;
     public Map<String,Object> query;
     public Map<String,Object> options;
+    public HttpContent content;
 
     protected Client client;
     protected Class elementClass; // required due to type erasure?
@@ -27,6 +29,7 @@ public abstract class Request
 
         this.path = path;
         this.method = method;
+        this.content = null;
 
         this.data = new HashMap<String,Object>();
         this.query = new HashMap<String,Object>();
@@ -44,6 +47,12 @@ public abstract class Request
     public Request query(String key, Object value)
     {
         this.query.put(key, value);
+        return this;
+    }
+
+    public Request data(HttpContent content)
+    {
+        this.content = content;
         return this;
     }
 

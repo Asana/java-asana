@@ -79,7 +79,7 @@ public class Client
     {
         GenericUrl url = new GenericUrl(request.options.get("base_url") + request.path);
 
-        ByteArrayContent content = null;
+        HttpContent content = null;
         Map<String,Object> body = new HashMap<String, Object>();
 
         // API options
@@ -118,8 +118,11 @@ public class Client
             url.put(entry.getKey(), value);
         }
 
-        // JSON body
-        if (request.method.equals("POST") || request.method.equals("PUT")) {
+        if (request.content != null) {
+            // Multipart, etc body
+            content = request.content;
+        } else if (request.method.equals("POST") || request.method.equals("PUT")) {
+            // JSON body
             body.put("data", request.data);
             String json = parser.toJson(body);
             System.out.println("!!! > " + json);

@@ -2,6 +2,7 @@ package com.asana.requests;
 
 import com.asana.models.ResultBody;
 import com.asana.resources.Resource;
+import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpResponse;
 import com.google.common.reflect.TypeParameter;
 import com.google.common.reflect.TypeToken;
@@ -37,6 +38,7 @@ public class ItemRequest<T> extends Request
 
     public ItemRequest<T> query(Map<String, Object> object) { return (ItemRequest<T>)super.query(object); }
     public ItemRequest<T> query(String key, Object value)   { return (ItemRequest<T>)super.query(key, value); }
+    public ItemRequest<T> data(HttpContent content)         { return (ItemRequest<T>)super.data(content); }
     public ItemRequest<T> data(Map<String, Object> object)  { return (ItemRequest<T>)super.data(object); }
     public ItemRequest<T> data(String key, Object value)    { return (ItemRequest<T>)super.data(key, value); }
     public ItemRequest<T> option(String key, Object value)  { return (ItemRequest<T>)super.option(key, value); }

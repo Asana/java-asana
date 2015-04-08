@@ -9,6 +9,7 @@ import com.google.common.io.LineReader;
 
 import java.awt.*;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 

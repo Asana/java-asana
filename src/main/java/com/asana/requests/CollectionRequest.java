@@ -3,6 +3,7 @@ package com.asana.requests;
 import com.asana.iterator.CollectionPageIterator;
 import com.asana.models.ResultBodyCollection;
 import com.asana.resources.Resource;
+import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpResponse;
 import com.google.common.reflect.TypeParameter;
 
@@ -43,6 +44,7 @@ public class CollectionRequest<T> extends Request implements Iterable<T>
 
     public CollectionRequest<T> query(Map<String, Object> object) { return (CollectionRequest<T>)super.query(object); }
     public CollectionRequest<T> query(String key, Object value)   { return (CollectionRequest<T>)super.query(key, value); }
+    public CollectionRequest<T> data(HttpContent content)         { return (CollectionRequest<T>)super.data(content); }
     public CollectionRequest<T> data(Map<String, Object> object)  { return (CollectionRequest<T>)super.data(object); }
     public CollectionRequest<T> data(String key, Object value)    { return (CollectionRequest<T>)super.data(key, value); }
     public CollectionRequest<T> option(String key, Object value)  { return (CollectionRequest<T>)super.option(key, value); }

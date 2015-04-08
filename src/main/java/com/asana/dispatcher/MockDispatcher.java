@@ -69,7 +69,7 @@ public class MockDispatcher extends Dispatcher {
         };
     }
 
-    public HttpRequest buildRequest(String method, GenericUrl url, ByteArrayContent content) throws IOException
+    public HttpRequest buildRequest(String method, GenericUrl url, HttpContent content) throws IOException
     {
         return this.transport.createRequestFactory().buildRequest(method, url, content);
     }

@@ -1,9 +1,6 @@
 package com.asana.dispatcher;
 
-import com.google.api.client.http.ByteArrayContent;
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 
 import java.io.IOException;
@@ -24,7 +21,7 @@ public abstract class Dispatcher
         }
     }
 
-    public HttpRequest buildRequest(String method, GenericUrl url, ByteArrayContent content) throws IOException
+    public HttpRequest buildRequest(String method, GenericUrl url, HttpContent content) throws IOException
     {
         return HTTP_TRANSPORT.createRequestFactory().buildRequest(method, url, content);
     }

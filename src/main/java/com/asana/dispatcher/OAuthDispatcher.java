@@ -1,10 +1,7 @@
 package com.asana.dispatcher;
 
 import com.google.api.client.auth.oauth2.*;
-import com.google.api.client.http.ByteArrayContent;
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
@@ -87,7 +84,7 @@ public class OAuthDispatcher extends Dispatcher
         return fetchToken(code, null);
     }
 
-    public HttpRequest buildRequest(String method, GenericUrl url, ByteArrayContent content) throws IOException
+    public HttpRequest buildRequest(String method, GenericUrl url, HttpContent content) throws IOException
     {
         if (credential == null) {
             throw new IOException("OAuthDispatcher: access token not set");
