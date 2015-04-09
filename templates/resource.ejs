@@ -1,13 +1,28 @@
-package com.asana.resources.gen;
+<%
+var hasItemRequest = false, hasCollectionRequest = false;
+resource.actions.forEach(function(action) {
+    hasItemRequest = hasItemRequest || (!action.no_code && !action.collection);
+    hasCollectionRequest = hasCollectionRequest || (!action.no_code && action.collection);
+});
+%>package com.asana.resources.gen;
 
 import com.asana.Client;
-import com.asana.models.<%= cap(resource.name) %>;
 import com.asana.resources.Resource;
-import com.asana.requests.ItemRequest;
-import com.asana.requests.CollectionRequest;
-
+<% if (hasItemRequest || hasCollectionRequest) { %>import com.asana.models.<%= cap(resource.name) %>;
+<% }
+%><% if (hasItemRequest) { %>import com.asana.requests.ItemRequest;
+<% }
+%><% if (hasCollectionRequest) { %>import com.asana.requests.CollectionRequest;
+<% }
+%>
+/**
+<%= comment(resource.comment) %>
+ */
 public class <%= plural(cap(resource.name)) + "Base" %> extends Resource
 {
+    /**
+     * @param client Parent client instance
+     */
     public <%= plural(cap(resource.name)) + "Base" %>(Client client)
     {
         super(client);
@@ -32,6 +47,12 @@ public class <%= plural(cap(resource.name)) + "Base" %> extends Resource
     var pathParamNamesAndTypes = params.pathParams.map(function(param) { return typeName(param.type) + " " + param.name; });
   %>
 
+    /**
+<%= comment(action.comment, 4) %>
+     *<% _.forEach(params.pathParams, function(param) { %>
+<%= comment('@param  ' + param.name + ' ' + param.comment, 4) %><% }); %>
+     * @return Request object
+     */
     public <%= returnClass %> <%= action.name %>(<%= pathParamNamesAndTypes.join(", ") %>)
     {<% if (pathParamNames.length > 0) { %>
         String path = String.format(<%= JSON.stringify(path) %>, <%= pathParamNames.join(", ") %>);
