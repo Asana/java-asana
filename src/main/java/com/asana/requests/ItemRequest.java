@@ -1,5 +1,6 @@
 package com.asana.requests;
 
+import com.asana.Json;
 import com.asana.models.ResultBody;
 import com.asana.resources.Resource;
 import com.google.api.client.http.HttpContent;
@@ -27,10 +28,12 @@ public class ItemRequest<T> extends Request
     public ResultBody<T> executeRaw() throws IOException
     {
         HttpResponse response = this.client.request(this);
-        return this.client.parser.fromJson(
+        return Json.getInstance().fromJson(
                 new InputStreamReader(this.logContent(response.getContent())),
-                new TypeToken<ResultBody<T>>(){}.where(
-                        new TypeParameter<T>(){},
+                new TypeToken<ResultBody<T>>() {
+                }.where(
+                        new TypeParameter<T>() {
+                        },
                         this.elementClass
                 ).getType()
         );

@@ -3,19 +3,16 @@ package com.asana;
 import com.asana.models.ResultBodyCollection;
 import com.asana.models.Task;
 import com.google.gson.JsonElement;
-import com.google.gson.annotations.SerializedName;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
-public class ClientTest extends AsanaTest {
+public class ClientTest extends AsanaTest
+{
     @Test
     public void testClientGet() throws IOException {
         dispatcher.registerResponse("GET", "http://app/users/me").code(200).content("{ \"data\": { \"name\": \"me\" }}");
@@ -77,31 +74,5 @@ public class ClientTest extends AsanaTest {
         assertEquals("b", result.nextPage.offset);
         assertEquals("/tasks?project=1&limit=5&offset=b", result.nextPage.path);
         assertEquals("https://app.asana.com/api/1.0/tasks?project=1&limit=5&offset=b", result.nextPage.uri);
-    }
-
-    class DemoModel
-    {
-        public String name;
-        @SerializedName("created_at") public Date createdAt;
-    }
-
-    @Test
-    public void testJsonParsing()
-    {
-        String json = "{\"name\":\"abc\", \"created_at\":\"2015-01-02T03:04:05.006Z\"}";
-        DemoModel model = client.parser.fromJson(json, DemoModel.class);
-
-        assertNotEquals(null, model);
-        assertEquals("abc", model.name);
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(model.createdAt);
-        assertEquals(2015, cal.get(Calendar.YEAR));
-        assertEquals(1, cal.get(Calendar.MONTH)+1);
-        assertEquals(2, cal.get(Calendar.DAY_OF_MONTH));
-        assertEquals(3, cal.get(Calendar.HOUR_OF_DAY));
-        assertEquals(4, cal.get(Calendar.MINUTE));
-        assertEquals(5, cal.get(Calendar.SECOND));
-        assertEquals(6, cal.get(Calendar.MILLISECOND));
     }
 }

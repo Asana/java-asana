@@ -1,5 +1,6 @@
 package com.asana.requests;
 
+import com.asana.Json;
 import com.asana.iterator.CollectionPageIterator;
 import com.asana.models.ResultBodyCollection;
 import com.asana.resources.Resource;
@@ -28,10 +29,12 @@ public class CollectionRequest<T> extends Request implements Iterable<T>
     public ResultBodyCollection<T> executeRaw() throws IOException
     {
         HttpResponse response = this.client.request(this);
-        return this.client.parser.fromJson(
+        return Json.getInstance().fromJson(
                 new InputStreamReader(this.logContent(response.getContent())),
-                new com.google.common.reflect.TypeToken<ResultBodyCollection<T>>(){}.where(
-                        new TypeParameter<T>(){},
+                new com.google.common.reflect.TypeToken<ResultBodyCollection<T>>() {
+                }.where(
+                        new TypeParameter<T>() {
+                        },
                         this.elementClass
                 ).getType()
         );

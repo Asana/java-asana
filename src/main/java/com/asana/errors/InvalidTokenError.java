@@ -1,6 +1,6 @@
 package com.asana.errors;
 
-import com.asana.Client;
+import com.asana.Json;
 import com.asana.models.ResultBodyCollection;
 import com.google.api.client.http.HttpResponseException;
 
@@ -16,7 +16,7 @@ public class InvalidTokenError extends AsanaError
         super(MESSAGE, STATUS, exception);
 
         try {
-            ResultBodyCollection body = Client.parser.fromJson(exception.getContent(), ResultBodyCollection.class);
+            ResultBodyCollection body = Json.getInstance().fromJson(exception.getContent(), ResultBodyCollection.class);
             sync = body.sync;
         } catch (Exception e) {
         }

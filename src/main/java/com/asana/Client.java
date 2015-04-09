@@ -10,8 +10,6 @@ import com.asana.requests.Request;
 import com.asana.resources.*;
 import com.google.api.client.http.*;
 import com.google.common.base.Joiner;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -46,8 +44,6 @@ public class Client
     public Teams teams;
     public Users users;
     public Workspaces workspaces;
-
-    public static final Gson parser = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create();
 
     public Client(Dispatcher dispatcher)
     {
@@ -124,7 +120,7 @@ public class Client
         } else if (request.method.equals("POST") || request.method.equals("PUT")) {
             // JSON body
             body.put("data", request.data);
-            String json = parser.toJson(body);
+            String json = Json.getInstance().toJson(body);
             System.out.println("!!! > " + json);
             content = new ByteArrayContent("application/json", json.getBytes());
         }
