@@ -47,7 +47,7 @@ public class Client
     public Users users;
     public Workspaces workspaces;
 
-    public static final Gson parser = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX").create();
+    public static final Gson parser = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create();
 
     public Client(Dispatcher dispatcher)
     {
