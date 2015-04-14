@@ -2,23 +2,22 @@ package com.asana.examples;
 
 import com.asana.Client;
 import com.asana.dispatcher.OAuthDispatcher;
-import com.asana.models.*;
 import com.asana.models.Event;
-import com.google.common.collect.ImmutableList;
+import com.asana.models.*;
 import com.google.common.io.LineReader;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public class ExampleScript {
 
     public static void main( String[] args) throws Exception
     {
-//        Client.DEFAULTS.put("base_url", "http://localhost:8080");
-
         String accessToken = null;
 
         if (System.getenv("ASANA_CLIENT_ID") != null) {
@@ -31,7 +30,7 @@ public class ExampleScript {
             );
             OAuthDispatcher dispatcher = ((OAuthDispatcher) client.dispatcher);
 
-            System.out.println("authorized=" + dispatcher.authorized());
+            System.out.println("isAuthorized=" + dispatcher.isAuthorized());
 
             String url = dispatcher.authorizationUrl();
             System.out.println(url);
@@ -45,7 +44,7 @@ public class ExampleScript {
 
             accessToken = dispatcher.fetchToken(line);
 
-            System.out.println("authorized=" + dispatcher.authorized());
+            System.out.println("isAuthorized=" + dispatcher.isAuthorized());
             System.out.println("token=" + accessToken);
 
             User user = client.users.me().execute();
@@ -69,7 +68,7 @@ public class ExampleScript {
             );
             OAuthDispatcher dispatcher = ((OAuthDispatcher) client.dispatcher);
 
-            System.out.println("authorized=" + dispatcher.authorized());
+            System.out.println("isAuthorized=" + dispatcher.isAuthorized());
             System.out.println("me=" + client.users.me().execute().name);
         }
 
@@ -81,32 +80,44 @@ public class ExampleScript {
             User me = client.users.me().execute();
             System.out.println("me=" + me.name);
 
-            for (Event e: client.events.get("29898626391464")) {
+            Workspace personalProjects = null;
+            for (Workspace workspace: client.workspaces.findAll()) {
+                if (workspace.name.equals("Personal Projects")) {
+                    personalProjects = workspace;
+                    break;
+                }
+            }
+            List<Project> projects = client.projects.findByWorkspace(personalProjects.id).execute();
+            System.out.println("personal projects=" + projects.size());
+
+            Project demoProject = null;
+            for (Project project: projects) {
+                if (project.name.equals("demo project")) {
+                    demoProject = project;
+                    break;
+                }
+            }
+            if (demoProject == null) {
+                demoProject = client.projects.createInWorkspace(personalProjects.id)
+                        .data("name", "demo project")
+                        .execute();
+            }
+
+            Task demoTask = client.tasks.createInWorkspace(personalProjects.id)
+                    .data("name", "demo task created at " + new Date())
+                    .data("projects", Arrays.asList(demoProject.id))
+                    .execute();
+
+            client.attachments.createOnTask(
+                    demoTask.id,
+                    new ByteArrayInputStream("hello world".getBytes()),
+                    "upload.txt",
+                    "text/plain"
+            ).execute();
+
+            for (Event e: client.events.get(demoProject.id)) {
                 System.out.println(e.action);
             }
         }
-////        Collection<User> users = client.users.findAll();
-////        for (User u: users) {
-////            System.out.println(u.name);
-////        }
-//
-//        Task task = client.tasks.create()
-//                .option("pretty", true)
-//                .data("name", "hello2")
-//                .data("workspace", "498346170860")
-//                .data("projects", ImmutableList.of("29898626391464"))
-//                .execute();
-//
-//        System.out.println(task.id);
-//
-//        client.tasks.update(task.id)
-//                .data("name", "barrrr2")
-//                .execute();
-//
-//        task = client.tasks.findById(task.id).execute();
-//        System.out.println(task.id);
-//        System.out.println(task.name);
-//
-//        client.tasks.delete(task.id).execute();
     }
 }

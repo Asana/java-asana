@@ -34,7 +34,7 @@ public class TeamsBase extends Resource
 
     /**
      * Returns the compact records for all teams in the organization visible to
-     * the authorized user.
+     * the isAuthorized user.
      *
      * @param  team Globally unique identifier for the team.
      * @return Request object

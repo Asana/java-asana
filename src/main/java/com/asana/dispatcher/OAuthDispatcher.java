@@ -50,7 +50,7 @@ public class OAuthDispatcher extends Dispatcher
         }
     }
 
-    public boolean authorized()
+    public boolean isAuthorized()
     {
         return this.credential != null;
     }

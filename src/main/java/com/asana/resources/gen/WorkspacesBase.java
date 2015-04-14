@@ -45,7 +45,7 @@ public class WorkspacesBase extends Resource
     }
 
     /**
-     * Returns the compact records for all workspaces visible to the authorized user.
+     * Returns the compact records for all workspaces visible to the isAuthorized user.
      *
      * @return Request object
      */
