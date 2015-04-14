@@ -32,7 +32,7 @@ public class ExampleScript {
 
             System.out.println("isAuthorized=" + dispatcher.isAuthorized());
 
-            String url = dispatcher.authorizationUrl();
+            String url = dispatcher.getAuthorizationUrl();
             System.out.println(url);
 
             Desktop.getDesktop().browse(new URI(url));

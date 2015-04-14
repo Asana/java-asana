@@ -37,7 +37,7 @@ public class ExampleServer
                             Client client = getClient();
                             String state = UUID.randomUUID().toString();
                             session(t).put("state", state);
-                            String authUrl = ((OAuthDispatcher) client.dispatcher).authorizationUrl(state);
+                            String authUrl = ((OAuthDispatcher) client.dispatcher).getAuthorizationUrl(state);
                             respond(t, 200,
                                     "<p><a href=\"" + authUrl + "\">" +
                                     "<img src=\"https://github.com/Asana/oauth-examples/raw/master/public/asana-oauth-button-blue.png?raw=true\">"+

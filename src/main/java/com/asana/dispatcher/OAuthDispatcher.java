@@ -55,7 +55,7 @@ public class OAuthDispatcher extends Dispatcher
         return this.credential != null;
     }
 
-    public String authorizationUrl(String state)
+    public String getAuthorizationUrl(String state)
     {
         AuthorizationCodeRequestUrl url = this.flow.newAuthorizationUrl();
         if (state != null) {
@@ -65,9 +65,9 @@ public class OAuthDispatcher extends Dispatcher
         return url.build();
     }
 
-    public String authorizationUrl()
+    public String getAuthorizationUrl()
     {
-        return authorizationUrl(null);
+        return getAuthorizationUrl(null);
     }
 
     public String fetchToken(String code, String userId) throws IOException
