@@ -19,21 +19,32 @@ public class ItemRequest<T> extends Request
         super(resource, elementClass, path, method);
     }
 
+    /**
+     * Executes the request, returning the requested single item
+     *
+     * @return requested item
+     * @throws IOException
+     */
     public T execute() throws IOException
     {
         ResultBody<T> result = this.executeRaw();
         return result.data;
     }
 
+    /**
+     * Executes the request, returning the full response body
+     *
+     * @return Body containing the "data" object and other metadata
+     * @throws IOException
+     */
     public ResultBody<T> executeRaw() throws IOException
     {
         HttpResponse response = this.client.request(this);
         return Json.getInstance().fromJson(
-                new InputStreamReader(this.logContent(response.getContent())),
+                new InputStreamReader(response.getContent()),
                 new TypeToken<ResultBody<T>>() {
                 }.where(
-                        new TypeParameter<T>() {
-                        },
+                        new TypeParameter<T>() {},
                         this.elementClass
                 ).getType()
         );

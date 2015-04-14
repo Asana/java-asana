@@ -16,11 +16,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Main Asana client class
+ */
 public class Client
 {
+    /**
+     * Number of milliseconds to delay before retrying
+     */
     public static double RETRY_DELAY = 1000.0;
+
+    /**
+     * Back off retrying by this factor (e.x. 2 would result in doubling of delay each retry)
+     */
     public static double RETRY_BACKOFF = 2.0;
 
+    /**
+     * Map of default options, from string key to primitive value types (string, numeric, boolean)
+     */
     public static final Map<String, Object> DEFAULTS = new HashMap<String, Object>() {{
         put("base_url", "https://app.asana.com/api/1.0");
         put("item_limit", -1);
@@ -29,11 +42,9 @@ public class Client
         put("max_retries", 5);
     }};
 
-    public static final String[] QUERY_OPTIONS   = new String[] { "limit", "offset", "sync" };
-    public static final String[] API_OPTIONS     = new String[] { "pretty", "fields", "expand" };
+    public HashMap<String, Object> options;
 
     public Dispatcher dispatcher;
-    public HashMap<String, Object> options;
 
     public Attachments attachments;
     public Events events;
@@ -45,12 +56,22 @@ public class Client
     public Users users;
     public Workspaces workspaces;
 
+    private static final String[] QUERY_OPTIONS   = new String[] { "limit", "offset", "sync" };
+    private static final String[] API_OPTIONS     = new String[] { "pretty", "fields", "expand" };
+
+    /**
+     * @param dispatcher Dispatcher to handle authentication
+     */
     public Client(Dispatcher dispatcher)
     {
         this(dispatcher, null);
     }
 
-    public Client(Dispatcher dispatcher, HashMap<String, Object> options)
+    /**
+     * @param dispatcher Dispatcher to handle authentication
+     * @param options Map of client options, overrides Client.DEFAULTS, overridden by request options
+     */
+    public Client(Dispatcher dispatcher, Map<String, Object> options)
     {
         this.dispatcher = dispatcher;
 
@@ -71,6 +92,11 @@ public class Client
         this.workspaces = new Workspaces(this);
     }
 
+    /**
+     * @param request Asana client request object
+     * @return Raw HttpResponse object
+     * @throws IOException
+     */
     public HttpResponse request(Request request) throws IOException
     {
         GenericUrl url = new GenericUrl(request.options.get("base_url") + request.path);
@@ -149,32 +175,58 @@ public class Client
         }
     }
 
-    private void handleRetryableError(RetryableAsanaError e, int retryCount)
+    /**
+     * @param error Error thrown by Asana request
+     * @param retryCount Number of times this request has been retried
+     */
+    private void handleRetryableError(RetryableAsanaError error, int retryCount)
     {
-        if (e instanceof RateLimitEnforcedError) {
-            this.dispatcher.sleep(((RateLimitEnforcedError)e).retryAfter);
+        if (error instanceof RateLimitEnforcedError) {
+            this.dispatcher.sleep(((RateLimitEnforcedError)error).retryAfter);
         } else {
             this.dispatcher.sleep((long)(RETRY_DELAY * Math.pow(RETRY_BACKOFF, retryCount)));
         }
     }
 
-    public static Client basicAuth(String apiKey, HashMap<String,Object> options)
+    /**
+     * @param apiKey Basic Auth API key
+     * @param options Map of options to be passed to the client instance
+     * @return Client instance
+     */
+    public static Client basicAuth(String apiKey, Map<String,Object> options)
     {
         return new Client(new BasicAuthDispatcher(apiKey), options);
     }
 
+    /**
+     * @param apiKey Basic Auth API key
+     * @return Client instance
+     */
     public static Client basicAuth(String apiKey)
     {
         return basicAuth(apiKey, null);
     }
 
-    public static Client oauth(String apiKey, String apiSecret, String redirectUri, String accessToken)
-    {
-        return new Client(new OAuthDispatcher(apiKey, apiSecret, redirectUri, accessToken));
-    }
-
+    /**
+     * @param apiKey OAuth2 API key
+     * @param apiSecret OAuth2 API secret
+     * @param redirectUri Redirect URI
+     * @return Client instance
+     */
     public static Client oauth(String apiKey, String apiSecret, String redirectUri)
     {
         return oauth(apiKey, apiSecret, redirectUri, null);
+    }
+
+    /**
+     * @param apiKey OAuth2 API key
+     * @param apiSecret OAuth2 API secret
+     * @param redirectUri Redirect URI
+     * @param accessToken Previously obtained access token to initialize the dispatcher with
+     * @return Client instance
+     */
+    public static Client oauth(String apiKey, String apiSecret, String redirectUri, String accessToken)
+    {
+        return new Client(new OAuthDispatcher(apiKey, apiSecret, redirectUri, accessToken));
     }
 }

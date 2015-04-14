@@ -10,7 +10,7 @@ public class Task
     public static class Membership
     {
         public Project project;
-        public Entity section;
+        public Task section;
     }
 
     public static class Heart

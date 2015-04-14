@@ -6,6 +6,12 @@ import java.util.Date;
 
 public class Event
 {
+    private class Entity
+    {
+        public String id;
+        public String name;
+    }
+
     public String action;
     public Entity resource;
     public String type;

@@ -16,30 +16,52 @@ import java.util.Map;
 
 public class CollectionRequest<T> extends Request implements Iterable<T>
 {
+    /**
+     * @param resource
+     * @param elementClass
+     * @param path
+     * @param method
+     */
     public CollectionRequest(Resource resource, Class<T> elementClass, String path, String method)
     {
         super(resource, elementClass, path, method);
     }
 
+    /**
+     * Executes the request, returning the requested list of items
+     *
+     * @return requested items
+     * @throws IOException
+     */
     public List<T> execute() throws IOException
     {
         return this.executeRaw().data;
     }
 
+    /**
+     * Executes the request, returning the full response body
+     *
+     * @return Body containing the "data" object and other metadata
+     * @throws IOException
+     */
     public ResultBodyCollection<T> executeRaw() throws IOException
     {
         HttpResponse response = this.client.request(this);
         return Json.getInstance().fromJson(
-                new InputStreamReader(this.logContent(response.getContent())),
+                new InputStreamReader(response.getContent()),
                 new com.google.common.reflect.TypeToken<ResultBodyCollection<T>>() {
                 }.where(
-                        new TypeParameter<T>() {
-                        },
+                        new TypeParameter<T>() {},
                         this.elementClass
                 ).getType()
         );
     }
 
+    /**
+     * Returns an iterator that will make one or more paginated requests to the API
+     *
+     * @return Iterator
+     */
     public Iterator<T> iterator()
     {
         return new CollectionPageIterator<T>(this).items();

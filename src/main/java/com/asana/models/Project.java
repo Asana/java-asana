@@ -15,11 +15,11 @@ public class Project
     @SerializedName("archived") public boolean isArchived;
     @SerializedName("public") public boolean isPublic;
 
-    public Collection<Entity> followers;
-    public Collection<Entity> members;
+    public Collection<User> followers;
+    public Collection<User> members;
 
-    public Entity team;
-    public Entity workspace;
+    public Team team;
+    public Workspace workspace;
 
     @SerializedName("created_at") public Date createdAt;
     @SerializedName("modified_at") public Date modifiedAt;

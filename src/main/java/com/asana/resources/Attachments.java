@@ -16,6 +16,15 @@ public class Attachments extends AttachmentsBase
         super(client);
     }
 
+    /**
+     * Upload a file and attach it to a task
+     *
+     * @param task Globally unique identifier for the task.
+     * @param fileContent Content of the file to be uploaded
+     * @param fileName Name of the file to be uploaded
+     * @param fileType MIME type of the file to be uploaded
+     * @return Request object
+     */
     public ItemRequest<Attachment> createOnTask(String task, InputStream fileContent, String fileName, String fileType)
     {
         MultipartContent.Part part = new MultipartContent.Part()

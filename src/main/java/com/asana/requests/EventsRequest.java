@@ -14,6 +14,11 @@ public class EventsRequest<T> extends CollectionRequest<T> implements Iterable<T
         super(resource, elementClass, path, method);
     }
 
+    /**
+     * Returns an iterator that will repeatedly make requests to the events API, returning new events as they are emitted
+     *
+     * @return Iterator
+     */
     public Iterator<T> iterator()
     {
         return new EventsPageIterator<T>(this).items();
