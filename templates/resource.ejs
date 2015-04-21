@@ -1,0 +1,63 @@
+<%
+var hasItemRequest = false, hasCollectionRequest = false;
+resource.actions.forEach(function(action) {
+    hasItemRequest = hasItemRequest || (!action.no_code && !action.collection);
+    hasCollectionRequest = hasCollectionRequest || (!action.no_code && action.collection);
+});
+%>package com.asana.resources.gen;
+
+import com.asana.Client;
+import com.asana.resources.Resource;
+<% if (hasItemRequest || hasCollectionRequest) { %>import com.asana.models.<%= cap(resource.name) %>;
+<% }
+%><% if (hasItemRequest) { %>import com.asana.requests.ItemRequest;
+<% }
+%><% if (hasCollectionRequest) { %>import com.asana.requests.CollectionRequest;
+<% }
+%>
+/**
+<%= comment(resource.comment) %>
+ */
+public class <%= plural(cap(resource.name)) + "Base" %> extends Resource
+{
+    /**
+     * @param client Parent client instance
+     */
+    public <%= plural(cap(resource.name)) + "Base" %>(Client client)
+    {
+        super(client);
+    }<% _.forEach(resource.actions, function(action) {
+    if (action.no_code) {
+      return;
+    }
+
+    var name = snake(action.name);
+    var path = action.path.replace(/%d/g, "%s");
+    var method = action.method.toUpperCase();
+    var modelClass = cap(resource.name);
+    var returnClass;
+    if (action.collection) {
+        returnClass = "CollectionRequest<" + modelClass + ">";
+    } else {
+        returnClass = "ItemRequest<" + modelClass + ">";
+    }
+
+    var params = paramsForAction(action);
+    var pathParamNames = params.pathParams.map(function(param) { return param.name; });
+    var pathParamNamesAndTypes = params.pathParams.map(function(param) { return typeName(param.type) + " " + param.name; });
+  %>
+
+    /**
+<%= comment(action.comment, 4) %>
+     *<% _.forEach(params.pathParams, function(param) { %>
+<%= comment('@param  ' + param.name + ' ' + param.comment, 4) %><% }); %>
+     * @return Request object
+     */
+    public <%= returnClass %> <%= action.name %>(<%= pathParamNamesAndTypes.join(", ") %>)
+    {<% if (pathParamNames.length > 0) { %>
+        String path = String.format(<%= JSON.stringify(path) %>, <%= pathParamNames.join(", ") %>);
+        return new <%= returnClass %>(this, <%= modelClass %>.class, path, <%= JSON.stringify(method) %>);
+    <% } else { %>
+        return new <%= returnClass %>(this, <%= modelClass %>.class, <%= JSON.stringify(action.path) %>, <%= JSON.stringify(method) %>);
+    <% } %>}<% }); %>
+}
