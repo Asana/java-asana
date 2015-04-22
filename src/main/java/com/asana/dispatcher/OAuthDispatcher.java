@@ -10,6 +10,8 @@ import java.io.IOException;
 
 public class OAuthDispatcher extends Dispatcher
 {
+    public static final String NATIVE_REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob";
+
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     private static final JsonFactory JSON_FACTORY = new GsonFactory();
 
