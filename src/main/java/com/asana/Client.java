@@ -12,6 +12,7 @@ import com.google.api.client.http.*;
 import com.google.common.base.Joiner;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class Client
      * Map of default options, from string key to primitive value types (string, numeric, boolean)
      */
     public static final Map<String, Object> DEFAULTS = new HashMap<String, Object>() {{
-        put("base_url", "https://app.asana.com/api/1.0");
+        put("base_url", "https://localhost.asana.com:8180/api/1.0");
         put("item_limit", -1);
         put("page_size", 50);
         put("poll_interval", 5);
@@ -58,6 +59,9 @@ public class Client
 
     private static final String[] QUERY_OPTIONS   = new String[] { "limit", "offset", "sync" };
     private static final String[] API_OPTIONS     = new String[] { "pretty", "fields", "expand" };
+
+    private static final String CLIENT_VERSION_HEADER_NAME = "X-Asana-Client-Lib";
+
 
     /**
      * @param dispatcher Dispatcher to handle authentication
@@ -147,7 +151,6 @@ public class Client
             // JSON body
             body.put("data", request.data);
             String json = Json.getInstance().toJson(body);
-            System.out.println("!!! > " + json);
             content = new ByteArrayContent("application/json", json.getBytes());
         }
 
@@ -158,6 +161,7 @@ public class Client
                 HttpRequest httpRequest = this.dispatcher.buildRequest(request.method, url, content);
 
                 this.dispatcher.authenticate(httpRequest);
+                httpRequest.getHeaders().set(CLIENT_VERSION_HEADER_NAME, versionHeader());
 
                 try {
                     return httpRequest.execute();
@@ -186,6 +190,34 @@ public class Client
         } else {
             this.dispatcher.sleep((long)(RETRY_DELAY * Math.pow(RETRY_BACKOFF, retryCount)));
         }
+    }
+
+
+    private String clientVersion()
+    {
+        String version = getClass().getPackage().getImplementationVersion();
+        // This will be null if the class is executed from outside its packaged
+        // jar, such as during tests.
+        return (version != null) ? version : "0.0.0";
+    }
+
+
+    private String versionHeader()
+    {
+        StringBuilder builder = new StringBuilder();
+        HashMap<String, String> values = new HashMap<String, String>();
+        values.put("version", clientVersion());
+        values.put("language", "Java");
+        values.put("language_version", System.getProperty("java.version"));
+        values.put("os", System.getProperty("os.name"));
+        values.put("os_version", System.getProperty("os.version"));
+        for (Map.Entry<String, String> entry : values.entrySet()) {
+            builder.append("&");
+            builder.append(URLEncoder.encode(entry.getKey()));
+            builder.append("=");
+            builder.append(URLEncoder.encode(entry.getValue()));
+        }
+        return builder.toString().substring(1);
     }
 
     /**
