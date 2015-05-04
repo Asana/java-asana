@@ -104,6 +104,11 @@
               </configuration>
           </plugin>
 
+<!-- The below plugins are useful when debugging locally to be able to run an
+example, bringing in the proper CLASSPATHs of all dependencies, from the actual
+final JAR file instead of the intermediate .class files. -->
+
+<!--
           <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-dependency-plugin</artifactId>
@@ -146,7 +151,7 @@
                   </execution>
               </executions>
           </plugin>
-
+-->
         </plugins>
     </build>
 
