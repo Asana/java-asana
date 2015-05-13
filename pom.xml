@@ -4,7 +4,7 @@
     <groupId>com.asana</groupId>
     <artifactId>java-asana</artifactId>
     <packaging>jar</packaging>
-    <version>0.1</version>
+    <version>0.1.1-SNAPSHOT</version>
     <name>java-asana</name>
     <description>Java client library for the Asana API v1</description>
     <url>http://maven.apache.org</url>

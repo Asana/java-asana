@@ -76,7 +76,6 @@ public class MockDispatcher extends Dispatcher {
 
     public void sleep(long millis)
     {
-        System.out.println("sleeping for " + millis);
         this.sleepCalls.add(new Integer((int)millis));
     }
 
