@@ -5,6 +5,53 @@ Java client library for Asana.
 
 ![Build Status](https://api.travis-ci.org/Asana/java-asana.svg)
 
+Installation
+------------
+
+* Install Java 6 or later
+* Install Maven 3
+
+Compile
+-------
+
+    mvn compile
+
+Test
+----
+
+    mvn test
+
+Examples
+--------
+
+Be sure to run `mvn compile` first.
+
+Set the ASANA_API_KEY, ASANA_CLIENT_ID, and ASANA_CLIENT_SECRET environment variables. The app's redirect URL should be set to "urn:ietf:wg:oauth:2.0:oob" for command line scripts examples, and "http://localhost:5000/auth/asana/callback" for the server example.
+
+    export ASANA_API_KEY="X"
+    export ASANA_CLIENT_ID="X"
+    export ASANA_CLIENT_SECRET="X"
+
+Web application example:
+
+    mvn exec:java -Dexec.mainClass="com.asana.examples.ExampleServer"
+
+OAuth command line script example:
+
+    mvn exec:java -Dexec.mainClass="com.asana.examples.ExampleOAuth"
+
+Basic Auth command line script example:
+
+    mvn exec:java -Dexec.mainClass="com.asana.examples.ExampleBasicAuth"
+
+Demo create a task and upload an attachment:
+
+    mvn exec:java -Dexec.mainClass="com.asana.examples.ExampleCreateTaskAndUpload"
+
+Demo create project and stream change events:
+
+    mvn exec:java -Dexec.mainClass="com.asana.examples.ExampleCreateProjectAndStreamEvents"
+
 Authentication
 --------------
 

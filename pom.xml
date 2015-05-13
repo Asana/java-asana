@@ -8,6 +8,10 @@
     <name>java-asana</name>
     <url>http://maven.apache.org</url>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <issueManagement>
         <url>https://github.com/Asana/java-asana/issues</url>
         <system>GitHub Issues</system>
