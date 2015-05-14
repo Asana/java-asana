@@ -2,6 +2,9 @@ package com.asana.iterator;
 
 import java.util.Iterator;
 
+/**
+ * "Flattens" a page iterator, returning a single item at a time, loading pages from the page iterator on demand.
+ */
 public class ItemIterator<T> implements Iterator<T>
 {
     PageIterator<T> pages;

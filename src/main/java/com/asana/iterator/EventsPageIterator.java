@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 
+/**
+ * Loads a "page" of events at a time, automatically updating the sync token on each request
+ */
 public class EventsPageIterator<T> extends PageIterator<T>
 {
     public EventsPageIterator(EventsRequest<T> request)
@@ -16,7 +19,8 @@ public class EventsPageIterator<T> extends PageIterator<T>
     }
 
     @Override
-    protected ResultBodyCollection<T> getNext() throws IOException {
+    protected ResultBodyCollection<T> getNext() throws IOException
+    {
         if (request.query.get("sync") == null) {
             try {
                 this.request.executeRaw();
