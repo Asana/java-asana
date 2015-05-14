@@ -36,7 +36,7 @@ public class Client
      * Map of default options, from string key to primitive value types (string, numeric, boolean)
      */
     public static final Map<String, Object> DEFAULTS = new HashMap<String, Object>() {{
-        put("base_url", "https://localhost.asana.com:8180/api/1.0");
+        put("base_url", "https://app.asana.com/api/1.0");
         put("item_limit", -1);
         put("page_size", 50);
         put("poll_interval", 5);
