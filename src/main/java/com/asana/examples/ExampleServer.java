@@ -1,7 +1,7 @@
 package com.asana.examples;
 
 import com.asana.Client;
-import com.asana.dispatcher.OAuthDispatcher;
+import com.asana.OAuthApp;
 import com.asana.models.User;
 import spark.Request;
 import spark.Response;
@@ -43,7 +43,8 @@ public class ExampleServer
                 if (token != null) {
                     try {
                         // example request gets information about logged in user
-                        User me = getClient(token).users.me().execute();
+                        Client client = Client.oauth(getApp(token));
+                        User me = client.users.me().execute();
                         return "<p>Hello " + me.name + "</p><p><a href=\"/logout\">Logout</a></p>";
                     } catch (IOException e) {
                         return e.getStackTrace().toString();
@@ -51,10 +52,9 @@ public class ExampleServer
                 }
                 // if we don't have a token show a "Sign in with Asana" button
                 else {
-                    Client client = getClient();
                     // get an authorization URL and anti-forgery "state" token
                     String state = UUID.randomUUID().toString();
-                    String authUrl = ((OAuthDispatcher) client.dispatcher).getAuthorizationUrl(state);
+                    String authUrl = getApp().getAuthorizationUrl(state);
                     // persist the state token in the user's session
                     request.session().attribute("state", state);
                     // link the button to the authorization URL
@@ -82,7 +82,7 @@ public class ExampleServer
                 if (request.queryParams("state").equals(request.session().attribute("state"))) {
                     try {
                         // exchange the code for a bearer token and persist it in the user's session or database
-                        String token = ((OAuthDispatcher) getClient().dispatcher).fetchToken(request.queryParams("code"));
+                        String token = getApp().fetchToken(request.queryParams("code"));
                         request.session().attribute("token", token);
                         response.redirect("/");
                         return null;
@@ -101,8 +101,8 @@ public class ExampleServer
      *
      * @return an instance of Client
      */
-    private static Client getClient() {
-        return Client.oauth(ASANA_CLIENT_ID, ASANA_CLIENT_SECRET, REDIRECT_URI);
+    private static OAuthApp getApp() {
+        return new OAuthApp(ASANA_CLIENT_ID, ASANA_CLIENT_SECRET, REDIRECT_URI);
     }
 
     /**
@@ -111,7 +111,7 @@ public class ExampleServer
      * @param token an OAuth2 bearer token
      * @return an instance of Client
      */
-    private static Client getClient(String token) {
-        return Client.oauth(ASANA_CLIENT_ID, ASANA_CLIENT_SECRET, REDIRECT_URI, token);
+    private static OAuthApp getApp(String token) {
+        return new OAuthApp(ASANA_CLIENT_ID, ASANA_CLIENT_SECRET, REDIRECT_URI, token);
     }
 }

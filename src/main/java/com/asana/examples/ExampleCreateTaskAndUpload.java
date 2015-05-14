@@ -1,15 +1,12 @@
 package com.asana.examples;
 
 import com.asana.Client;
-import com.asana.dispatcher.OAuthDispatcher;
-import com.asana.models.Event;
-import com.asana.models.*;
-import com.google.common.io.LineReader;
+import com.asana.models.Attachment;
+import com.asana.models.Project;
+import com.asana.models.Task;
+import com.asana.models.Workspace;
 
-import java.awt.*;
 import java.io.ByteArrayInputStream;
-import java.io.InputStreamReader;
-import java.net.URI;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;

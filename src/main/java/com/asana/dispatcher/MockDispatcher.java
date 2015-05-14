@@ -12,7 +12,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
 
-public class MockDispatcher extends Dispatcher {
+public class MockDispatcher extends Dispatcher
+{
     public class Call
     {
         public LowLevelHttpRequest request;

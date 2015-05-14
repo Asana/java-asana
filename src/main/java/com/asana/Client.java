@@ -160,7 +160,6 @@ public class Client
             try {
                 HttpRequest httpRequest = this.dispatcher.buildRequest(request.method, url, content);
 
-                this.dispatcher.authenticate(httpRequest);
                 httpRequest.getHeaders().set(CLIENT_VERSION_HEADER_NAME, versionHeader());
 
                 try {
@@ -222,43 +221,19 @@ public class Client
 
     /**
      * @param apiKey Basic Auth API key
-     * @param options Map of options to be passed to the client instance
-     * @return Client instance
-     */
-    public static Client basicAuth(String apiKey, Map<String,Object> options)
-    {
-        return new Client(new BasicAuthDispatcher(apiKey), options);
-    }
-
-    /**
-     * @param apiKey Basic Auth API key
      * @return Client instance
      */
     public static Client basicAuth(String apiKey)
     {
-        return basicAuth(apiKey, null);
+        return new Client(new BasicAuthDispatcher(apiKey));
     }
 
     /**
-     * @param apiKey OAuth2 API key
-     * @param apiSecret OAuth2 API secret
-     * @param redirectUri Redirect URI
+     * @param app OAuth application instance
      * @return Client instance
      */
-    public static Client oauth(String apiKey, String apiSecret, String redirectUri)
+    public static Client oauth(OAuthApp app)
     {
-        return oauth(apiKey, apiSecret, redirectUri, null);
-    }
-
-    /**
-     * @param apiKey OAuth2 API key
-     * @param apiSecret OAuth2 API secret
-     * @param redirectUri Redirect URI
-     * @param accessToken Previously obtained access token to initialize the dispatcher with
-     * @return Client instance
-     */
-    public static Client oauth(String apiKey, String apiSecret, String redirectUri, String accessToken)
-    {
-        return new Client(new OAuthDispatcher(apiKey, apiSecret, redirectUri, accessToken));
+        return new Client(new OAuthDispatcher(app));
     }
 }
