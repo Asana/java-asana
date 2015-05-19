@@ -130,3 +130,16 @@ You can also use the raw API to fetch a page at a time:
             break;
         }
     }
+
+# Deployment
+
+To deploy a new version to the Maven Central Repository, you can run:
+
+`mvn deploy -P release --settings settings.xml`
+
+Before you do this, you must set a few environment variables to authenticate:
+
+* Maven credentials: `MAVEN_USERNAME` and `MAVEN_PASSWORD`
+* GPG keyname and password: `MAVEN_GPG_KEYNAME` and `MAVEN_GPG_PASSWORD`
+
+You then can [log in](https://oss.sonatype.org/) to close and deploy the release.
