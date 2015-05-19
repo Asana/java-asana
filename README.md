@@ -1,9 +1,6 @@
-java-asana
-==========
+# Asana [![Build Status][travis-image]][travis-url] [![Maven Version][mvn-image]][mvn-url]
 
-Java client library for Asana.
-
-![Build Status](https://api.travis-ci.org/Asana/java-asana.svg)
+Java client library for the Asana API.
 
 Authentication
 --------------
@@ -143,3 +140,9 @@ Before you do this, you must set a few environment variables to authenticate:
 * GPG keyname and password: `MAVEN_GPG_KEYNAME` and `MAVEN_GPG_PASSWORD`
 
 You then can [log in](https://oss.sonatype.org/) to close and deploy the release.
+
+[travis-url]: http://travis-ci.org/Asana/java-asana
+[travis-image]: http://img.shields.io/travis/Asana/java-asana.svg?style=flat-square
+
+[mvn-url]: http://search.maven.org/#browse|-135285720
+[mvn-image]: https://img.shields.io/maven-central/v/com.asana/asana.svg
