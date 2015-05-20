@@ -5,8 +5,14 @@ Java client library for the Asana API.
 Installation
 ------------
 
-* Install Java 6 or later
-* Install Maven 3
+If you use [Maven](http://maven.apache.org/) to manage dependencies you can include the "asana" artifact by adding it as a dependency in your `pom.xml` file.
+
+    <dependency>
+         <groupId>com.asana</groupId>
+         <artifactId>asana</artifactId>
+         <version>1.0.0</version>
+    </dependency>
+
 
 Compile
 -------
