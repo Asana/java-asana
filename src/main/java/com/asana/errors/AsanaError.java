@@ -1,18 +1,20 @@
 package com.asana.errors;
 
+import com.asana.Json;
+import com.asana.models.*;
 import com.google.api.client.http.HttpResponseException;
+import com.google.api.client.repackaged.com.google.common.base.Joiner;
 
 import java.io.IOException;
-
 public class AsanaError extends IOException
 {
-    public String message;
     public int status;
     public HttpResponseException response;
 
     public AsanaError(String message, int status, HttpResponseException exception)
     {
-        this.message = message;
+        super(constructMessage(message, exception));
+
         this.status = status;
         this.response = exception;
     }
@@ -37,5 +39,17 @@ public class AsanaError extends IOException
             default:
                 return new AsanaError(exception.getStatusMessage(), exception.getStatusCode(), exception);
         }
+    }
+
+    private static String constructMessage(String message, HttpResponseException exception)
+    {
+        try {
+            ErrorBody body = Json.getInstance().fromJson(exception.getContent(), ErrorBody.class);
+            if (body.errors.size() > 0) {
+                return message + " (" + Joiner.on("; ").join(body.errors) + ")";
+            }
+        } catch (Exception e) {
+        }
+        return message;
     }
 }

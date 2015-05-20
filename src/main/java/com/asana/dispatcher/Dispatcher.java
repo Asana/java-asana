@@ -9,8 +9,9 @@ public abstract class Dispatcher
 {
     static HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
-    public void authenticate(HttpRequest request)
+    public HttpRequest buildRequest(String method, GenericUrl url, HttpContent content) throws IOException
     {
+        return HTTP_TRANSPORT.createRequestFactory().buildRequest(method, url, content);
     }
 
     public void sleep(long millis)
@@ -19,10 +20,5 @@ public abstract class Dispatcher
             Thread.sleep(millis);
         } catch (InterruptedException e) {
         }
-    }
-
-    public HttpRequest buildRequest(String method, GenericUrl url, HttpContent content) throws IOException
-    {
-        return HTTP_TRANSPORT.createRequestFactory().buildRequest(method, url, content);
     }
 }

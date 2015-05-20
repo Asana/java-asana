@@ -1,135 +1,117 @@
 package com.asana.examples;
 
+import com.asana.Client;
+import com.asana.OAuthApp;
+import com.asana.models.User;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Spark;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.*;
+import java.util.UUID;
 
-import com.asana.Client;
-import com.asana.dispatcher.OAuthDispatcher;
-import com.asana.models.User;
-import com.sun.net.httpserver.*;
-
+/**
+ *
+ * OAuth Instructions:
+ *
+ * 1. create a new application in your Asana Account Settings ("App" panel)
+ * 2. set the redirect URL to "http://localhost:5000/auth/asana/callback" (or whichever port you choose)
+ * 3. set your ASANA_CLIENT_ID and ASANA_CLIENT_SECRET environment variables
+ *
+ */
 public class ExampleServer
 {
     private static final String ASANA_CLIENT_ID = System.getenv("ASANA_CLIENT_ID");
     private static final String ASANA_CLIENT_SECRET = System.getenv("ASANA_CLIENT_SECRET");
     private static final String REDIRECT_URI = "http://localhost:5000/auth/asana/callback";
 
-    private static final String SESSION_COOKIE_NAME = "example_server_session";
-    private static Map<String, Map<String, Object>> sessions = new HashMap<String, Map<String, Object>>();
+    public static void main(String[] args)
+    {
+        if (ASANA_CLIENT_ID == null || ASANA_CLIENT_SECRET == null) {
+            System.err.println("Please set the ASANA_CLIENT_ID and ASANA_CLIENT_SECRET environment variables.");
+            System.exit(1);
+        }
 
-    public static void main(String[] args) throws Exception {
-        HttpServer server = HttpServer.create(new InetSocketAddress(5000), 0);
+        Spark.setPort(5000);
 
-        HttpContext context = server.createContext("/", new HttpHandler() {
-            public void handle(HttpExchange t) throws IOException {
-                String path = t.getRequestURI().getPath();
-                try {
-                    if ("/".equals(path)) {
-                        String token = (String) session(t).get("token");
-                        if (token != null) {
-                            User me = getClient(token).users.me().execute();
-                            respond(t, 200, "<p>Hello " + me.name + "</p><p><a href=\"/logout\">Logout</a></p>");
-                        } else {
-                            Client client = getClient();
-                            String state = UUID.randomUUID().toString();
-                            session(t).put("state", state);
-                            String authUrl = ((OAuthDispatcher) client.dispatcher).getAuthorizationUrl(state);
-                            respond(t, 200,
-                                    "<p><a href=\"" + authUrl + "\">" +
-                                    "<img src=\"https://github.com/Asana/oauth-examples/raw/master/public/asana-oauth-button-blue.png?raw=true\">"+
-                                    "</a></p>"
-                            );
-                        }
+        // main page (http://localhost:5000/)
+        Spark.get(new Route("/") {
+            public Object handle(Request request, Response response) {
+                String token = request.session().attribute("token");
+                // if the user has a token they're logged in
+                if (token != null) {
+                    try {
+                        // example request gets information about logged in user
+                        Client client = Client.oauth(getApp(token));
+                        User me = client.users.me().execute();
+                        return "<p>Hello " + me.name + "</p><p><a href=\"/logout\">Logout</a></p>";
+                    } catch (IOException e) {
+                        return e.getStackTrace().toString();
                     }
-                    else if ("/logout".equals(path)) {
-                        session(t).remove("token");
-                        redirect(t, "/");
-                    }
-                    else if ("/auth/asana/callback".equals(path)) {
-                        if (params(t).get("state").equals(session(t).get("state"))) {
-                            String token = ((OAuthDispatcher) getClient().dispatcher).fetchToken(params(t).get("code"));
-                            session(t).put("token", token);
-                            redirect(t, "/");
-                        } else {
-                            respond(t, 200, "State doesn't match");
-                        }
-                    }
-                    else {
-                        respond(t, 404, "Not Found");
-                    }
-                } catch (Exception e) {
-                    respond(t, 500, "Internal Error\n" + e.getStackTrace().toString());
+                }
+                // if we don't have a token show a "Sign in with Asana" button
+                else {
+                    // get an authorization URL and anti-forgery "state" token
+                    String state = UUID.randomUUID().toString();
+                    String authUrl = getApp().getAuthorizationUrl(state);
+                    // persist the state token in the user's session
+                    request.session().attribute("state", state);
+                    // link the button to the authorization URL
+                    return "<p><a href=\"" + authUrl + "\">" +
+                            "<img src=\"https://github.com/Asana/oauth-examples/raw/master/public/asana-oauth-button-blue.png?raw=true\">" +
+                            "</a></p>";
                 }
             }
         });
 
-        server.setExecutor(null);
-        server.start();
-    }
+        // logout endpoint
+        Spark.get(new Route("/logout") {
+            public Object handle(Request request, Response response) {
+                // delete the session token and redirect back to the main page
+                request.session().removeAttribute("token");
+                response.redirect("/");
+                return null;
+            }
+        });
 
-    private static Client getClient() {
-        return Client.oauth(ASANA_CLIENT_ID, ASANA_CLIENT_SECRET, REDIRECT_URI);
-    }
-
-    private static Client getClient(String token) {
-        return Client.oauth(ASANA_CLIENT_ID, ASANA_CLIENT_SECRET, REDIRECT_URI, token);
-    }
-
-    // misc helpers that would normally be provided by your web framework:
-
-    private static void respond(HttpExchange t, int status, String body) throws IOException {
-        byte bytes[] = body.getBytes();
-        t.sendResponseHeaders(status, bytes.length);
-        t.getResponseBody().write(bytes);
-        t.getResponseBody().close();
-    }
-    private static void redirect(HttpExchange t, String url) throws IOException {
-        t.getResponseHeaders().put("Location", Arrays.asList(url));
-        t.sendResponseHeaders(302, 0);
-        t.getResponseBody().close();
-    }
-
-    private static Map<String,String> params(HttpExchange t) {
-        Map<String, String> result = new HashMap<String, String>();
-        for (String param : t.getRequestURI().getQuery().split("&")) {
-            String pair[] = param.split("=");
-            result.put(URLDecoder.decode(pair[0]), pair.length > 1 ? URLDecoder.decode(pair[1]) : "");
-        }
-        return result;
-    }
-
-    private static Map<String,Object> session(HttpExchange t) {
-        String sessionId = cookies(t).get(SESSION_COOKIE_NAME);
-        if (sessionId == null || !sessions.containsKey(sessionId)) {
-            sessionId = UUID.randomUUID().toString();
-            sessions.put(sessionId, new HashMap<String, Object>());
-            setCookie(t, SESSION_COOKIE_NAME, sessionId);
-        }
-        return sessions.get(sessionId);
-    }
-
-    private static Map<String,String> cookies(HttpExchange t) {
-        Map<String,String> results = new HashMap<String, String>();
-        List<String> headers = t.getRequestHeaders().get("Cookie");
-        if (headers != null) {
-            for (String header : headers) {
-                String cookies[] = header.split(";");
-                for (String cookie : cookies) {
-                    String components[] = cookie.split("=");
-                    results.put(URLDecoder.decode(components[0].trim()), URLDecoder.decode(components[1].trim()));
+        // OAuth callback endpoint
+        Spark.get(new Route("/auth/asana/callback") {
+            public Object handle(Request request, Response response) {
+                // verify the state token matches to prevent CSRF attacks
+                if (request.queryParams("state").equals(request.session().attribute("state"))) {
+                    try {
+                        // exchange the code for a bearer token and persist it in the user's session or database
+                        String token = getApp().fetchToken(request.queryParams("code"));
+                        request.session().attribute("token", token);
+                        response.redirect("/");
+                        return null;
+                    } catch (IOException e) {
+                        return e.getStackTrace().toString();
+                    }
+                } else {
+                    return "State doesn't match";
                 }
             }
-        }
-        return results;
+        });
     }
 
-    private static void setCookie(HttpExchange t, String name, String value) {
-        // NOTE: only handles setting one cookie per request
-        String cookie = URLEncoder.encode(name) + "=" + URLEncoder.encode(value);
-        t.getResponseHeaders().put("Set-Cookie", Arrays.asList(cookie));
+    /**
+     * convenience method to create a client with your credentials
+     *
+     * @return an instance of Client
+     */
+    private static OAuthApp getApp() {
+        return new OAuthApp(ASANA_CLIENT_ID, ASANA_CLIENT_SECRET, REDIRECT_URI);
+    }
+
+    /**
+     * convenience method to create a client with your credentials and a 'token'
+     *
+     * @param token an OAuth2 bearer token
+     * @return an instance of Client
+     */
+    private static OAuthApp getApp(String token) {
+        return new OAuthApp(ASANA_CLIENT_ID, ASANA_CLIENT_SECRET, REDIRECT_URI, token);
     }
 }

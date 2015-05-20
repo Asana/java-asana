@@ -8,7 +8,13 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-abstract public class PageIterator<T> implements Iterator<Collection<T>> {
+/**
+ * Abstract iterator (implemented by CollectionPageIterator and EventsPageIterator) that loads one page of items at a
+ * time, automatically updating the pagination parameter (e.x. the "offset" or "sync" token). Also exposes an
+ * "items" iterator to iterate over the individual items.
+ */
+abstract public class PageIterator<T> implements Iterator<Collection<T>>
+{
     protected CollectionRequest<T> request;
     protected long itemLimit;
     protected long pageSize;
@@ -33,12 +39,14 @@ abstract public class PageIterator<T> implements Iterator<Collection<T>> {
     }
 
     @Override
-    public boolean hasNext() {
+    public boolean hasNext()
+    {
         return this.continuation != null && currentLimit() > 0;
     }
 
     @Override
-    public Collection<T> next() throws NoSuchElementException {
+    public Collection<T> next() throws NoSuchElementException
+    {
         this.request.query("limit", currentLimit());
         try {
             ResultBodyCollection<T> result = this.getNext();

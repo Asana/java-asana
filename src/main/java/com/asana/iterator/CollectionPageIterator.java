@@ -5,6 +5,10 @@ import com.asana.requests.CollectionRequest;
 
 import java.io.IOException;
 
+/**
+ * Loads a "page" of items from a collection, automatically updating the "offset" based on the "next_page" token on
+ * each request.
+ */
 public class CollectionPageIterator<T> extends PageIterator<T>
 {
     public CollectionPageIterator(CollectionRequest<T> request) {

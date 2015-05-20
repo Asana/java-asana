@@ -8,19 +8,70 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class ClientTest extends AsanaTest
 {
     @Test
-    public void testClientGet() throws IOException {
+    public void testClientGet() throws IOException
+    {
         dispatcher.registerResponse("GET", "http://app/users/me").code(200).content("{ \"data\": { \"name\": \"me\" }}");
         assertEquals(client.users.me().execute().name, "me");
     }
 
     @Test
-    public void testGetNamedParameters() throws IOException {
+    public void testClientGetCollectionList() throws IOException
+    {
+        String req = "{ \"data\": [ { \"id\": 1 } ]}";
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks").code(200).content(req);
+
+        List<Task> tasks = client.tasks.findByProject("1").execute();
+        assertEquals(tasks.size(), 1);
+        assertEquals(tasks.get(0).id, "1");
+    }
+
+    @Test
+    public void testClientGetCollectionIterator() throws IOException
+    {
+        String req = "{ \"data\": [ { \"id\": 1 } ]}";
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=50").code(200).content(req);
+
+        Iterator<Task> tasks = client.tasks.findByProject("1").iterator();
+        assertEquals(tasks.hasNext(), true);
+        assertEquals(tasks.next().id, "1");
+        assertEquals(tasks.hasNext(), false);
+    }
+
+    @Test
+    public void testClientPost() throws IOException
+    {
+        dispatcher.registerResponse("POST", "http://app/tasks").code(201).content("{ \"data\": { \"id\": \"1\" }}");
+
+        assertEquals(client.tasks.create().execute().id, "1");
+    }
+
+    @Test
+    public void testClientPut() throws IOException
+    {
+        dispatcher.registerResponse("PUT", "http://app/tasks/1").code(200).content("{ \"data\": { \"id\": \"1\" }}");
+
+        assertEquals(client.tasks.update("1").execute().id, "1");
+    }
+
+    @Test
+    public void testClientDelete() throws IOException
+    {
+        dispatcher.registerResponse("DELETE", "http://app/tasks/1").code(200).content("{ \"data\": { \"id\": \"1\" }}");
+
+        assertEquals(client.tasks.delete("1").execute().id, "1");
+    }
+
+    @Test
+    public void testGetNamedParameters() throws IOException
+    {
         dispatcher.registerResponse("GET", "http://app/tasks?workspace=14916&assignee=me").code(200).content("{ \"data\": [{ \"id\": \"1\" }]}");
 
         Collection<Task> result = client.tasks.findAll()
@@ -31,7 +82,8 @@ public class ClientTest extends AsanaTest
     }
 
     @Test
-    public void testPostNamedParameters() throws IOException {
+    public void testPostNamedParameters() throws IOException
+    {
         JsonElement req = parser.parse("{ \"data\": { \"assignee\": \"1235\", \"followers\": [\"5678\"],\"name\": \"Hello, world.\"}}");
 
         dispatcher.registerResponse("POST", "http://app/tasks").code(201).content("{ \"data\": { \"id\": \"1\" }}");
@@ -46,7 +98,8 @@ public class ClientTest extends AsanaTest
     }
 
     @Test
-    public void testPutNamedParameters() throws IOException {
+    public void testPutNamedParameters() throws IOException
+    {
         JsonElement req = parser.parse("{ \"data\": {\"assignee\": \"1235\", \"followers\": [\"5678\"],\"name\": \"Hello, world.\"}}");
 
         dispatcher.registerResponse("PUT", "http://app/tasks/1001").code(200).content("{ \"data\": { \"id\": \"1\" }}");

@@ -4,10 +4,9 @@
     <groupId>com.asana</groupId>
     <artifactId>asana</artifactId>
     <packaging>jar</packaging>
-    <version>0.1</version>
-    <name>asana</name>
-    <description>A Java client for the Asana API.</description>
+    <version>0.1.1-SNAPSHOT</version>
     <url>http://maven.apache.org</url>
+    <description>A Java client for the Asana API.</description>
 
     <distributionManagement>
         <snapshotRepository>
@@ -19,7 +18,6 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-
 
     <issueManagement>
         <url>https://github.com/Asana/java-asana/issues</url>
@@ -85,6 +83,11 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>1.1.1</version>
         </dependency>
     </dependencies>
 
