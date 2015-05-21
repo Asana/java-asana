@@ -12,7 +12,7 @@ import com.asana.requests.CollectionRequest;
  * 
  * Tags have some metadata associated with them, but it is possible that we will
  * simplify them in the future so it is not encouraged to rely too heavily on it.
- * Unlike tags, tags do not provide any ordering on the tasks they
+ * Unlike projects, tags do not provide any ordering on the tasks they
  * are associated with.
  */
 public class TagsBase extends Resource
@@ -62,14 +62,14 @@ public class TagsBase extends Resource
     }
 
     /**
-     * Returns the complete task record for a single task.
+     * Returns the complete tag record for a single tag.
      *
-     * @param  task The task to get.
+     * @param  tag The tag to get.
      * @return Request object
      */
-    public ItemRequest<Tag> findById(String task)
+    public ItemRequest<Tag> findById(String tag)
     {
-        String path = String.format("/tags/%s", task);
+        String path = String.format("/tags/%s", tag);
         return new ItemRequest<Tag>(this, Tag.class, path, "GET");
     }
 

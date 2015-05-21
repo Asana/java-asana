@@ -76,14 +76,14 @@ public class ProjectsBase extends Resource
     }
 
     /**
-     * Returns the complete task record for a single task.
+     * Returns the complete project record for a single project.
      *
-     * @param  task The task to get.
+     * @param  project The project to get.
      * @return Request object
      */
-    public ItemRequest<Project> findById(String task)
+    public ItemRequest<Project> findById(String project)
     {
-        String path = String.format("/projects/%s", task);
+        String path = String.format("/projects/%s", project);
         return new ItemRequest<Project>(this, Project.class, path, "GET");
     }
 
