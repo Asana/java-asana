@@ -24,6 +24,10 @@ public class Project
     @SerializedName("created_at") public Date createdAt;
     @SerializedName("modified_at") public Date modifiedAt;
 
+    public Project() {
+        //no-arg constructor
+    }
+    
     public Project(String id)
     {
         this.id = id;

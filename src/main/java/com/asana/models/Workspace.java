@@ -15,4 +15,8 @@ public class Workspace
     public Workspace(String id) {
         this.id = id;
     }
+    
+    public Workspace() {
+        //no-arg constructor
+    }
 }
