@@ -13,6 +13,10 @@ If you use [Maven](http://maven.apache.org/) to manage dependencies you can incl
          <version>1.0.0</version>
     </dependency>
 
+Or, you can build the artifact and install it to your local Maven repository:
+
+    mvn install
+
 
 Compile
 -------
