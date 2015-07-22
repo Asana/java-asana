@@ -31,12 +31,17 @@ public class OAuthApp
 
     public OAuthApp(String apiKey, String apiSecret, String redirectUri, String accessToken)
     {
+        this(apiKey, apiSecret, redirectUri, accessToken, HTTP_TRANSPORT, JSON_FACTORY);
+    }
+    
+    public OAuthApp(String apiKey, String apiSecret, String redirectUri, String accessToken, HttpTransport transport, JsonFactory jsonFactory)
+    {
         this.redirectUri = redirectUri;
 
         this.flow = new AuthorizationCodeFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
-                HTTP_TRANSPORT,
-                JSON_FACTORY,
+                transport,
+                jsonFactory,
                 new GenericUrl(TOKEN_SERVER_URL),
                 new ClientParametersAuthentication(apiKey, apiSecret),
                 apiKey,
@@ -48,7 +53,8 @@ public class OAuthApp
                     .setAccessToken(accessToken);
         }
     }
-
+    
+    
     public boolean isAuthorized()
     {
         return this.credential != null;
