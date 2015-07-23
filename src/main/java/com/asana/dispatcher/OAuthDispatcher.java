@@ -11,6 +11,12 @@ public class OAuthDispatcher extends Dispatcher
 
     public OAuthDispatcher(OAuthApp app)
     {
+        super(); //leave it to superclass to set default HttpTransport
+        this.app = app;
+    }
+    
+    public OAuthDispatcher(OAuthApp app, HttpTransport httpTransport) {
+        super(httpTransport);
         this.app = app;
     }
 
@@ -19,6 +25,6 @@ public class OAuthDispatcher extends Dispatcher
         if (app.credential == null) {
             throw new IOException("OAuthDispatcher: access token not set");
         }
-        return HTTP_TRANSPORT.createRequestFactory(app.credential).buildRequest(method, url, content);
+        return httpTransport.createRequestFactory(app.credential).buildRequest(method, url, content);
     }
 }

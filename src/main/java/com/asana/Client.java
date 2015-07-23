@@ -227,6 +227,16 @@ public class Client
     {
         return new Client(new BasicAuthDispatcher(apiKey));
     }
+    
+    /**
+     * @param apiKey Basic Auth API key
+     * @param httpTransport HttpTransport implementation to use for requests
+     * @return Client instance
+     */
+    public static Client basicAuth(String apiKey, HttpTransport httpTransport)
+    {
+        return new Client(new BasicAuthDispatcher(apiKey, httpTransport));
+    }
 
     /**
      * @param app OAuth application instance
@@ -235,5 +245,14 @@ public class Client
     public static Client oauth(OAuthApp app)
     {
         return new Client(new OAuthDispatcher(app));
+    }
+    
+    /**
+     * @param app OAuth application instance
+     * @param httpTransport HttpTransport implementation to use for requests
+     * @return Client instance
+     */
+    public static Client oauth(OAuthApp app, HttpTransport httpTransport) {
+        return new Client(new OAuthDispatcher(app, transport));
     }
 }
