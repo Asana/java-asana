@@ -253,6 +253,6 @@ public class Client
      * @return Client instance
      */
     public static Client oauth(OAuthApp app, HttpTransport httpTransport) {
-        return new Client(new OAuthDispatcher(app, transport));
+        return new Client(new OAuthDispatcher(app, httpTransport));
     }
 }
