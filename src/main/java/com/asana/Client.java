@@ -211,10 +211,13 @@ public class Client
         values.put("os", System.getProperty("os.name"));
         values.put("os_version", System.getProperty("os.version"));
         for (Map.Entry<String, String> entry : values.entrySet()) {
-            builder.append("&");
-            builder.append(URLEncoder.encode(entry.getKey()));
-            builder.append("=");
-            builder.append(URLEncoder.encode(entry.getValue()));
+            //some of the values above aren't defined on all platforms; URLEncoder chokes on null
+            if (entry.getValue() != null) {
+	            builder.append("&");
+	            builder.append(URLEncoder.encode(entry.getKey()));
+	            builder.append("=");
+	            builder.append(URLEncoder.encode(entry.getValue()));
+            }
         }
         return builder.toString().substring(1);
     }
