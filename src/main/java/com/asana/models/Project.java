@@ -27,7 +27,8 @@ public class Project
     public Project() {
         //no-arg constructor
     }
-    
+
+    // constructor with id arg provided for convenience
     public Project(String id)
     {
         this.id = id;
