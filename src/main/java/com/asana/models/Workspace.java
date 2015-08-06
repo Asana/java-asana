@@ -12,7 +12,13 @@ public class Workspace
     @SerializedName("email_domains") public Collection<String> emailDomains;
     @SerializedName("is_organization") public boolean isOrganization;
 
+    public Workspace() {
+        //no-arg constructor
+    }
+
+    // constructor with id arg provided for convenience
     public Workspace(String id) {
         this.id = id;
     }
+
 }
