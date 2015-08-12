@@ -4,10 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class Event
-{
-    private class Entity
-    {
+public class Event {
+    public class Entity {
         public String id;
         public String name;
     }
