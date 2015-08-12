@@ -129,4 +129,17 @@ public class TagsBase extends Resource
         String path = String.format("/workspaces/%s/tags", workspace);
         return new CollectionRequest<Tag>(this, Tag.class, path, "GET");
     }
+
+    /**
+     * Returns the compact task records for all tasks with the given tag.
+     * Tasks can have more than one tag at a time.
+     *
+     * @param  tag The tag to fetch tasks from.
+     * @return Request object
+     */
+    public CollectionRequest<Tag> getTasksWithTag(String tag)
+    {
+        String path = String.format("/tags/%s/tasks", tag);
+        return new CollectionRequest<Tag>(this, Tag.class, path, "GET");
+    }
 }

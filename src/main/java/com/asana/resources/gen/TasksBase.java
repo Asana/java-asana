@@ -45,7 +45,7 @@ public class TasksBase extends Resource
      * 
      * Every task is required to be created in a specific workspace, and this
      * workspace cannot be changed once set. The workspace need not be set
-     * explicitly if you specify a project or a parent task instead.
+     * explicitly if you specify a `project` or a `parent` task instead.
      *
      * @param  workspace The workspace to create a task in.
      * @return Request object
@@ -262,7 +262,8 @@ public class TasksBase extends Resource
     }
 
     /**
-     * Makes an existing task a subtask of another. Returns an empty data block.
+     * Creates a new subtask and adds it to the parent task. Returns the full record
+     * for the newly created subtask.
      *
      * @param  task The task to add a subtask to.
      * @return Request object

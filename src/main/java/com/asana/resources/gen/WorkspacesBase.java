@@ -55,7 +55,13 @@ public class WorkspacesBase extends Resource
     }
 
     /**
-     * Update properties on a workspace. Returns the complete, updated workspace record.
+     * A specific, existing workspace can be updated by making a PUT request on
+     * the URL for that workspace. Only the fields provided in the data block
+     * will be updated; any unspecified fields will remain unchanged.
+     * 
+     * Currently the only field that can be modified for a workspace is its `name`.
+     * 
+     * Returns the complete, updated workspace record.
      *
      * @param  workspace The workspace to update.
      * @return Request object

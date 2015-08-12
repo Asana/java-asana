@@ -156,4 +156,29 @@ public class ProjectsBase extends Resource
         String path = String.format("/teams/%s/projects", team);
         return new CollectionRequest<Project>(this, Project.class, path, "GET");
     }
+
+    /**
+     * Returns compact records for all sections in the specified project.
+     *
+     * @param  project The project to get sections from.
+     * @return Request object
+     */
+    public CollectionRequest<Project> sections(String project)
+    {
+        String path = String.format("/projects/%s/sections", project);
+        return new CollectionRequest<Project>(this, Project.class, path, "GET");
+    }
+
+    /**
+     * Returns the compact task records for all tasks within the given project,
+     * ordered by their priority within the project. Tasks can exist in more than one project at a time.
+     *
+     * @param  projectId The project in which to search for tasks.
+     * @return Request object
+     */
+    public CollectionRequest<Project> getTasksInProject(String projectId)
+    {
+        String path = String.format("/projects/%s/tasks", projectId);
+        return new CollectionRequest<Project>(this, Project.class, path, "GET");
+    }
 }
