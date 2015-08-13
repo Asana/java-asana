@@ -173,12 +173,12 @@ public class ProjectsBase extends Resource
      * Returns the compact task records for all tasks within the given project,
      * ordered by their priority within the project. Tasks can exist in more than one project at a time.
      *
-     * @param  projectId The project in which to search for tasks.
+     * @param  project The project in which to search for tasks.
      * @return Request object
      */
-    public CollectionRequest<Project> getTasksInProject(String projectId)
+    public CollectionRequest<Project> getTasksInProject(String project)
     {
-        String path = String.format("/projects/%s/tasks", projectId);
+        String path = String.format("/projects/%s/tasks", project);
         return new CollectionRequest<Project>(this, Project.class, path, "GET");
     }
 }
