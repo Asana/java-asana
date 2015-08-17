@@ -7,11 +7,20 @@ import java.io.IOException;
 
 public abstract class Dispatcher
 {
-    static HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-
+    protected HttpTransport httpTransport;
+    
+    
+    public Dispatcher() {
+        this.httpTransport = new NetHttpTransport();
+    }
+    
+    public Dispatcher(HttpTransport httpTransport) {
+        this.httpTransport = httpTransport;
+    }
+    
     public HttpRequest buildRequest(String method, GenericUrl url, HttpContent content) throws IOException
     {
-        return HTTP_TRANSPORT.createRequestFactory().buildRequest(method, url, content);
+        return httpTransport.createRequestFactory().buildRequest(method, url, content);
     }
 
     public void sleep(long millis)

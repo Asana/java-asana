@@ -65,7 +65,12 @@ public class ExampleOAuth
         User user = client.users.me().execute();
         System.out.println("me=" + user.name);
         System.out.println(user.id);
-        System.out.println(user.photo.image_128x128);
+        
+        // get your photo, if you have one
+        if (user.photo != null) {
+            System.out.println(user.photo.image_128x128);
+        }
+        
         System.out.println(user.workspaces.iterator().next().name);
 
         // demonstrate creating a client using a previously obtained bearer token

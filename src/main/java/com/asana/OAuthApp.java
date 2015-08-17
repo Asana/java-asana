@@ -14,7 +14,7 @@ public class OAuthApp
     public static final String NATIVE_REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob";
 
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-    private static final JsonFactory JSON_FACTORY = new GsonFactory();
+    private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
     private static final String TOKEN_SERVER_URL = "https://app.asana.com/-/oauth_token";
     private static final String AUTHORIZATION_SERVER_URL = "https://app.asana.com/-/oauth_authorize";
@@ -31,12 +31,22 @@ public class OAuthApp
 
     public OAuthApp(String apiKey, String apiSecret, String redirectUri, String accessToken)
     {
+        this(apiKey, apiSecret, redirectUri, accessToken, HTTP_TRANSPORT, JSON_FACTORY);
+    }
+    
+    public OAuthApp(String apiKey, 
+                    String apiSecret,
+                    String redirectUri,
+                    String accessToken,
+                    HttpTransport transport,
+                    JsonFactory jsonFactory)
+    {
         this.redirectUri = redirectUri;
 
         this.flow = new AuthorizationCodeFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
-                HTTP_TRANSPORT,
-                JSON_FACTORY,
+                transport,
+                jsonFactory,
                 new GenericUrl(TOKEN_SERVER_URL),
                 new ClientParametersAuthentication(apiKey, apiSecret),
                 apiKey,
@@ -48,7 +58,7 @@ public class OAuthApp
                     .setAccessToken(accessToken);
         }
     }
-
+    
     public boolean isAuthorized()
     {
         return this.credential != null;

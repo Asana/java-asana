@@ -4,8 +4,9 @@
     <groupId>com.asana</groupId>
     <artifactId>asana</artifactId>
     <packaging>jar</packaging>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.1.3</version>
     <url>http://maven.apache.org</url>
+    <name>java-asana</name>
     <description>A Java client for the Asana API.</description>
 
     <distributionManagement>
@@ -46,6 +47,10 @@
             <id>tlrobinson</id>
         </developer>
     </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <dependencies>
         <dependency>
