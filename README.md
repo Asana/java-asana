@@ -33,9 +33,10 @@ Examples
 
 Be sure to run `mvn compile` first.
 
-Set the ASANA_API_KEY, ASANA_CLIENT_ID, and ASANA_CLIENT_SECRET environment variables. The app's redirect URL should be set to "urn:ietf:wg:oauth:2.0:oob" for command line scripts examples, and "http://localhost:5000/auth/asana/callback" for the server example.
+Set the ASANA_ACCESS_TOKEN, ASANA_CLIENT_ID, and ASANA_CLIENT_SECRET environment variables. The app's redirect URL 
+should be set to "urn:ietf:wg:oauth:2.0:oob" for command line scripts examples, and "http://localhost:5000/auth/asana/callback" for the server example.
 
-    export ASANA_API_KEY="X"
+    export ASANA_ACCESS_TOKEN="X"
     export ASANA_CLIENT_ID="X"
     export ASANA_CLIENT_SECRET="X"
 
@@ -47,9 +48,9 @@ OAuth command line script example:
 
     mvn exec:java -Dexec.mainClass="com.asana.examples.ExampleOAuth"
 
-Basic Auth command line script example:
+Personal access token command line script example:
 
-    mvn exec:java -Dexec.mainClass="com.asana.examples.ExampleBasicAuth"
+    mvn exec:java -Dexec.mainClass="com.asana.examples.ExamplePersonalAccessToken"
 
 Demo create a task and upload an attachment:
 
@@ -62,11 +63,11 @@ Demo create project and stream change events:
 Authentication
 --------------
 
-### Basic Auth
+### Personal Access Token
 
-Create a client using your Asana API key:
+Create a client using a personal access token:
 
-    Client client = Client.basicAuth("ASANA_API_KEY");
+    Client client = Client.accessToken("ASANA_ACCESS_TOKEN");
 
 ### OAuth 2
 
