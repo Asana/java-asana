@@ -18,13 +18,11 @@ import com.asana.resources.Resource;
 /**
 <%= comment(resource.comment) %>
  */
-public class <%= plural(cap(resource.name)) + "Base" %> extends Resource
-{
+public class <%= plural(cap(resource.name)) + "Base" %> extends Resource {
     /**
      * @param client Parent client instance
      */
-    public <%= plural(cap(resource.name)) + "Base" %>(Client client)
-    {
+    public <%= plural(cap(resource.name)) + "Base" %>(Client client) {
         super(client);
     }<% _.forEach(resource.actions, function(action) {
     if (action.no_code) {
@@ -53,8 +51,8 @@ public class <%= plural(cap(resource.name)) + "Base" %> extends Resource
 <%= comment('@param  ' + param.name + ' ' + param.comment, 4) %><% }); %>
      * @return Request object
      */
-    public <%= returnClass %> <%= action.name %>(<%= pathParamNamesAndTypes.join(", ") %>)
-    {<% if (pathParamNames.length > 0) { %>
+    public <%= returnClass %> <%= action.name %>(<%= pathParamNamesAndTypes.join(", ") %>) {
+    <% if (pathParamNames.length > 0) { %>
         String path = String.format(<%= JSON.stringify(path) %>, <%= pathParamNames.join(", ") %>);
         return new <%= returnClass %>(this, <%= modelClass %>.class, path, <%= JSON.stringify(method) %>);
     <% } else { %>
