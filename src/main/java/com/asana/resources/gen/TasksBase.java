@@ -12,13 +12,11 @@ import com.asana.requests.CollectionRequest;
  * according to some view parameters, and the set of selected tasks determines
  * the more detailed information presented in the details pane.
  */
-public class TasksBase extends Resource
-{
+public class TasksBase extends Resource {
     /**
      * @param client Parent client instance
      */
-    public TasksBase(Client client)
-    {
+    public TasksBase(Client client) {
         super(client);
     }
 
@@ -33,8 +31,8 @@ public class TasksBase extends Resource
      *
      * @return Request object
      */
-    public ItemRequest<Task> create()
-    {
+    public ItemRequest<Task> create() {
+    
         return new ItemRequest<Task>(this, Task.class, "/tasks", "POST");
     }
 
@@ -50,8 +48,8 @@ public class TasksBase extends Resource
      * @param  workspace The workspace to create a task in.
      * @return Request object
      */
-    public ItemRequest<Task> createInWorkspace(String workspace)
-    {
+    public ItemRequest<Task> createInWorkspace(String workspace) {
+    
         String path = String.format("/workspaces/%s/tasks", workspace);
         return new ItemRequest<Task>(this, Task.class, path, "POST");
     }
@@ -62,8 +60,8 @@ public class TasksBase extends Resource
      * @param  task The task to get.
      * @return Request object
      */
-    public ItemRequest<Task> findById(String task)
-    {
+    public ItemRequest<Task> findById(String task) {
+    
         String path = String.format("/tasks/%s", task);
         return new ItemRequest<Task>(this, Task.class, path, "GET");
     }
@@ -82,8 +80,8 @@ public class TasksBase extends Resource
      * @param  task The task to update.
      * @return Request object
      */
-    public ItemRequest<Task> update(String task)
-    {
+    public ItemRequest<Task> update(String task) {
+    
         String path = String.format("/tasks/%s", task);
         return new ItemRequest<Task>(this, Task.class, path, "PUT");
     }
@@ -99,8 +97,8 @@ public class TasksBase extends Resource
      * @param  task The task to delete.
      * @return Request object
      */
-    public ItemRequest<Task> delete(String task)
-    {
+    public ItemRequest<Task> delete(String task) {
+    
         String path = String.format("/tasks/%s", task);
         return new ItemRequest<Task>(this, Task.class, path, "DELETE");
     }
@@ -112,8 +110,8 @@ public class TasksBase extends Resource
      * @param  projectId The project in which to search for tasks.
      * @return Request object
      */
-    public CollectionRequest<Task> findByProject(String projectId)
-    {
+    public CollectionRequest<Task> findByProject(String projectId) {
+    
         String path = String.format("/projects/%s/tasks", projectId);
         return new CollectionRequest<Task>(this, Task.class, path, "GET");
     }
@@ -124,8 +122,8 @@ public class TasksBase extends Resource
      * @param  tag The tag in which to search for tasks.
      * @return Request object
      */
-    public CollectionRequest<Task> findByTag(String tag)
-    {
+    public CollectionRequest<Task> findByTag(String tag) {
+    
         String path = String.format("/tags/%s/tasks", tag);
         return new CollectionRequest<Task>(this, Task.class, path, "GET");
     }
@@ -136,8 +134,8 @@ public class TasksBase extends Resource
      *
      * @return Request object
      */
-    public CollectionRequest<Task> findAll()
-    {
+    public CollectionRequest<Task> findAll() {
+    
         return new CollectionRequest<Task>(this, Task.class, "/tasks", "GET");
     }
 
@@ -148,8 +146,8 @@ public class TasksBase extends Resource
      * @param  task The task to add followers to.
      * @return Request object
      */
-    public ItemRequest<Task> addFollowers(String task)
-    {
+    public ItemRequest<Task> addFollowers(String task) {
+    
         String path = String.format("/tasks/%s/addFollowers", task);
         return new ItemRequest<Task>(this, Task.class, path, "POST");
     }
@@ -161,8 +159,8 @@ public class TasksBase extends Resource
      * @param  task The task to remove followers from.
      * @return Request object
      */
-    public ItemRequest<Task> removeFollowers(String task)
-    {
+    public ItemRequest<Task> removeFollowers(String task) {
+    
         String path = String.format("/tasks/%s/removeFollowers", task);
         return new ItemRequest<Task>(this, Task.class, path, "POST");
     }
@@ -173,8 +171,8 @@ public class TasksBase extends Resource
      * @param  task The task to get projects on.
      * @return Request object
      */
-    public CollectionRequest<Task> projects(String task)
-    {
+    public CollectionRequest<Task> projects(String task) {
+    
         String path = String.format("/tasks/%s/projects", task);
         return new CollectionRequest<Task>(this, Task.class, path, "GET");
     }
@@ -192,8 +190,8 @@ public class TasksBase extends Resource
      * @param  task The task to add to a project.
      * @return Request object
      */
-    public ItemRequest<Task> addProject(String task)
-    {
+    public ItemRequest<Task> addProject(String task) {
+    
         String path = String.format("/tasks/%s/addProject", task);
         return new ItemRequest<Task>(this, Task.class, path, "POST");
     }
@@ -207,8 +205,8 @@ public class TasksBase extends Resource
      * @param  task The task to remove from a project.
      * @return Request object
      */
-    public ItemRequest<Task> removeProject(String task)
-    {
+    public ItemRequest<Task> removeProject(String task) {
+    
         String path = String.format("/tasks/%s/removeProject", task);
         return new ItemRequest<Task>(this, Task.class, path, "POST");
     }
@@ -219,8 +217,8 @@ public class TasksBase extends Resource
      * @param  task The task to get tags on.
      * @return Request object
      */
-    public CollectionRequest<Task> tags(String task)
-    {
+    public CollectionRequest<Task> tags(String task) {
+    
         String path = String.format("/tasks/%s/tags", task);
         return new CollectionRequest<Task>(this, Task.class, path, "GET");
     }
@@ -231,8 +229,8 @@ public class TasksBase extends Resource
      * @param  task The task to add a tag to.
      * @return Request object
      */
-    public ItemRequest<Task> addTag(String task)
-    {
+    public ItemRequest<Task> addTag(String task) {
+    
         String path = String.format("/tasks/%s/addTag", task);
         return new ItemRequest<Task>(this, Task.class, path, "POST");
     }
@@ -243,8 +241,8 @@ public class TasksBase extends Resource
      * @param  task The task to remove a tag from.
      * @return Request object
      */
-    public ItemRequest<Task> removeTag(String task)
-    {
+    public ItemRequest<Task> removeTag(String task) {
+    
         String path = String.format("/tasks/%s/removeTag", task);
         return new ItemRequest<Task>(this, Task.class, path, "POST");
     }
@@ -255,8 +253,8 @@ public class TasksBase extends Resource
      * @param  task The task to get the subtasks of.
      * @return Request object
      */
-    public CollectionRequest<Task> subtasks(String task)
-    {
+    public CollectionRequest<Task> subtasks(String task) {
+    
         String path = String.format("/tasks/%s/subtasks", task);
         return new CollectionRequest<Task>(this, Task.class, path, "GET");
     }
@@ -268,8 +266,8 @@ public class TasksBase extends Resource
      * @param  task The task to add a subtask to.
      * @return Request object
      */
-    public ItemRequest<Task> addSubtask(String task)
-    {
+    public ItemRequest<Task> addSubtask(String task) {
+    
         String path = String.format("/tasks/%s/subtasks", task);
         return new ItemRequest<Task>(this, Task.class, path, "POST");
     }
@@ -280,8 +278,8 @@ public class TasksBase extends Resource
      * @param  task The task containing the stories to get.
      * @return Request object
      */
-    public CollectionRequest<Task> stories(String task)
-    {
+    public CollectionRequest<Task> stories(String task) {
+    
         String path = String.format("/tasks/%s/stories", task);
         return new CollectionRequest<Task>(this, Task.class, path, "GET");
     }
@@ -296,8 +294,8 @@ public class TasksBase extends Resource
      * @param  task Globally unique identifier for the task.
      * @return Request object
      */
-    public ItemRequest<Task> addComment(String task)
-    {
+    public ItemRequest<Task> addComment(String task) {
+    
         String path = String.format("/tasks/%s/stories", task);
         return new ItemRequest<Task>(this, Task.class, path, "POST");
     }

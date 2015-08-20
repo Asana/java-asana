@@ -15,13 +15,11 @@ import com.asana.requests.CollectionRequest;
  * Stories are a form of history in the system, and as such they are read-only.
  * Once generated, it is not possible to modify a story.
  */
-public class StoriesBase extends Resource
-{
+public class StoriesBase extends Resource {
     /**
      * @param client Parent client instance
      */
-    public StoriesBase(Client client)
-    {
+    public StoriesBase(Client client) {
         super(client);
     }
 
@@ -31,8 +29,8 @@ public class StoriesBase extends Resource
      * @param  story Globally unique identifier for the story.
      * @return Request object
      */
-    public ItemRequest<Story> findById(String story)
-    {
+    public ItemRequest<Story> findById(String story) {
+    
         String path = String.format("/stories/%s", story);
         return new ItemRequest<Story>(this, Story.class, path, "GET");
     }
@@ -43,8 +41,8 @@ public class StoriesBase extends Resource
      * @param  task Globally unique identifier for the task.
      * @return Request object
      */
-    public CollectionRequest<Story> findByTask(String task)
-    {
+    public CollectionRequest<Story> findByTask(String task) {
+    
         String path = String.format("/tasks/%s/stories", task);
         return new CollectionRequest<Story>(this, Story.class, path, "GET");
     }
@@ -59,8 +57,8 @@ public class StoriesBase extends Resource
      * @param  task Globally unique identifier for the task.
      * @return Request object
      */
-    public ItemRequest<Story> createOnTask(String task)
-    {
+    public ItemRequest<Story> createOnTask(String task) {
+    
         String path = String.format("/tasks/%s/stories", task);
         return new ItemRequest<Story>(this, Story.class, path, "POST");
     }

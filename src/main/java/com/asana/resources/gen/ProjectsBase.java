@@ -16,13 +16,11 @@ import com.asana.requests.CollectionRequest;
  * have teams and so you should not specify the team of project in a
  * regular workspace.
  */
-public class ProjectsBase extends Resource
-{
+public class ProjectsBase extends Resource {
     /**
      * @param client Parent client instance
      */
-    public ProjectsBase(Client client)
-    {
+    public ProjectsBase(Client client) {
         super(client);
     }
 
@@ -41,8 +39,8 @@ public class ProjectsBase extends Resource
      *
      * @return Request object
      */
-    public ItemRequest<Project> create()
-    {
+    public ItemRequest<Project> create() {
+    
         return new ItemRequest<Project>(this, Project.class, "/projects", "POST");
     }
 
@@ -55,8 +53,8 @@ public class ProjectsBase extends Resource
      * @param  workspace The workspace or organization to create the project in.
      * @return Request object
      */
-    public ItemRequest<Project> createInWorkspace(String workspace)
-    {
+    public ItemRequest<Project> createInWorkspace(String workspace) {
+    
         String path = String.format("/workspaces/%s/projects", workspace);
         return new ItemRequest<Project>(this, Project.class, path, "POST");
     }
@@ -69,8 +67,8 @@ public class ProjectsBase extends Resource
      * @param  team The team to create the project in.
      * @return Request object
      */
-    public ItemRequest<Project> createInTeam(String team)
-    {
+    public ItemRequest<Project> createInTeam(String team) {
+    
         String path = String.format("/teams/%s/projects", team);
         return new ItemRequest<Project>(this, Project.class, path, "POST");
     }
@@ -81,8 +79,8 @@ public class ProjectsBase extends Resource
      * @param  project The project to get.
      * @return Request object
      */
-    public ItemRequest<Project> findById(String project)
-    {
+    public ItemRequest<Project> findById(String project) {
+    
         String path = String.format("/projects/%s", project);
         return new ItemRequest<Project>(this, Project.class, path, "GET");
     }
@@ -101,8 +99,8 @@ public class ProjectsBase extends Resource
      * @param  project The project to update.
      * @return Request object
      */
-    public ItemRequest<Project> update(String project)
-    {
+    public ItemRequest<Project> update(String project) {
+    
         String path = String.format("/projects/%s", project);
         return new ItemRequest<Project>(this, Project.class, path, "PUT");
     }
@@ -116,8 +114,8 @@ public class ProjectsBase extends Resource
      * @param  project The project to delete.
      * @return Request object
      */
-    public ItemRequest<Project> delete(String project)
-    {
+    public ItemRequest<Project> delete(String project) {
+    
         String path = String.format("/projects/%s", project);
         return new ItemRequest<Project>(this, Project.class, path, "DELETE");
     }
@@ -128,8 +126,8 @@ public class ProjectsBase extends Resource
      *
      * @return Request object
      */
-    public CollectionRequest<Project> findAll()
-    {
+    public CollectionRequest<Project> findAll() {
+    
         return new CollectionRequest<Project>(this, Project.class, "/projects", "GET");
     }
 
@@ -139,8 +137,8 @@ public class ProjectsBase extends Resource
      * @param  workspace The workspace or organization to find projects in.
      * @return Request object
      */
-    public CollectionRequest<Project> findByWorkspace(String workspace)
-    {
+    public CollectionRequest<Project> findByWorkspace(String workspace) {
+    
         String path = String.format("/workspaces/%s/projects", workspace);
         return new CollectionRequest<Project>(this, Project.class, path, "GET");
     }
@@ -151,8 +149,8 @@ public class ProjectsBase extends Resource
      * @param  team The team to find projects in.
      * @return Request object
      */
-    public CollectionRequest<Project> findByTeam(String team)
-    {
+    public CollectionRequest<Project> findByTeam(String team) {
+    
         String path = String.format("/teams/%s/projects", team);
         return new CollectionRequest<Project>(this, Project.class, path, "GET");
     }
@@ -163,8 +161,8 @@ public class ProjectsBase extends Resource
      * @param  project The project to get sections from.
      * @return Request object
      */
-    public CollectionRequest<Project> sections(String project)
-    {
+    public CollectionRequest<Project> sections(String project) {
+    
         String path = String.format("/projects/%s/sections", project);
         return new CollectionRequest<Project>(this, Project.class, path, "GET");
     }
@@ -176,8 +174,8 @@ public class ProjectsBase extends Resource
      * @param  project The project in which to search for tasks.
      * @return Request object
      */
-    public CollectionRequest<Project> tasks(String project)
-    {
+    public CollectionRequest<Project> tasks(String project) {
+    
         String path = String.format("/projects/%s/tasks", project);
         return new CollectionRequest<Project>(this, Project.class, path, "GET");
     }
