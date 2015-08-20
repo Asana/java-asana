@@ -34,14 +34,14 @@ public class TeamsBase extends Resource
 
     /**
      * Returns the compact records for all teams in the organization visible to
-     * the isAuthorized user.
+     * the authorized user.
      *
-     * @param  team Globally unique identifier for the team.
+     * @param  organization Globally unique identifier for the workspace or organization.
      * @return Request object
      */
-    public CollectionRequest<Team> findByOrganization(String team)
+    public CollectionRequest<Team> findByOrganization(String organization)
     {
-        String path = String.format("/organizations/%s/teams", team);
+        String path = String.format("/organizations/%s/teams", organization);
         return new CollectionRequest<Team>(this, Team.class, path, "GET");
     }
 
@@ -53,7 +53,7 @@ public class TeamsBase extends Resource
      */
     public CollectionRequest<Team> users(String team)
     {
-        String path = String.format("/team/%s/users", team);
+        String path = String.format("/teams/%s/users", team);
         return new CollectionRequest<Team>(this, Team.class, path, "GET");
     }
 }

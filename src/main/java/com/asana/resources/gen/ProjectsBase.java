@@ -76,14 +76,14 @@ public class ProjectsBase extends Resource
     }
 
     /**
-     * Returns the complete task record for a single task.
+     * Returns the complete project record for a single project.
      *
-     * @param  task The task to get.
+     * @param  project The project to get.
      * @return Request object
      */
-    public ItemRequest<Project> findById(String task)
+    public ItemRequest<Project> findById(String project)
     {
-        String path = String.format("/projects/%s", task);
+        String path = String.format("/projects/%s", project);
         return new ItemRequest<Project>(this, Project.class, path, "GET");
     }
 
@@ -154,6 +154,31 @@ public class ProjectsBase extends Resource
     public CollectionRequest<Project> findByTeam(String team)
     {
         String path = String.format("/teams/%s/projects", team);
+        return new CollectionRequest<Project>(this, Project.class, path, "GET");
+    }
+
+    /**
+     * Returns compact records for all sections in the specified project.
+     *
+     * @param  project The project to get sections from.
+     * @return Request object
+     */
+    public CollectionRequest<Project> sections(String project)
+    {
+        String path = String.format("/projects/%s/sections", project);
+        return new CollectionRequest<Project>(this, Project.class, path, "GET");
+    }
+
+    /**
+     * Returns the compact task records for all tasks within the given project,
+     * ordered by their priority within the project. Tasks can exist in more than one project at a time.
+     *
+     * @param  project The project in which to search for tasks.
+     * @return Request object
+     */
+    public CollectionRequest<Project> tasks(String project)
+    {
+        String path = String.format("/projects/%s/tasks", project);
         return new CollectionRequest<Project>(this, Project.class, path, "GET");
     }
 }

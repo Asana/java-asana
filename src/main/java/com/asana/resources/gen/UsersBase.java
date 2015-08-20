@@ -35,7 +35,7 @@ public class UsersBase extends Resource
     }
 
     /**
-     * Returns the full user record for a single user.
+     * Returns the full user record for the single user with the provided ID.
      *
      * @param  user Globally unique identifier for the user.
      * @return Request object
@@ -47,8 +47,8 @@ public class UsersBase extends Resource
     }
 
     /**
-     * Returns the user records for all users in all workspaces and organizations
-     * accessible to the authenticated user.
+     * Returns the user records for all users in the specified workspace or
+     * organization.
      *
      * @param  workspace The workspace in which to get users.
      * @return Request object
@@ -60,8 +60,9 @@ public class UsersBase extends Resource
     }
 
     /**
-     * Returns the user records for all users in the specified workspace or
-     * organization.
+     * Returns the user records for all users in all workspaces and organizations
+     * accessible to the authenticated user. Accepts an optional workspace ID
+     * parameter.
      *
      * @return Request object
      */
