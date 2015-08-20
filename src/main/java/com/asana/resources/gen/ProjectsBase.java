@@ -176,7 +176,7 @@ public class ProjectsBase extends Resource
      * @param  project The project in which to search for tasks.
      * @return Request object
      */
-    public CollectionRequest<Project> getTasksInProject(String project)
+    public CollectionRequest<Project> tasks(String project)
     {
         String path = String.format("/projects/%s/tasks", project);
         return new CollectionRequest<Project>(this, Project.class, path, "GET");
