@@ -2,14 +2,11 @@ package com.asana.models;
 
 import java.util.List;
 
-public class ErrorBody
-{
-    public class Error
-    {
+public class ErrorBody {
+    public class Error {
         public String message;
 
-        public String toString()
-        {
+        public String toString() {
             return message;
         }
     }

@@ -1,6 +1,5 @@
 package com.asana.models;
 
-public class ResultBody<T>
-{
+public class ResultBody<T> {
     public T data;
 }

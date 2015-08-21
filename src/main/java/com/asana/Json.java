@@ -11,15 +11,13 @@ import java.util.TimeZone;
 /**
  * Class to handle serialization/deserialization of JSON
  */
-public class Json
-{
+public class Json {
     private static Gson instance;
 
     /**
      * Implements ISO 3339 date/time deserialization since SimpleDateFormat in Java 6 does not support the "X" format specifier
      */
-    private static class ISO3339DateDeserializer implements JsonDeserializer<Date>
-    {
+    private static class ISO3339DateDeserializer implements JsonDeserializer<Date> {
         @Override
         public Date deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -36,8 +34,7 @@ public class Json
     /**
      * @return Singleton instance of the Gson parser that handle Asana's date format (ISO 3339)
      */
-    static public Gson getInstance()
-    {
+    static public Gson getInstance() {
         if (instance == null) {
             instance = new GsonBuilder()
                     .registerTypeAdapter(Date.class, new ISO3339DateDeserializer())

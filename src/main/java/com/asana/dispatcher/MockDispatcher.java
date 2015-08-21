@@ -10,19 +10,19 @@ import com.google.gson.JsonParser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 
-public class MockDispatcher extends Dispatcher
-{
-    public class Call
-    {
+public class MockDispatcher extends Dispatcher {
+    public class Call {
         public LowLevelHttpRequest request;
         public LowLevelHttpResponse response;
         public String requestBody;
         public JsonElement parsedRequestBody;
 
-        public Call(LowLevelHttpRequest request, LowLevelHttpResponse response, String requestBody)
-        {
+        public Call(LowLevelHttpRequest request, LowLevelHttpResponse response, String requestBody) {
             this.request = request;
             this.response = response;
             this.requestBody = requestBody;
@@ -34,15 +34,14 @@ public class MockDispatcher extends Dispatcher
     }
 
     private HttpTransport transport;
-    private HashMap<String,LinkedList<MockLowLevelHttpResponse>> responses;
+    private HashMap<String, LinkedList<MockLowLevelHttpResponse>> responses;
     public ArrayList<Call> calls;
     public ArrayList<Integer> sleepCalls;
 
-    public MockDispatcher()
-    {
+    public MockDispatcher() {
         this.calls = new ArrayList<Call>();
         this.sleepCalls = new ArrayList<Integer>();
-        this.responses = new HashMap<String,LinkedList<MockLowLevelHttpResponse>>();
+        this.responses = new HashMap<String, LinkedList<MockLowLevelHttpResponse>>();
 
         this.transport = new MockHttpTransport() {
             @Override
@@ -70,14 +69,12 @@ public class MockDispatcher extends Dispatcher
         };
     }
 
-    public HttpRequest buildRequest(String method, GenericUrl url, HttpContent content) throws IOException
-    {
+    public HttpRequest buildRequest(String method, GenericUrl url, HttpContent content) throws IOException {
         return this.transport.createRequestFactory().buildRequest(method, url, content);
     }
 
-    public void sleep(long millis)
-    {
-        this.sleepCalls.add(new Integer((int)millis));
+    public void sleep(long millis) {
+        this.sleepCalls.add(new Integer((int) millis));
     }
 
     public MockHttpResponse registerResponse(String method, String path) {
@@ -92,21 +89,21 @@ public class MockDispatcher extends Dispatcher
         return response;
     }
 
-    public class MockHttpResponse extends MockLowLevelHttpResponse
-    {
+    public class MockHttpResponse extends MockLowLevelHttpResponse {
         public MockHttpResponse code(int statusCode) {
-            return (MockHttpResponse)super.setStatusCode(statusCode);
+            return (MockHttpResponse) super.setStatusCode(statusCode);
         }
+
         public MockHttpResponse content(String content) {
-            return (MockHttpResponse)super.setContent(content);
+            return (MockHttpResponse) super.setContent(content);
         }
+
         public MockHttpResponse header(String name, String value) {
-            return (MockHttpResponse)super.addHeader(name, value);
+            return (MockHttpResponse) super.addHeader(name, value);
         }
     }
 
-    private String formatRequestKey(String method, String path)
-    {
+    private String formatRequestKey(String method, String path) {
         String[] components = path.split("\\?");
         String result = method + ":" + components[0];
         if (components.length == 2 && components[1].length() > 0) {

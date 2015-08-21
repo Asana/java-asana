@@ -12,16 +12,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
  * API Key Instructions:
- *
+ * <p/>
  * 1. set your ASANA_API_KEY environment variable to the API key found in Asana Account Settings
- *
  */
 public class ExampleCreateTaskAndUpload {
 
-    public static void main( String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         if (System.getenv("ASANA_API_KEY") == null) {
             throw new Error("Please set the ASANA_API_KEY environment variable.");
         }
@@ -31,7 +28,7 @@ public class ExampleCreateTaskAndUpload {
 
         // find your "Personal Projects" project
         Workspace personalProjects = null;
-        for (Workspace workspace: client.workspaces.findAll()) {
+        for (Workspace workspace : client.workspaces.findAll()) {
             if (workspace.name.equals("Personal Projects")) {
                 personalProjects = workspace;
                 break;
@@ -41,7 +38,7 @@ public class ExampleCreateTaskAndUpload {
         // create a "demo project" if it doesn't exist
         List<Project> projects = client.projects.findByWorkspace(personalProjects.id).execute();
         Project demoProject = null;
-        for (Project project: projects) {
+        for (Project project : projects) {
             if (project.name.equals("demo project")) {
                 demoProject = project;
                 break;

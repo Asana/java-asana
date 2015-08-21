@@ -1,26 +1,24 @@
 package com.asana.errors;
 
 import com.asana.Json;
-import com.asana.models.*;
+import com.asana.models.ErrorBody;
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.repackaged.com.google.common.base.Joiner;
 
 import java.io.IOException;
-public class AsanaError extends IOException
-{
+
+public class AsanaError extends IOException {
     public int status;
     public HttpResponseException response;
 
-    public AsanaError(String message, int status, HttpResponseException exception)
-    {
+    public AsanaError(String message, int status, HttpResponseException exception) {
         super(constructMessage(message, exception));
 
         this.status = status;
         this.response = exception;
     }
 
-    public static AsanaError mapException(HttpResponseException exception) throws AsanaError
-    {
+    public static AsanaError mapException(HttpResponseException exception) throws AsanaError {
         switch (exception.getStatusCode()) {
             case ForbiddenError.STATUS:
                 return new ForbiddenError(exception);
@@ -41,8 +39,7 @@ public class AsanaError extends IOException
         }
     }
 
-    private static String constructMessage(String message, HttpResponseException exception)
-    {
+    private static String constructMessage(String message, HttpResponseException exception) {
         try {
             ErrorBody body = Json.getInstance().fromJson(exception.getContent(), ErrorBody.class);
             if (body.errors.size() > 0) {
