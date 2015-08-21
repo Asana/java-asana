@@ -14,16 +14,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class CollectionRequest<T> extends Request implements Iterable<T>
-{
+public class CollectionRequest<T> extends Request implements Iterable<T> {
     /**
      * @param resource
      * @param elementClass
      * @param path
      * @param method
      */
-    public CollectionRequest(Resource resource, Class<T> elementClass, String path, String method)
-    {
+    public CollectionRequest(Resource resource, Class<T> elementClass, String path, String method) {
         super(resource, elementClass, path, method);
     }
 
@@ -33,8 +31,7 @@ public class CollectionRequest<T> extends Request implements Iterable<T>
      * @return requested items
      * @throws IOException
      */
-    public List<T> execute() throws IOException
-    {
+    public List<T> execute() throws IOException {
         return this.executeRaw().data;
     }
 
@@ -44,14 +41,14 @@ public class CollectionRequest<T> extends Request implements Iterable<T>
      * @return Body containing the "data" object and other metadata
      * @throws IOException
      */
-    public ResultBodyCollection<T> executeRaw() throws IOException
-    {
+    public ResultBodyCollection<T> executeRaw() throws IOException {
         HttpResponse response = this.client.request(this);
         return Json.getInstance().fromJson(
                 new InputStreamReader(response.getContent()),
                 new com.google.common.reflect.TypeToken<ResultBodyCollection<T>>() {
                 }.where(
-                        new TypeParameter<T>() {},
+                        new TypeParameter<T>() {
+                        },
                         this.elementClass
                 ).getType()
         );
@@ -62,15 +59,31 @@ public class CollectionRequest<T> extends Request implements Iterable<T>
      *
      * @return Iterator
      */
-    public Iterator<T> iterator()
-    {
+    public Iterator<T> iterator() {
         return new CollectionPageIterator<T>(this).items();
     }
 
-    public CollectionRequest<T> query(Map<String, Object> object) { return (CollectionRequest<T>)super.query(object); }
-    public CollectionRequest<T> query(String key, Object value)   { return (CollectionRequest<T>)super.query(key, value); }
-    public CollectionRequest<T> data(HttpContent content)         { return (CollectionRequest<T>)super.data(content); }
-    public CollectionRequest<T> data(Map<String, Object> object)  { return (CollectionRequest<T>)super.data(object); }
-    public CollectionRequest<T> data(String key, Object value)    { return (CollectionRequest<T>)super.data(key, value); }
-    public CollectionRequest<T> option(String key, Object value)  { return (CollectionRequest<T>)super.option(key, value); }
+    public CollectionRequest<T> query(Map<String, Object> object) {
+        return (CollectionRequest<T>) super.query(object);
+    }
+
+    public CollectionRequest<T> query(String key, Object value) {
+        return (CollectionRequest<T>) super.query(key, value);
+    }
+
+    public CollectionRequest<T> data(HttpContent content) {
+        return (CollectionRequest<T>) super.data(content);
+    }
+
+    public CollectionRequest<T> data(Map<String, Object> object) {
+        return (CollectionRequest<T>) super.data(object);
+    }
+
+    public CollectionRequest<T> data(String key, Object value) {
+        return (CollectionRequest<T>) super.data(key, value);
+    }
+
+    public CollectionRequest<T> option(String key, Object value) {
+        return (CollectionRequest<T>) super.option(key, value);
+    }
 }
