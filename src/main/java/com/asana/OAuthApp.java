@@ -9,8 +9,7 @@ import com.google.api.client.json.gson.GsonFactory;
 
 import java.io.IOException;
 
-public class OAuthApp
-{
+public class OAuthApp {
     public static final String NATIVE_REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob";
 
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -24,23 +23,20 @@ public class OAuthApp
     private AuthorizationCodeFlow flow;
     public Credential credential;
 
-    public OAuthApp(String apiKey, String apiSecret, String redirectUri)
-    {
-        this(apiKey, apiSecret, redirectUri, null);
+    public OAuthApp(String clientID, String clientSecret, String redirectUri) {
+        this(clientID, clientSecret, redirectUri, null);
     }
 
-    public OAuthApp(String apiKey, String apiSecret, String redirectUri, String accessToken)
-    {
-        this(apiKey, apiSecret, redirectUri, accessToken, HTTP_TRANSPORT, JSON_FACTORY);
+    public OAuthApp(String clientID, String clientSecret, String redirectUri, String accessToken) {
+        this(clientID, clientSecret, redirectUri, accessToken, HTTP_TRANSPORT, JSON_FACTORY);
     }
-    
-    public OAuthApp(String apiKey, 
-                    String apiSecret,
+
+    public OAuthApp(String clientID,
+                    String clientSecret,
                     String redirectUri,
                     String accessToken,
                     HttpTransport transport,
-                    JsonFactory jsonFactory)
-    {
+                    JsonFactory jsonFactory) {
         this.redirectUri = redirectUri;
 
         this.flow = new AuthorizationCodeFlow.Builder(
@@ -48,8 +44,8 @@ public class OAuthApp
                 transport,
                 jsonFactory,
                 new GenericUrl(TOKEN_SERVER_URL),
-                new ClientParametersAuthentication(apiKey, apiSecret),
-                apiKey,
+                new ClientParametersAuthentication(clientID, clientSecret),
+                clientID,
                 AUTHORIZATION_SERVER_URL
         ).build();
 
@@ -58,14 +54,12 @@ public class OAuthApp
                     .setAccessToken(accessToken);
         }
     }
-    
-    public boolean isAuthorized()
-    {
+
+    public boolean isAuthorized() {
         return this.credential != null;
     }
 
-    public String getAuthorizationUrl(String state)
-    {
+    public String getAuthorizationUrl(String state) {
         AuthorizationCodeRequestUrl url = this.flow.newAuthorizationUrl();
         if (state != null) {
             url.setState(state);
@@ -74,8 +68,7 @@ public class OAuthApp
         return url.build();
     }
 
-    public String fetchToken(String code, String userId) throws IOException
-    {
+    public String fetchToken(String code, String userId) throws IOException {
         TokenResponse tokenResponse = this.flow.newTokenRequest(code)
                 .setRedirectUri(this.redirectUri)
                 .execute();
@@ -83,8 +76,7 @@ public class OAuthApp
         return credential.getAccessToken();
     }
 
-    public String fetchToken(String code) throws IOException
-    {
+    public String fetchToken(String code) throws IOException {
         return fetchToken(code, null);
     }
 }
