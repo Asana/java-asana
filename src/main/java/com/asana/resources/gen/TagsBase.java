@@ -15,13 +15,11 @@ import com.asana.requests.CollectionRequest;
  * Unlike projects, tags do not provide any ordering on the tasks they
  * are associated with.
  */
-public class TagsBase extends Resource
-{
+public class TagsBase extends Resource {
     /**
      * @param client Parent client instance
      */
-    public TagsBase(Client client)
-    {
+    public TagsBase(Client client) {
         super(client);
     }
 
@@ -37,8 +35,8 @@ public class TagsBase extends Resource
      *
      * @return Request object
      */
-    public ItemRequest<Tag> create()
-    {
+    public ItemRequest<Tag> create() {
+    
         return new ItemRequest<Tag>(this, Tag.class, "/tags", "POST");
     }
 
@@ -55,8 +53,8 @@ public class TagsBase extends Resource
      * @param  workspace The workspace or organization to create the tag in.
      * @return Request object
      */
-    public ItemRequest<Tag> createInWorkspace(String workspace)
-    {
+    public ItemRequest<Tag> createInWorkspace(String workspace) {
+    
         String path = String.format("/workspaces/%s/tags", workspace);
         return new ItemRequest<Tag>(this, Tag.class, path, "POST");
     }
@@ -67,8 +65,8 @@ public class TagsBase extends Resource
      * @param  tag The tag to get.
      * @return Request object
      */
-    public ItemRequest<Tag> findById(String tag)
-    {
+    public ItemRequest<Tag> findById(String tag) {
+    
         String path = String.format("/tags/%s", tag);
         return new ItemRequest<Tag>(this, Tag.class, path, "GET");
     }
@@ -86,8 +84,8 @@ public class TagsBase extends Resource
      * @param  tag The tag to update.
      * @return Request object
      */
-    public ItemRequest<Tag> update(String tag)
-    {
+    public ItemRequest<Tag> update(String tag) {
+    
         String path = String.format("/tags/%s", tag);
         return new ItemRequest<Tag>(this, Tag.class, path, "PUT");
     }
@@ -101,8 +99,8 @@ public class TagsBase extends Resource
      * @param  tag The tag to delete.
      * @return Request object
      */
-    public ItemRequest<Tag> delete(String tag)
-    {
+    public ItemRequest<Tag> delete(String tag) {
+    
         String path = String.format("/tags/%s", tag);
         return new ItemRequest<Tag>(this, Tag.class, path, "DELETE");
     }
@@ -113,8 +111,8 @@ public class TagsBase extends Resource
      *
      * @return Request object
      */
-    public CollectionRequest<Tag> findAll()
-    {
+    public CollectionRequest<Tag> findAll() {
+    
         return new CollectionRequest<Tag>(this, Tag.class, "/tags", "GET");
     }
 
@@ -124,8 +122,8 @@ public class TagsBase extends Resource
      * @param  workspace The workspace or organization to find tags in.
      * @return Request object
      */
-    public CollectionRequest<Tag> findByWorkspace(String workspace)
-    {
+    public CollectionRequest<Tag> findByWorkspace(String workspace) {
+    
         String path = String.format("/workspaces/%s/tags", workspace);
         return new CollectionRequest<Tag>(this, Tag.class, path, "GET");
     }
@@ -137,8 +135,8 @@ public class TagsBase extends Resource
      * @param  tag The tag to fetch tasks from.
      * @return Request object
      */
-    public CollectionRequest<Tag> getTasksWithTag(String tag)
-    {
+    public CollectionRequest<Tag> getTasksWithTag(String tag) {
+    
         String path = String.format("/tags/%s/tasks", tag);
         return new CollectionRequest<Tag>(this, Tag.class, path, "GET");
     }

@@ -11,13 +11,11 @@ import com.asana.requests.CollectionRequest;
  * whether it's an uploaded file or one associated via a third-party service
  * such as Dropbox or Google Drive.
  */
-public class AttachmentsBase extends Resource
-{
+public class AttachmentsBase extends Resource {
     /**
      * @param client Parent client instance
      */
-    public AttachmentsBase(Client client)
-    {
+    public AttachmentsBase(Client client) {
         super(client);
     }
 
@@ -27,8 +25,8 @@ public class AttachmentsBase extends Resource
      * @param  attachment Globally unique identifier for the attachment.
      * @return Request object
      */
-    public ItemRequest<Attachment> findById(String attachment)
-    {
+    public ItemRequest<Attachment> findById(String attachment) {
+    
         String path = String.format("/attachments/%s", attachment);
         return new ItemRequest<Attachment>(this, Attachment.class, path, "GET");
     }
@@ -39,8 +37,8 @@ public class AttachmentsBase extends Resource
      * @param  task Globally unique identifier for the task.
      * @return Request object
      */
-    public CollectionRequest<Attachment> findByTask(String task)
-    {
+    public CollectionRequest<Attachment> findByTask(String task) {
+    
         String path = String.format("/tasks/%s/attachments", task);
         return new CollectionRequest<Attachment>(this, Attachment.class, path, "GET");
     }

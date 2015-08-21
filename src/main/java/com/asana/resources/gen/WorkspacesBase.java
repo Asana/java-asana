@@ -22,13 +22,11 @@ import com.asana.requests.CollectionRequest;
  * some reasonable grace period following any further announcements, you can
  * still reference organizations in any `workspace` parameter.
  */
-public class WorkspacesBase extends Resource
-{
+public class WorkspacesBase extends Resource {
     /**
      * @param client Parent client instance
      */
-    public WorkspacesBase(Client client)
-    {
+    public WorkspacesBase(Client client) {
         super(client);
     }
 
@@ -38,8 +36,8 @@ public class WorkspacesBase extends Resource
      * @param  workspace Globally unique identifier for the workspace or organization.
      * @return Request object
      */
-    public ItemRequest<Workspace> findById(String workspace)
-    {
+    public ItemRequest<Workspace> findById(String workspace) {
+    
         String path = String.format("/workspaces/%s", workspace);
         return new ItemRequest<Workspace>(this, Workspace.class, path, "GET");
     }
@@ -49,8 +47,8 @@ public class WorkspacesBase extends Resource
      *
      * @return Request object
      */
-    public CollectionRequest<Workspace> findAll()
-    {
+    public CollectionRequest<Workspace> findAll() {
+    
         return new CollectionRequest<Workspace>(this, Workspace.class, "/workspaces", "GET");
     }
 
@@ -66,8 +64,8 @@ public class WorkspacesBase extends Resource
      * @param  workspace The workspace to update.
      * @return Request object
      */
-    public ItemRequest<Workspace> update(String workspace)
-    {
+    public ItemRequest<Workspace> update(String workspace) {
+    
         String path = String.format("/workspaces/%s", workspace);
         return new ItemRequest<Workspace>(this, Workspace.class, path, "PUT");
     }
@@ -82,8 +80,8 @@ public class WorkspacesBase extends Resource
      * @param  workspace The workspace to fetch objects from.
      * @return Request object
      */
-    public CollectionRequest<Workspace> typeahead(String workspace)
-    {
+    public CollectionRequest<Workspace> typeahead(String workspace) {
+    
         String path = String.format("/workspaces/%s/typeahead", workspace);
         return new CollectionRequest<Workspace>(this, Workspace.class, path, "GET");
     }

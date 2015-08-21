@@ -14,13 +14,11 @@ import com.asana.requests.CollectionRequest;
  * However, the special string identifier `me` can be used anywhere
  * a user ID is accepted, to refer to the current authenticated user.
  */
-public class UsersBase extends Resource
-{
+public class UsersBase extends Resource {
     /**
      * @param client Parent client instance
      */
-    public UsersBase(Client client)
-    {
+    public UsersBase(Client client) {
         super(client);
     }
 
@@ -29,8 +27,8 @@ public class UsersBase extends Resource
      *
      * @return Request object
      */
-    public ItemRequest<User> me()
-    {
+    public ItemRequest<User> me() {
+    
         return new ItemRequest<User>(this, User.class, "/users/me", "GET");
     }
 
@@ -40,8 +38,8 @@ public class UsersBase extends Resource
      * @param  user Globally unique identifier for the user.
      * @return Request object
      */
-    public ItemRequest<User> findById(String user)
-    {
+    public ItemRequest<User> findById(String user) {
+    
         String path = String.format("/users/%s", user);
         return new ItemRequest<User>(this, User.class, path, "GET");
     }
@@ -53,8 +51,8 @@ public class UsersBase extends Resource
      * @param  workspace The workspace in which to get users.
      * @return Request object
      */
-    public CollectionRequest<User> findByWorkspace(String workspace)
-    {
+    public CollectionRequest<User> findByWorkspace(String workspace) {
+    
         String path = String.format("/workspaces/%s/users", workspace);
         return new CollectionRequest<User>(this, User.class, path, "GET");
     }
@@ -66,8 +64,8 @@ public class UsersBase extends Resource
      *
      * @return Request object
      */
-    public CollectionRequest<User> findAll()
-    {
+    public CollectionRequest<User> findAll() {
+    
         return new CollectionRequest<User>(this, User.class, "/users", "GET");
     }
 }

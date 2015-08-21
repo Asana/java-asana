@@ -10,13 +10,11 @@ import com.asana.requests.CollectionRequest;
  * A _team_ is used to group related projects and people together within an
  * organization. Each project in an organization is associated with a team.
  */
-public class TeamsBase extends Resource
-{
+public class TeamsBase extends Resource {
     /**
      * @param client Parent client instance
      */
-    public TeamsBase(Client client)
-    {
+    public TeamsBase(Client client) {
         super(client);
     }
 
@@ -26,8 +24,8 @@ public class TeamsBase extends Resource
      * @param  team Globally unique identifier for the team.
      * @return Request object
      */
-    public ItemRequest<Team> findById(String team)
-    {
+    public ItemRequest<Team> findById(String team) {
+    
         String path = String.format("/teams/%s", team);
         return new ItemRequest<Team>(this, Team.class, path, "GET");
     }
@@ -39,8 +37,8 @@ public class TeamsBase extends Resource
      * @param  organization Globally unique identifier for the workspace or organization.
      * @return Request object
      */
-    public CollectionRequest<Team> findByOrganization(String organization)
-    {
+    public CollectionRequest<Team> findByOrganization(String organization) {
+    
         String path = String.format("/organizations/%s/teams", organization);
         return new CollectionRequest<Team>(this, Team.class, path, "GET");
     }
@@ -51,8 +49,8 @@ public class TeamsBase extends Resource
      * @param  team Globally unique identifier for the team.
      * @return Request object
      */
-    public CollectionRequest<Team> users(String team)
-    {
+    public CollectionRequest<Team> users(String team) {
+    
         String path = String.format("/teams/%s/users", team);
         return new CollectionRequest<Team>(this, Team.class, path, "GET");
     }

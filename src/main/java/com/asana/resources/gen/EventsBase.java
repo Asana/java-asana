@@ -30,13 +30,11 @@ import com.asana.resources.Resource;
  * Sync tokens always expire after 24 hours, but may expire sooner, depending on
  * load on the service.
  */
-public class EventsBase extends Resource
-{
+public class EventsBase extends Resource {
     /**
      * @param client Parent client instance
      */
-    public EventsBase(Client client)
-    {
+    public EventsBase(Client client) {
         super(client);
     }
 }
