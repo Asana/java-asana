@@ -16,5 +16,6 @@ public class Event {
     public User user;
     public Entity parent;
 
-    @SerializedName("created_at") public Date createdAt;
+    @SerializedName("created_at")
+    public Date createdAt;
 }

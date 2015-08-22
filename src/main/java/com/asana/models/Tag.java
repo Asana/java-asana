@@ -5,8 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Collection;
 import java.util.Date;
 
-public class Tag
-{
+public class Tag {
     public String id;
     public String name;
     public String notes;
@@ -15,5 +14,6 @@ public class Tag
     public Collection<User> followers;
     public Workspace workspace;
 
-    @SerializedName("created_at") public Date createdAt;
+    @SerializedName("created_at")
+    public Date createdAt;
 }

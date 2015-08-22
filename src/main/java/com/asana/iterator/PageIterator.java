@@ -13,40 +13,35 @@ import java.util.NoSuchElementException;
  * time, automatically updating the pagination parameter (e.x. the "offset" or "sync" token). Also exposes an
  * "items" iterator to iterate over the individual items.
  */
-abstract public class PageIterator<T> implements Iterator<Collection<T>>
-{
+abstract public class PageIterator<T> implements Iterator<Collection<T>> {
     protected CollectionRequest<T> request;
     protected long itemLimit;
     protected long pageSize;
     protected long count;
     protected Object continuation;
 
-    public PageIterator(CollectionRequest<T> request)
-    {
+    public PageIterator(CollectionRequest<T> request) {
         this.request = request;
         this.continuation = "";
         this.count = 0;
-        this.pageSize = (Integer)request.options.get("page_size");
-        this.itemLimit = request.options.containsKey("item_limit") ? (Integer)request.options.get("item_limit") : -1;
+        this.pageSize = (Integer) request.options.get("page_size");
+        this.itemLimit = request.options.containsKey("item_limit") ? (Integer) request.options.get("item_limit") : -1;
         if (this.itemLimit <= 0) {
             this.itemLimit = Long.MAX_VALUE;
         }
     }
 
-    private long currentLimit()
-    {
+    private long currentLimit() {
         return Math.min(this.pageSize, this.itemLimit - this.count);
     }
 
     @Override
-    public boolean hasNext()
-    {
+    public boolean hasNext() {
         return this.continuation != null && currentLimit() > 0;
     }
 
     @Override
-    public Collection<T> next() throws NoSuchElementException
-    {
+    public Collection<T> next() throws NoSuchElementException {
         this.request.query("limit", currentLimit());
         try {
             ResultBodyCollection<T> result = this.getNext();
@@ -63,16 +58,15 @@ abstract public class PageIterator<T> implements Iterator<Collection<T>>
     }
 
     @Override
-    public void remove()
-    {
+    public void remove() {
         throw new UnsupportedOperationException();
     }
 
-    public ItemIterator<T> items()
-    {
+    public ItemIterator<T> items() {
         return new ItemIterator<T>(this);
     }
 
     abstract protected ResultBodyCollection<T> getNext() throws IOException;
+
     abstract protected Object getContinuation(ResultBodyCollection<T> result);
 }

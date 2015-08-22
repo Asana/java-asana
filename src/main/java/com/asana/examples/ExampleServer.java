@@ -12,22 +12,18 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- *
  * OAuth Instructions:
- *
+ * <p/>
  * 1. create a new application in your Asana Account Settings ("App" panel)
  * 2. set the redirect URL to "http://localhost:5000/auth/asana/callback" (or whichever port you choose)
  * 3. set your ASANA_CLIENT_ID and ASANA_CLIENT_SECRET environment variables
- *
  */
-public class ExampleServer
-{
+public class ExampleServer {
     private static final String ASANA_CLIENT_ID = System.getenv("ASANA_CLIENT_ID");
     private static final String ASANA_CLIENT_SECRET = System.getenv("ASANA_CLIENT_SECRET");
     private static final String REDIRECT_URI = "http://localhost:5000/auth/asana/callback";
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         if (ASANA_CLIENT_ID == null || ASANA_CLIENT_SECRET == null) {
             System.err.println("Please set the ASANA_CLIENT_ID and ASANA_CLIENT_SECRET environment variables.");
             System.exit(1);

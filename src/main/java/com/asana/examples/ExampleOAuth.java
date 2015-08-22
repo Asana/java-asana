@@ -2,7 +2,7 @@ package com.asana.examples;
 
 import com.asana.Client;
 import com.asana.OAuthApp;
-import com.asana.models.*;
+import com.asana.models.User;
 import com.google.common.io.LineReader;
 
 import java.awt.*;
@@ -10,18 +10,14 @@ import java.io.InputStreamReader;
 import java.net.URI;
 
 /**
- *
  * OAuth Instructions:
- *
+ * <p/>
  * 1. create a new application in your Asana Account Settings ("App" panel)
  * 2. set the redirect URL to "urn:ietf:wg:oauth:2.0:oob"
  * 3. set your ASANA_CLIENT_ID and ASANA_CLIENT_SECRET environment variables
- *
  */
-public class ExampleOAuth
-{
-    public static void main( String[] args) throws Exception
-    {
+public class ExampleOAuth {
+    public static void main(String[] args) throws Exception {
         if (System.getenv("ASANA_CLIENT_ID") == null || System.getenv("ASANA_CLIENT_SECRET") == null) {
             throw new Error("Please set the ASANA_CLIENT_ID and ASANA_CLIENT_SECRET environment variables.");
         }
@@ -65,12 +61,12 @@ public class ExampleOAuth
         User user = client.users.me().execute();
         System.out.println("me=" + user.name);
         System.out.println(user.id);
-        
+
         // get your photo, if you have one
         if (user.photo != null) {
             System.out.println(user.photo.image_128x128);
         }
-        
+
         System.out.println(user.workspaces.iterator().next().name);
 
         // demonstrate creating a client using a previously obtained bearer token

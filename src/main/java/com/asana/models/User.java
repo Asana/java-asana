@@ -2,10 +2,8 @@ package com.asana.models;
 
 import java.util.Collection;
 
-public class User
-{
-    public static class Photo
-    {
+public class User {
+    public static class Photo {
         public String image_128x128;
         public String image_21x21;
         public String image_27x27;
