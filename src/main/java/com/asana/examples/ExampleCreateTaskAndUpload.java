@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * API Key Instructions:
- * <p/>
+ * <p>
  * 1. set your ASANA_API_KEY environment variable to the API key found in Asana Account Settings
  */
 public class ExampleCreateTaskAndUpload {

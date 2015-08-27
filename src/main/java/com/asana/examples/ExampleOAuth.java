@@ -11,7 +11,7 @@ import java.net.URI;
 
 /**
  * OAuth Instructions:
- * <p/>
+ * <p>
  * 1. create a new application in your Asana Account Settings ("App" panel)
  * 2. set the redirect URL to "urn:ietf:wg:oauth:2.0:oob"
  * 3. set your ASANA_CLIENT_ID and ASANA_CLIENT_SECRET environment variables

@@ -5,7 +5,7 @@ import com.asana.models.User;
 
 /**
  * API Key Instructions:
- * <p/>
+ * <p>
  * 1. set your ASANA_ACCESS_TOKEN environment variable to a Personal Access Token found in Asana Account Settings
  */
 public class ExamplePersonalAccessToken {
