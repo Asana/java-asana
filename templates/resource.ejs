@@ -30,7 +30,6 @@ public class <%= plural(cap(resource.name)) + "Base" %> extends Resource {
     }
 
     var name = snake(action.name);
-    var path = action.path.replace(/%d/g, "%s");
     var method = action.method.toUpperCase();
     var modelClass = cap(resource.name);
     var returnClass;
