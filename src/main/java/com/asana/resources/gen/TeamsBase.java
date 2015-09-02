@@ -54,32 +54,4 @@ public class TeamsBase extends Resource {
         String path = String.format("/teams/%s/users", team);
         return new CollectionRequest<Team>(this, Team.class, path, "GET");
     }
-
-    /**
-     * The user making this call must be a member of the team in order to invite others.
-     * The user to invite must exist in the same organization as the team in order to be invited.
-     * The user to invite can be referenced by their globally unique user ID or their email address.
-     * Returns the full user record for the invited user.
-     *
-     * @param  team Globally unique identifier for the team.
-     * @return Request object
-     */
-    public ItemRequest<Team> addUser(String team) {
-    
-        String path = String.format("/teams/%s/addUser", team);
-        return new ItemRequest<Team>(this, Team.class, path, "POST");
-    }
-
-    /**
-     * The user to remove can be referenced by their globally unique user ID or their email address.
-     * Removes the user from the specified team. Returns an empty data record.
-     *
-     * @param  team Globally unique identifier for the team.
-     * @return Request object
-     */
-    public ItemRequest<Team> removeUser(String team) {
-    
-        String path = String.format("/teams/%s/removeUser", team);
-        return new ItemRequest<Team>(this, Team.class, path, "POST");
-    }
 }

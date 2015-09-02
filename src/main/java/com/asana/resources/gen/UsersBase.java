@@ -35,9 +35,7 @@ public class UsersBase extends Resource {
     /**
      * Returns the full user record for the single user with the provided ID.
      *
-     * @param  user An identifier for the user. Can be one of an email address,
-     * the globally unique identifier for the user, or the keyword `me`
-     * to indicate the current user making the request.
+     * @param  user Globally unique identifier for the user.
      * @return Request object
      */
     public ItemRequest<User> findById(String user) {
@@ -69,31 +67,5 @@ public class UsersBase extends Resource {
     public CollectionRequest<User> findAll() {
     
         return new CollectionRequest<User>(this, User.class, "/users", "GET");
-    }
-
-    /**
-     * The user can be referenced by their globally unique user ID or their email address.
-     * Returns the full user record for the invited user.
-     *
-     * @param  workspace The workspace or organization to invite the user to.
-     * @return Request object
-     */
-    public ItemRequest<User> add(String workspace) {
-    
-        String path = String.format("/workspaces/%s/addUser", workspace);
-        return new ItemRequest<User>(this, User.class, path, "POST");
-    }
-
-    /**
-     * The user making this call must be an admin in the workspace.
-     * Returns an empty data record.
-     *
-     * @param  workspace The workspace or organization to invite the user to.
-     * @return Request object
-     */
-    public ItemRequest<User> remove(String workspace) {
-    
-        String path = String.format("/workspaces/%s/removeUser", workspace);
-        return new ItemRequest<User>(this, User.class, path, "POST");
     }
 }
