@@ -24,18 +24,6 @@ public class StoriesBase extends Resource {
     }
 
     /**
-     * Returns the full record for a single story.
-     *
-     * @param  story Globally unique identifier for the story.
-     * @return Request object
-     */
-    public ItemRequest<Story> findById(String story) {
-    
-        String path = String.format("/stories/%s", story);
-        return new ItemRequest<Story>(this, Story.class, path, "GET");
-    }
-
-    /**
      * Returns the compact records for all stories on the task.
      *
      * @param  task Globally unique identifier for the task.
@@ -45,6 +33,18 @@ public class StoriesBase extends Resource {
     
         String path = String.format("/tasks/%s/stories", task);
         return new CollectionRequest<Story>(this, Story.class, path, "GET");
+    }
+
+    /**
+     * Returns the full record for a single story.
+     *
+     * @param  story Globally unique identifier for the story.
+     * @return Request object
+     */
+    public ItemRequest<Story> findById(String story) {
+    
+        String path = String.format("/stories/%s", story);
+        return new ItemRequest<Story>(this, Story.class, path, "GET");
     }
 
     /**
