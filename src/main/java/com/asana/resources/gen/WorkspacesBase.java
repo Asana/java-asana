@@ -85,4 +85,30 @@ public class WorkspacesBase extends Resource {
         String path = String.format("/workspaces/%s/typeahead", workspace);
         return new CollectionRequest<Workspace>(this, Workspace.class, path, "GET");
     }
+
+    /**
+     * The user can be referenced by their globally unique user ID or their email address.
+     * Returns the full user record for the invited user.
+     *
+     * @param  workspace The workspace or organization to invite the user to.
+     * @return Request object
+     */
+    public ItemRequest<Workspace> addUser(String workspace) {
+    
+        String path = String.format("/workspaces/%s/addUser", workspace);
+        return new ItemRequest<Workspace>(this, Workspace.class, path, "POST");
+    }
+
+    /**
+     * The user making this call must be an admin in the workspace.
+     * Returns an empty data record.
+     *
+     * @param  workspace The workspace or organization to invite the user to.
+     * @return Request object
+     */
+    public ItemRequest<Workspace> removeUser(String workspace) {
+    
+        String path = String.format("/workspaces/%s/removeUser", workspace);
+        return new ItemRequest<Workspace>(this, Workspace.class, path, "POST");
+    }
 }

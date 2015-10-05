@@ -35,7 +35,9 @@ public class UsersBase extends Resource {
     /**
      * Returns the full user record for the single user with the provided ID.
      *
-     * @param  user Globally unique identifier for the user.
+     * @param  user An identifier for the user. Can be one of an email address,
+     * the globally unique identifier for the user, or the keyword `me`
+     * to indicate the current user making the request.
      * @return Request object
      */
     public ItemRequest<User> findById(String user) {
