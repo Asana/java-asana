@@ -179,4 +179,55 @@ public class ProjectsBase extends Resource {
         String path = String.format("/projects/%s/tasks", project);
         return new CollectionRequest<Project>(this, Project.class, path, "GET");
     }
+
+    /**
+     * Adds the specified list of users as followers to the project. Followers are a subset of members, therefore if
+     * the users are not already members of the project they will also become members as a result of this operation.
+     * Returns the updated project record.
+     *
+     * @param  project The project to add followers to.
+     * @return Request object
+     */
+    public ItemRequest<Project> addFollowers(String project) {
+    
+        String path = String.format("/projects/%s/addFollowers", project);
+        return new ItemRequest<Project>(this, Project.class, path, "POST");
+    }
+
+    /**
+     * Removes the specified list of users from following the project, this will not affect project membership status.
+     * Returns the updated project record.
+     *
+     * @param  project The project to remove followers from.
+     * @return Request object
+     */
+    public ItemRequest<Project> removeFollowers(String project) {
+    
+        String path = String.format("/projects/%s/removeFollowers", project);
+        return new ItemRequest<Project>(this, Project.class, path, "POST");
+    }
+
+    /**
+     * Adds the specified list of users as members of the project. Returns the updated project record.
+     *
+     * @param  project The project to add members to.
+     * @return Request object
+     */
+    public ItemRequest<Project> addMembers(String project) {
+    
+        String path = String.format("/projects/%s/addMembers", project);
+        return new ItemRequest<Project>(this, Project.class, path, "POST");
+    }
+
+    /**
+     * Removes the specified list of members from the project. Returns the updated project record.
+     *
+     * @param  project The project to remove members from.
+     * @return Request object
+     */
+    public ItemRequest<Project> removeMembers(String project) {
+    
+        String path = String.format("/projects/%s/removeMembers", project);
+        return new ItemRequest<Project>(this, Project.class, path, "POST");
+    }
 }
