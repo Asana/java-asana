@@ -4,6 +4,7 @@ import com.google.api.client.util.DateTime;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
 
 /**
  * Class to handle serialization/deserialization of JSON
@@ -16,13 +17,13 @@ public class Json {
      */
     private static class ISO3339DateDeserializer implements JsonDeserializer<DateTime> {
         @Override
-        public DateTime deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+        public DateTime deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
             DateTime result = null;
             try {
                 String asString = jsonElement.getAsString();
                 result =  DateTime.parseRfc3339(asString);
-            } catch (Exception e)  {
-                System.out.println(e);
+            } catch (NumberFormatException e)  {
+                System.err.println("Couldn't parse date: " + jsonElement.getAsString());
             }
             return result;
         }
