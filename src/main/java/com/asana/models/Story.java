@@ -2,7 +2,7 @@ package com.asana.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import com.google.api.client.util.DateTime;
 
 public class Story {
     public String id;
@@ -12,5 +12,5 @@ public class Story {
     @SerializedName("created_by")
     public User createdBy;
     @SerializedName("created_at")
-    public Date createdAt;
+    public DateTime createdAt;
 }

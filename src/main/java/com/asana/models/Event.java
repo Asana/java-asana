@@ -2,7 +2,7 @@ package com.asana.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import com.google.api.client.util.DateTime;
 
 public class Event {
     public class Entity {
@@ -17,5 +17,5 @@ public class Event {
     public Entity parent;
 
     @SerializedName("created_at")
-    public Date createdAt;
+    public DateTime createdAt;
 }

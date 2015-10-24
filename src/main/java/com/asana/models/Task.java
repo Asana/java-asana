@@ -1,9 +1,9 @@
 package com.asana.models;
 
+import com.google.api.client.util.DateTime;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Collection;
-import java.util.Date;
 
 public class Task {
     public static class Membership {
@@ -21,11 +21,11 @@ public class Task {
     public String notes;
 
     @SerializedName("completed_at")
-    public Date completedAt;
+    public DateTime completedAt;
     @SerializedName("due_at")
-    public Date dueAt;
+    public DateTime dueAt;
     @SerializedName("due_on")
-    public Date dueOn;
+    public DateTime dueOn;
 
     public User assignee;
     @SerializedName("assignee_status")
@@ -45,7 +45,7 @@ public class Task {
     public Workspace workspace;
 
     @SerializedName("created_at")
-    public Date createdAt;
+    public DateTime createdAt;
     @SerializedName("modified_at")
-    public Date modifiedAt;
+    public DateTime modifiedAt;
 }
