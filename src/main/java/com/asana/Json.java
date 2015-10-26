@@ -20,8 +20,8 @@ public class Json {
         public DateTime deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
             DateTime result = null;
             try {
-                String asString = jsonElement.getAsString();
-                result =  DateTime.parseRfc3339(asString);
+                String date = jsonElement.getAsString();
+                result =  DateTime.parseRfc3339(date);
             } catch (NumberFormatException e)  {
                 System.err.println("Couldn't parse date: " + jsonElement.getAsString());
             }
