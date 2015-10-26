@@ -1,12 +1,15 @@
 package com.asana;
 
 import com.asana.models.Task;
+import com.google.api.client.util.DateTime;
 import com.google.common.io.Resources;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
@@ -60,10 +63,13 @@ public class ResourcesTest extends AsanaTest {
     }
 
     @Test
-    public void testFindTaskWithDueOn() throws IOException {
+    public void testParseTaskWithDateFields() throws IOException {
         String taskContent = IOUtils.toString(new FileInputStream(Resources.getResource("taskWithDueAt.json").getFile()));
         dispatcher.registerResponse("GET", "http://app/tasks/1").code(200).content(taskContent);
         Task task = client.tasks.findById("1").execute();
+
         assertEquals("task.dueOn", "2015-10-05", task.dueOn.toString());
+        assertEquals("task.dueAt", "2015-10-05T16:30:00.000Z", task.dueAt.toString());
+        assertEquals("task.createdAt", "2015-09-11T22:51:12.643Z", task.createdAt.toString());
     }
 }
