@@ -21,7 +21,7 @@ public class Json {
             DateTime result = null;
             try {
                 String date = jsonElement.getAsString();
-                result =  DateTime.parseRfc3339(date);
+                result = DateTime.parseRfc3339(date);
             } catch (NumberFormatException e)  {
                 System.err.println("Couldn't parse date: " + jsonElement.getAsString());
             }
