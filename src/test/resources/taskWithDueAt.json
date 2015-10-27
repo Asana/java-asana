@@ -1,0 +1,61 @@
+{
+  "data": {
+    "id": 49739198692015,
+    "created_at": "2015-09-11T22:51:12.643Z",
+    "modified_at": "2015-10-23T22:08:22.818Z",
+    "name": "Learn to use Nunchucks",
+    "notes": "\"QUOTES\"\n\n// Load node Asana library \nvar asana = require('asana');\n// Authorize\nvar client = asana.Client.create().useBasicAuth('SECRET_API_KEY');\n\n// Create new task\nclient.tasks.create({\n  'name':'Example Task',\n  'assignee':'8492584951132', // This is a real-world user ID\n  'workspace':'12359686868840', // And this is an actual workspace\n  'followers':'17941980459426' // And this is a real user as well\n})",
+    "completed": true,
+    "assignee_status": "upcoming",
+    "completed_at": "2015-10-23T22:08:22.166Z",
+    "due_on": "2015-10-05",
+    "due_at": "2015-10-05T16:30:00.000Z",
+    "workspace": {
+      "id": 5233820891524,
+      "name": "Moon Landing"
+    },
+    "num_hearts": 0,
+    "assignee": null,
+    "hearts": [],
+    "tags": [
+      {
+        "id": 57727560700187,
+        "name": "ninja"
+      },
+      {
+        "id": 57727560700189,
+        "name": "badasssery"
+      },
+      {
+        "id": 57727560700192,
+        "name": "The Good Shit"
+      }
+    ],
+    "parent": null,
+    "followers": [
+      {
+        "id": 31801768660480,
+        "name": "Wombat"
+      }
+    ],
+    "projects": [
+      {
+        "id": 46433765544973,
+        "name": "Ninja Training"
+      }
+    ],
+    "hearted": false,
+    "memberships": [
+      {
+        "project": {
+          "id": 46433765544973,
+          "name": "Ninja Training"
+        },
+        "section": {
+          "id": 46433765544985,
+          "name": "A section:"
+        }
+      }
+    ]
+  }
+}

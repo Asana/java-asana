@@ -3,7 +3,7 @@ package com.asana.models;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Collection;
-import java.util.Date;
+import com.google.api.client.util.DateTime;
 
 public class Tag {
     public String id;
@@ -15,5 +15,5 @@ public class Tag {
     public Workspace workspace;
 
     @SerializedName("created_at")
-    public Date createdAt;
+    public DateTime createdAt;
 }
