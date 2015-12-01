@@ -4,6 +4,7 @@ import com.asana.Client;
 import com.asana.resources.Resource;
 import com.asana.models.Webhook;
 import com.asana.requests.ItemRequest;
+import com.asana.requests.CollectionRequest;
 
 /**
  * **Webhooks are currently in BETA - The information here may change.**
@@ -91,9 +92,9 @@ public class WebhooksBase extends Resource {
      *
      * @return Request object
      */
-    public ItemRequest<Webhook> getAll() {
+    public CollectionRequest<Webhook> getAll() {
     
-        return new ItemRequest<Webhook>(this, Webhook.class, "/webhooks", "GET");
+        return new CollectionRequest<Webhook>(this, Webhook.class, "/webhooks", "GET");
     }
 
     /**

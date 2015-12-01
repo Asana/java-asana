@@ -2,19 +2,20 @@ package com.asana.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import com.google.api.client.util.DateTime;
 
 public class Webhook {
+    public String id;
     public Entity resource;
     public String target;
     public boolean active;
 
     @SerializedName("created_at")
-    public Date createdAt;
+    public DateTime createdAt;
     @SerializedName("last_success_at")
-    public Date lastSuccessAt;
+    public DateTime lastSuccessAt;
     @SerializedName("last_failure_at")
-    public Date lastFailureAt;
+    public DateTime lastFailureAt;
     @SerializedName("last_failure_content")
     public String lastFailureContent;
 }
