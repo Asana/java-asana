@@ -6,7 +6,7 @@ import com.google.api.client.util.DateTime;
 
 public class Webhook {
     public String id;
-    public Entity resource;
+    public Event.Entity resource;
     public String target;
     public boolean active;
 
