@@ -27,6 +27,8 @@ public class Project {
     @SerializedName("modified_at")
     public DateTime modifiedAt;
 
+    public User owner;
+
     public Project() {
         //no-arg constructor
     }
