@@ -75,11 +75,12 @@ Asana supports OAuth 2. `java-asana` handles some of the details of the OAuth fl
 
 Create a client using your OAuth Client ID and secret:
 
-    Client client = Client.oauth(
+    OAuthApp app = new OAuthApp(
         "ASANA_CLIENT_ID"
         "ASANA_CLIENT_SECRET"
         "urn:ietf:wg:oauth:2.0:oob"
     );
+    Client client = Client.oauth(app);
 
 Redirect the user to the authorization URL obtained from the client's `session` object:
     
