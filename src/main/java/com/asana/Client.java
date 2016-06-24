@@ -150,7 +150,7 @@ public class Client {
             // JSON body
             body.put("data", request.data);
             String json = Json.getInstance().toJson(body);
-            content = new ByteArrayContent("application/json", json.getBytes());
+            content = new ByteArrayContent("application/json", json.getBytes("UTF-8"));
         }
 
         int retryCount = 0;
