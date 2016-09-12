@@ -7,8 +7,6 @@ import com.asana.requests.ItemRequest;
 import com.asana.requests.CollectionRequest;
 
 /**
- * **Webhooks are currently in BETA - The information here may change.**
- * 
  * Webhooks allow an application to be notified of changes. This is in addition
  * to the ability to fetch those changes directly as
  * [Events](/developers/api-reference/events) - in fact, Webhooks are just a way

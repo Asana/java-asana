@@ -44,6 +44,20 @@ public class TeamsBase extends Resource {
     }
 
     /**
+     * Returns the compact records for all teams to which user is assigned.
+     *
+     * @param  user An identifier for the user. Can be one of an email address,
+     * the globally unique identifier for the user, or the keyword `me`
+     * to indicate the current user making the request.
+     * @return Request object
+     */
+    public CollectionRequest<Team> findByUser(String user) {
+    
+        String path = String.format("/users/%s/teams", user);
+        return new CollectionRequest<Team>(this, Team.class, path, "GET");
+    }
+
+    /**
      * Returns the compact records for all users that are members of the team.
      *
      * @param  team Globally unique identifier for the team.

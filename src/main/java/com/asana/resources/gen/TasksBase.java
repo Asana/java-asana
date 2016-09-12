@@ -27,7 +27,10 @@ public class TasksBase extends Resource {
      * 
      * Every task is required to be created in a specific workspace, and this
      * workspace cannot be changed once set. The workspace need not be set
-     * explicitly if you specify a `project` or a `parent` task instead.
+     * explicitly if you specify `projects` or a `parent` task instead.
+     * 
+     * `projects` can be a comma separated list of projects, or just a single
+     * project the task should belong to.
      *
      * @return Request object
      */
@@ -130,7 +133,8 @@ public class TasksBase extends Resource {
 
     /**
      * Returns the compact task records for some filtered set of tasks. Use one
-     * or more of the parameters provided to filter the tasks returned.
+     * or more of the parameters provided to filter the tasks returned. You must
+     * specify a `project` or `tag` if you do not specify `assignee` and `workspace`.
      *
      * @return Request object
      */
