@@ -10,7 +10,7 @@ If you use [Maven](http://maven.apache.org/) to manage dependencies you can incl
     <dependency>
          <groupId>com.asana</groupId>
          <artifactId>asana</artifactId>
-         <version>0.3.0</version>
+         <version>0.4.1</version>
     </dependency>
 
 Or, you can build the artifact and install it to your local Maven repository:
@@ -75,11 +75,12 @@ Asana supports OAuth 2. `java-asana` handles some of the details of the OAuth fl
 
 Create a client using your OAuth Client ID and secret:
 
-    Client client = Client.oauth(
+    OAuthApp app = new OAuthApp(
         "ASANA_CLIENT_ID"
         "ASANA_CLIENT_SECRET"
         "urn:ietf:wg:oauth:2.0:oob"
     );
+    Client client = Client.oauth(app);
 
 Redirect the user to the authorization URL obtained from the client's `session` object:
     

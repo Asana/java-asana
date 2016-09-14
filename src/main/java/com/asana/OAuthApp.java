@@ -28,13 +28,18 @@ public class OAuthApp {
     }
 
     public OAuthApp(String clientID, String clientSecret, String redirectUri, String accessToken) {
-        this(clientID, clientSecret, redirectUri, accessToken, HTTP_TRANSPORT, JSON_FACTORY);
+        this(clientID, clientSecret, redirectUri, accessToken, null, HTTP_TRANSPORT, JSON_FACTORY);
+    }
+    
+    public OAuthApp(String clientID, String clientSecret, String redirectUri, String accessToken, String refreshToken) {
+        this(clientID, clientSecret, redirectUri, accessToken, refreshToken, HTTP_TRANSPORT, JSON_FACTORY);
     }
 
     public OAuthApp(String clientID,
                     String clientSecret,
                     String redirectUri,
                     String accessToken,
+                    String refreshToken,
                     HttpTransport transport,
                     JsonFactory jsonFactory) {
         this.redirectUri = redirectUri;
@@ -51,7 +56,8 @@ public class OAuthApp {
 
         if (accessToken != null) {
             credential = new Credential(BearerToken.authorizationHeaderAccessMethod())
-                    .setAccessToken(accessToken);
+                    .setAccessToken(accessToken)
+                    .setRefreshToken(refreshToken);
         }
     }
 
