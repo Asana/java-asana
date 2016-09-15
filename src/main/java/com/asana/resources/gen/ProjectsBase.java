@@ -230,4 +230,28 @@ public class ProjectsBase extends Resource {
         String path = String.format("/projects/%s/removeMembers", project);
         return new ItemRequest<Project>(this, Project.class, path, "POST");
     }
+
+    /**
+     * Create a new custom field setting on the project.
+     *
+     * @param  project The project to associate the custom field with
+     * @return Request object
+     */
+    public ItemRequest<Project> addCustomFieldSetting(String project) {
+    
+        String path = String.format("/projects/%s/addCustomFieldSetting", project);
+        return new ItemRequest<Project>(this, Project.class, path, "POST");
+    }
+
+    /**
+     * Remove a custom field setting on the project.
+     *
+     * @param  project The project to associate the custom field with
+     * @return Request object
+     */
+    public ItemRequest<Project> removeCustomFieldSetting(String project) {
+    
+        String path = String.format("/projects/%s/removeCustomFieldSetting", project);
+        return new ItemRequest<Project>(this, Project.class, path, "POST");
+    }
 }
