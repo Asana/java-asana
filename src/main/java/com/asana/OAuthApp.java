@@ -44,20 +44,30 @@ public class OAuthApp {
                     JsonFactory jsonFactory) {
         this.redirectUri = redirectUri;
 
+        GenericUrl tokenServerUrl = new GenericUrl(TOKEN_SERVER_URL);
+        ClientParametersAuthentication clientAuthentication = new ClientParametersAuthentication(clientID, clientSecret);
+
+
         this.flow = new AuthorizationCodeFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
                 transport,
                 jsonFactory,
-                new GenericUrl(TOKEN_SERVER_URL),
-                new ClientParametersAuthentication(clientID, clientSecret),
+                tokenServerUrl,
+                clientAuthentication,
                 clientID,
                 AUTHORIZATION_SERVER_URL
         ).build();
 
         if (accessToken != null) {
-            credential = new Credential(BearerToken.authorizationHeaderAccessMethod())
-                    .setAccessToken(accessToken)
-                    .setRefreshToken(refreshToken);
+            this.credential = new Credential.Builder(BearerToken.authorizationHeaderAccessMethod())
+                .setTransport(transport)
+                .setJsonFactory(jsonFactory)
+                .setClientAuthentication(clientAuthentication)
+                .setTokenServerUrl(tokenServerUrl)
+                .build();
+
+            this.credential.setAccessToken(accessToken);
+            this.credential.setRefreshToken(refreshToken);
         }
     }
 
