@@ -58,7 +58,7 @@ public class OAuthApp {
                 AUTHORIZATION_SERVER_URL
         ).build();
 
-        if (accessToken != null) {
+        if (accessToken != null || refreshToken != null) {
             this.credential = new Credential.Builder(BearerToken.authorizationHeaderAccessMethod())
                 .setTransport(transport)
                 .setJsonFactory(jsonFactory)
