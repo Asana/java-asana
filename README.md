@@ -85,7 +85,7 @@ Create a client using your OAuth Client ID and secret:
 Redirect the user to the authorization URL obtained from the client's `session` object:
     
     OAuthDispatcher dispatcher = (OAuthDispatcher)client.dispatcher;
-    String url = dispatcher.getAuthorizationUrl()
+    String url = dispatcher.app.getAuthorizationUrl()
 
 `getAuthorizationUrl()` takes an optional state parameter to be used for preventing CSRF attacks:
     
