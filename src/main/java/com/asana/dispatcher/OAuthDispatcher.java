@@ -1,10 +1,7 @@
 package com.asana.dispatcher;
 
 import com.asana.OAuthApp;
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpContent;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.*;
 
 import java.io.IOException;
 
@@ -13,6 +10,11 @@ public class OAuthDispatcher extends Dispatcher {
 
     public OAuthDispatcher(OAuthApp app) {
         super(); //leave it to superclass to set default HttpTransport
+        this.app = app;
+    }
+
+    public OAuthDispatcher(OAuthApp app, HttpRequestInitializer requestInitializer) {
+        super(requestInitializer);
         this.app = app;
     }
 

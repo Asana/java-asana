@@ -236,6 +236,15 @@ public class Client {
     }
 
     /**
+     * @param apiKey                Basic Auth API key
+     * @param requestInitializer    The request initializer to use for requests
+     * @return Client instance
+     */
+    public static Client basicAuth(String apiKey, HttpRequestInitializer requestInitializer) {
+        return new Client(new BasicAuthDispatcher(apiKey, requestInitializer));
+    }
+
+    /**
      * @param accessToken Personal Access Token
      * @return Client instance
      */
@@ -250,6 +259,15 @@ public class Client {
      */
     public static Client accessToken(String accessToken, HttpTransport httpTransport) {
         return new Client(new AccessTokenDispatcher(accessToken, httpTransport));
+    }
+
+    /**
+     * @param accessToken   Personal Access Token
+     * @param requestInitializer    The request initializer to use for requests
+     * @return Client instance
+     */
+    public static Client accessToken(String accessToken, HttpRequestInitializer requestInitializer) {
+        return new Client(new AccessTokenDispatcher(accessToken, requestInitializer));
     }
 
     /**
@@ -268,4 +286,14 @@ public class Client {
     public static Client oauth(OAuthApp app, HttpTransport httpTransport) {
         return new Client(new OAuthDispatcher(app, httpTransport));
     }
+
+    /**
+     * @param app           OAuth application instance
+     * @param requestInitializer    The request initializer to use for requests
+     * @return Client instance
+     */
+    public static Client oauth(OAuthApp app, HttpRequestInitializer requestInitializer) {
+        return new Client(new OAuthDispatcher(app, requestInitializer));
+    }
+
 }
