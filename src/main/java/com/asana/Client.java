@@ -62,6 +62,7 @@ public class Client {
     private static final String[] API_OPTIONS = new String[]{"pretty", "fields", "expand"};
 
     private static final String CLIENT_VERSION_HEADER_NAME = "X-Asana-Client-Lib";
+    private static final String FAST_API = "Asana-Fast-Api";
 
 
     /**
@@ -160,6 +161,7 @@ public class Client {
                 HttpRequest httpRequest = this.dispatcher.buildRequest(request.method, url, content);
 
                 httpRequest.getHeaders().set(CLIENT_VERSION_HEADER_NAME, versionHeader());
+                httpRequest.getHeaders().set(FAST_API, "true");
 
                 try {
                     return httpRequest.execute();
