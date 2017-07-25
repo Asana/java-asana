@@ -22,6 +22,9 @@ public class Project {
     public Team team;
     public Workspace workspace;
 
+    @SerializedName("custom_field_settings")
+    public Collection<CustomFieldSetting> customFieldSettings;
+
     @SerializedName("created_at")
     public DateTime createdAt;
     @SerializedName("modified_at")
