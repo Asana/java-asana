@@ -1,6 +1,7 @@
 package com.asana.resources.gen;
 
 import com.asana.Client;
+import com.asana.models.Section;
 import com.asana.resources.Resource;
 import com.asana.models.Project;
 import com.asana.requests.ItemRequest;
@@ -161,10 +162,10 @@ public class ProjectsBase extends Resource {
      * @param  project The project to get sections from.
      * @return Request object
      */
-    public CollectionRequest<Project> sections(String project) {
+    public CollectionRequest<Section> sections(String project) {
     
         String path = String.format("/projects/%s/sections", project);
-        return new CollectionRequest<Project>(this, Project.class, path, "GET");
+        return new CollectionRequest<Section>(this, Section.class, path, "GET");
     }
 
     /**
