@@ -23,7 +23,7 @@ public class AsanaError extends IOException {
             case ForbiddenError.STATUS:
                 String constructedErrorMsg = constructMessage("", exception);
                 String premiumOnlyStr = "not available for free";
-                if (constructedErrorMsg != null && constructedErrorMsg.contains(premiumOnlyStr)) {
+                if (constructedErrorMsg.contains(premiumOnlyStr)) {
                     return new PremiumOnlyError(exception);
                 }
                 return new ForbiddenError(exception);
