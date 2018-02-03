@@ -4,9 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Collection;
 
-public class CustomFieldSetting {
+public class CustomFieldSetting extends Resource {
 
-    public String id;
     @SerializedName("is_important")
     public Boolean isImportant;
 
