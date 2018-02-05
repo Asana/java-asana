@@ -48,4 +48,8 @@ public class Task {
     public DateTime createdAt;
     @SerializedName("modified_at")
     public DateTime modifiedAt;
+
+    @SerializedName("custom_fields")
+    public Collection<CustomField> customFields;
+
 }
