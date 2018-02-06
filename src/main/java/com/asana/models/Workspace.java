@@ -4,8 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Collection;
 
-public class Workspace {
-    public String id;
+public class Workspace extends Resource {
     public String name;
 
     @SerializedName("email_domains")

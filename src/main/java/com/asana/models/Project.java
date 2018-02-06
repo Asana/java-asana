@@ -5,8 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Collection;
 import com.google.api.client.util.DateTime;
 
-public class Project {
-    public String id;
+public class Project extends Resource {
     public String name;
 
     public String notes;

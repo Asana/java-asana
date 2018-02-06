@@ -1,7 +1,6 @@
 package com.asana.models;
 
-public class Team {
-    public String id;
+public class Team extends Resource {
     public String name;
 
     public Workspace organization;

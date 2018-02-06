@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Collection;
 
-public class Task {
+public class Task extends Resource {
     public static class Membership {
         public Project project;
         public Task section;
@@ -16,7 +16,6 @@ public class Task {
         public User user;
     }
 
-    public String id;
     public String name;
     public String notes;
 
