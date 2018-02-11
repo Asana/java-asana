@@ -4,6 +4,7 @@ import com.asana.Client;
 import com.asana.resources.Resource;
 import com.asana.models.CustomField;
 import com.asana.requests.ItemRequest;
+import com.asana.requests.CollectionRequest;
 
 /**
  * Custom Fields store the metadata that is used in order to add user-specified
@@ -38,9 +39,9 @@ public class CustomFieldsBase extends Resource {
      * @param  workspace The workspace or organization to find custom field definitions in.
      * @return Request object
      */
-    public ItemRequest<CustomField> findByWorkspace(String workspace) {
+    public CollectionRequest<CustomField> findByWorkspace(String workspace) {
     
         String path = String.format("/workspaces/%s/custom_fields", workspace);
-        return new ItemRequest<CustomField>(this, CustomField.class, path, "GET");
+        return new CollectionRequest<CustomField>(this, CustomField.class, path, "GET");
     }
 }
