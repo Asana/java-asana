@@ -58,6 +58,7 @@ public class Client {
     public Teams teams;
     public Users users;
     public Webhooks webhooks;
+    public Sections sections;
     public Workspaces workspaces;
 
     private static final String[] QUERY_OPTIONS = new String[]{"limit", "offset", "sync"};
@@ -96,6 +97,7 @@ public class Client {
         this.tasks = new Tasks(this);
         this.teams = new Teams(this);
         this.users = new Users(this);
+        this.sections = new Sections(this);
         this.webhooks = new Webhooks(this);
         this.workspaces = new Workspaces(this);
     }
