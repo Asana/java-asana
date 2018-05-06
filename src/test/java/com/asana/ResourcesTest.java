@@ -27,6 +27,12 @@ public class ResourcesTest extends AsanaTest {
     }
 
     @Test
+    public void testSectionsFindById() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/sections/1").code(200).content("{ \"data\": { \"id\": \"1\" }}");
+        assertEquals(client.sections.findById("1").execute().id, "1");
+    }
+
+    @Test
     public void testStoriesFindById() throws IOException {
         dispatcher.registerResponse("GET", "http://app/stories/1").code(200).content("{ \"data\": { \"id\": \"1\" }}");
         assertEquals(client.stories.findById("1").execute().id, "1");

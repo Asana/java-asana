@@ -132,6 +132,18 @@ public class TasksBase extends Resource {
     }
 
     /**
+     * <b>Board view only:</b> Returns the compact section records for all tasks within the given section.
+     *
+     * @param  section The section in which to search for tasks.
+     * @return Request object
+     */
+    public CollectionRequest<Task> findBySection(String section) {
+    
+        String path = String.format("/sections/%s/tasks", section);
+        return new CollectionRequest<Task>(this, Task.class, path, "GET");
+    }
+
+    /**
      * Returns the compact task records for some filtered set of tasks. Use one
      * or more of the parameters provided to filter the tasks returned. You must
      * specify a `project` or `tag` if you do not specify `assignee` and `workspace`.
