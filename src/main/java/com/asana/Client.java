@@ -52,6 +52,7 @@ public class Client {
     public CustomFieldSettings custom_field_settings;
     public Events events;
     public Projects projects;
+    public Sections sections;
     public Stories stories;
     public Tags tags;
     public Tasks tasks;
@@ -91,6 +92,7 @@ public class Client {
         this.custom_field_settings = new CustomFieldSettings(this);
         this.events = new Events(this);
         this.projects = new Projects(this);
+        this.sections = new Sections(this);
         this.stories = new Stories(this);
         this.tags = new Tags(this);
         this.tasks = new Tasks(this);
