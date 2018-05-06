@@ -48,6 +48,8 @@ public class Client {
     public Dispatcher dispatcher;
 
     public Attachments attachments;
+    public CustomFields custom_fields;
+    public CustomFieldSettings custom_field_settings;
     public Events events;
     public Projects projects;
     public Sections sections;
@@ -86,6 +88,8 @@ public class Client {
         }
 
         this.attachments = new Attachments(this);
+        this.custom_fields = new CustomFields(this);
+        this.custom_field_settings = new CustomFieldSettings(this);
         this.events = new Events(this);
         this.projects = new Projects(this);
         this.sections = new Sections(this);

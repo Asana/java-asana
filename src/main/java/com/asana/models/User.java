@@ -2,7 +2,7 @@ package com.asana.models;
 
 import java.util.Collection;
 
-public class User {
+public class User extends Resource {
     public static class Photo {
         public String image_128x128;
         public String image_21x21;
@@ -11,7 +11,6 @@ public class User {
         public String image_60x60;
     }
 
-    public String id;
     public String name;
 
     public String email;

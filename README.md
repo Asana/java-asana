@@ -10,7 +10,7 @@ If you use [Maven](http://maven.apache.org/) to manage dependencies you can incl
     <dependency>
          <groupId>com.asana</groupId>
          <artifactId>asana</artifactId>
-         <version>0.5.0</version>
+         <version>0.5.2</version>
     </dependency>
 
 Or, you can build the artifact and install it to your local Maven repository:
@@ -84,18 +84,17 @@ Create a client using your OAuth Client ID and secret:
 
 Redirect the user to the authorization URL obtained from the client's `session` object:
     
-    OAuthDispatcher dispatcher = (OAuthDispatcher)client.dispatcher;
-    String url = dispatcher.getAuthorizationUrl()
+    String url = app.getAuthorizationUrl()
 
 `getAuthorizationUrl()` takes an optional state parameter to be used for preventing CSRF attacks:
     
     String state = UUID.randomUUID().toString();
-    String url = dispatcher.getAuthorizationUrl(state);
+    String url = app.getAuthorizationUrl(state);
 
 When the user is redirected back to your callback, check the `state` URL parameter matches, then pass the `code` parameter to obtain a bearer token:
 
     if (request.param("state").equals(state)) {
-      String token = dispatcher.fetchToken(request.params("code"));
+      String token = app.fetchToken(request.params("code"));
       // ... 
     } else {
       // error! possible CSRF attack

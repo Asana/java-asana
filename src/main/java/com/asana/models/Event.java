@@ -5,8 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.api.client.util.DateTime;
 
 public class Event {
-    public class Entity {
-        public String id;
+    public class Entity extends Resource {
         public String name;
     }
 

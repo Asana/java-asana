@@ -4,8 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import com.google.api.client.util.DateTime;
 
-public class Webhook {
-    public String id;
+public class Webhook extends Resource {
     public Event.Entity resource;
     public String target;
     public boolean active;
