@@ -48,10 +48,13 @@ public class Client {
     public Dispatcher dispatcher;
 
     public Attachments attachments;
-    public CustomFields custom_fields;
-    public CustomFieldSettings custom_field_settings;
+    public CustomFields customFields;
+    public CustomFieldSettings customFieldSettings;
     public Events events;
+    public OrganizationExports organizationExports;
     public Projects projects;
+    public ProjectStatuses projectStatuses;
+    public ProjectMemberships projectMemberships;
     public Stories stories;
     public Tags tags;
     public Tasks tasks;
@@ -87,10 +90,13 @@ public class Client {
         }
 
         this.attachments = new Attachments(this);
-        this.custom_fields = new CustomFields(this);
-        this.custom_field_settings = new CustomFieldSettings(this);
+        this.customFields = new CustomFields(this);
+        this.customFieldSettings = new CustomFieldSettings(this);
         this.events = new Events(this);
+        this.organizationExports = new OrganizationExports(this);
         this.projects = new Projects(this);
+        this.projectStatuses = new ProjectStatuses(this);
+        this.projectMemberships = new ProjectMemberships(this);
         this.stories = new Stories(this);
         this.tags = new Tags(this);
         this.tasks = new Tasks(this);

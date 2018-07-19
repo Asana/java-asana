@@ -132,6 +132,18 @@ public class TasksBase extends Resource {
     }
 
     /**
+     * <b>Board view only:</b> Returns the compact section records for all tasks within the given section.
+     *
+     * @param  section The section in which to search for tasks.
+     * @return Request object
+     */
+    public CollectionRequest<Task> findBySection(String section) {
+    
+        String path = String.format("/sections/%s/tasks", section);
+        return new CollectionRequest<Task>(this, Task.class, path, "GET");
+    }
+
+    /**
      * Returns the compact task records for some filtered set of tasks. Use one
      * or more of the parameters provided to filter the tasks returned. You must
      * specify a `project` or `tag` if you do not specify `assignee` and `workspace`.
@@ -141,6 +153,92 @@ public class TasksBase extends Resource {
     public CollectionRequest<Task> findAll() {
     
         return new CollectionRequest<Task>(this, Task.class, "/tasks", "GET");
+    }
+
+    /**
+     * The search endpoint allows you to build complex queries to find and fetch exactly the data you need from Asana. For a more comprehensive description of all the query parameters and limitations of this endpoint, see our [long-form documentation](/developers/documentation/getting-started/search-api) for this feature.
+     *
+     * @param  workspace The workspace or organization in which to search for tasks.
+     * @return Request object
+     */
+    public CollectionRequest<Task> search(String workspace) {
+    
+        String path = String.format("/workspaces/%s/tasks/search", workspace);
+        return new CollectionRequest<Task>(this, Task.class, path, "GET");
+    }
+
+    /**
+     * Returns the compact representations of all of the dependencies of a task.
+     *
+     * @param  task The task to get dependencies on.
+     * @return Request object
+     */
+    public ItemRequest<Task> dependencies(String task) {
+    
+        String path = String.format("/tasks/%s/dependencies", task);
+        return new ItemRequest<Task>(this, Task.class, path, "GET");
+    }
+
+    /**
+     * Returns the compact representations of all of the dependents of a task.
+     *
+     * @param  task The task to get dependents on.
+     * @return Request object
+     */
+    public ItemRequest<Task> dependents(String task) {
+    
+        String path = String.format("/tasks/%s/dependents", task);
+        return new ItemRequest<Task>(this, Task.class, path, "GET");
+    }
+
+    /**
+     * Marks a set of tasks as dependencies of this task, if they are not
+     * already dependencies. *A task can have at most 15 dependencies.*
+     *
+     * @param  task The task to add dependencies to.
+     * @return Request object
+     */
+    public ItemRequest<Task> addDependencies(String task) {
+    
+        String path = String.format("/tasks/%s/addDependencies", task);
+        return new ItemRequest<Task>(this, Task.class, path, "POST");
+    }
+
+    /**
+     * Marks a set of tasks as dependents of this task, if they are not already
+     * dependents. *A task can have at most 30 dependents.*
+     *
+     * @param  task The task to add dependents to.
+     * @return Request object
+     */
+    public ItemRequest<Task> addDependents(String task) {
+    
+        String path = String.format("/tasks/%s/addDependents", task);
+        return new ItemRequest<Task>(this, Task.class, path, "POST");
+    }
+
+    /**
+     * Unlinks a set of dependencies from this task.
+     *
+     * @param  task The task to remove dependencies from.
+     * @return Request object
+     */
+    public ItemRequest<Task> removeDependencies(String task) {
+    
+        String path = String.format("/tasks/%s/removeDependencies", task);
+        return new ItemRequest<Task>(this, Task.class, path, "POST");
+    }
+
+    /**
+     * Unlinks a set of dependents from this task.
+     *
+     * @param  task The task to remove dependents from.
+     * @return Request object
+     */
+    public ItemRequest<Task> removeDependents(String task) {
+    
+        String path = String.format("/tasks/%s/removeDependents", task);
+        return new ItemRequest<Task>(this, Task.class, path, "POST");
     }
 
     /**
@@ -184,10 +282,16 @@ public class TasksBase extends Resource {
     /**
      * Adds the task to the specified project, in the optional location
      * specified. If no location arguments are given, the task will be added to
-     * the beginning of the project.
+     * the end of the project.
      * 
-     * `addProject` can also be used to reorder a task within a project that
+     * `addProject` can also be used to reorder a task within a project or section that
      * already contains it.
+     * 
+     * At most one of `insert_before`, `insert_after`, or `section` should be
+     * specified. Inserting into a section in an non-order-dependent way can be
+     * done by specifying `section`, otherwise, to insert within a section in a
+     * particular place, specify `insert_before` or `insert_after` and a task
+     * within the section to anchor the position of this task.
      * 
      * Returns an empty data block.
      *

@@ -3,7 +3,7 @@ package com.asana.resources.gen;
 import com.asana.Client;
 import com.asana.resources.Resource;
 import com.asana.models.CustomFieldSetting;
-import com.asana.requests.ItemRequest;
+import com.asana.requests.CollectionRequest;
 
 /**
  * Custom fields are attached to a particular project with the Custom
@@ -26,9 +26,9 @@ public class CustomFieldSettingsBase extends Resource {
      * @param  project The ID of the project for which to list custom field settings
      * @return Request object
      */
-    public ItemRequest<CustomFieldSetting> findByProject(String project) {
+    public CollectionRequest<CustomFieldSetting> findByProject(String project) {
     
         String path = String.format("/projects/%s/custom_field_settings", project);
-        return new ItemRequest<CustomFieldSetting>(this, CustomFieldSetting.class, path, "GET");
+        return new CollectionRequest<CustomFieldSetting>(this, CustomFieldSetting.class, path, "GET");
     }
 }
