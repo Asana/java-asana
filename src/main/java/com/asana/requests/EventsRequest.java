@@ -44,4 +44,8 @@ public class EventsRequest<T> extends CollectionRequest<T> implements Iterable<T
     public EventsRequest<T> option(String key, Object value) {
         return (EventsRequest<T>) super.option(key, value);
     }
+
+    public EventsRequest<T> header(String key, String value) {
+        return (EventsRequest<T>) super.header(key, value);
+    }
 }

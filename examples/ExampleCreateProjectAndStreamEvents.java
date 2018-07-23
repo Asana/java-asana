@@ -8,19 +8,19 @@ import com.asana.models.Workspace;
 import java.util.List;
 
 /**
- * API Key Instructions:
+ * PAT Instructions:
  * <p>
- * 1. set your ASANA_API_KEY environment variable to the API key found in Asana Account Settings
+ * 1. set your ASANA_ACCESS_TOKEN environment variable to a personal access token
  */
 public class ExampleCreateProjectAndStreamEvents {
 
     public static void main(String[] args) throws Exception {
-        if (System.getenv("ASANA_API_KEY") == null) {
-            throw new Error("Please set the ASANA_API_KEY environment variable.");
+        if (System.getenv("ASANA_ACCESS_TOKEN") == null) {
+            throw new Error("Please set the ASANA_ACCESS_TOKEN environment variable.");
         }
 
-        // create a client with your Asana API key
-        Client client = Client.basicAuth(System.getenv("ASANA_API_KEY"));
+        // create a client with your Asana PAT
+        Client client = Client.accessToken(System.getenv("ASANA_ACCESS_TOKEN"));
 
         // find your "Personal Projects" project
         Workspace personalProjects = null;

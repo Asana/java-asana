@@ -86,4 +86,8 @@ public class CollectionRequest<T> extends Request implements Iterable<T> {
     public CollectionRequest<T> option(String key, Object value) {
         return (CollectionRequest<T>) super.option(key, value);
     }
+
+    public CollectionRequest<T> header(String key, String value) {
+        return (CollectionRequest<T>) super.header(key, value);
+    }
 }

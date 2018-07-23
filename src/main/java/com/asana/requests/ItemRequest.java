@@ -71,4 +71,8 @@ public class ItemRequest<T> extends Request {
         return (ItemRequest<T>) super.option(key, value);
     }
 
+    public ItemRequest<T> header(String key, String value) {
+        return (ItemRequest<T>) super.header(key, value);
+    }
+
 }

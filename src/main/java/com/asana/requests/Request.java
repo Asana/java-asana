@@ -19,6 +19,7 @@ public abstract class Request {
     public Map<String, Object> data;
     public Map<String, Object> query;
     public Map<String, Object> options;
+    public Map<String, String> headers;
     public HttpContent content;
 
     protected Client client;
@@ -41,6 +42,7 @@ public abstract class Request {
         this.data = new HashMap<String, Object>();
         this.query = new HashMap<String, Object>();
         this.options = new HashMap<String, Object>();
+        this.headers = new HashMap<String, String>();
 
         this.options.putAll(this.client.options);
     }
@@ -111,6 +113,18 @@ public abstract class Request {
      */
     public Request option(String key, Object value) {
         this.options.put(key, value);
+        return this;
+    }
+
+    /**
+     * Sets a header per-request
+     *
+     * @param key   Header key
+     * @param value Header value
+     * @return The request itself
+     */
+    public Request header(String key, String value) {
+        this.headers.put(key, value);
         return this;
     }
 }
