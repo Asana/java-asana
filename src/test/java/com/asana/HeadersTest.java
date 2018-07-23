@@ -22,8 +22,20 @@ public class HeadersTest extends AsanaTest
     public void testRequestHeaders() throws IOException
     {
         dispatcher.registerResponse("GET", "http://app/users/me").code(200).content("{}");
-        client.users.me().header("another_key", "another_value").execute();
+        client.users.me().header("key", "value").execute();
 
-        assertEquals(dispatcher.calls.get(0).headers.get("another_key"), Collections.singletonList("another_value"));
+        assertEquals(dispatcher.calls.get(0).headers.get("key"), Collections.singletonList("value"));
+    }
+
+    @Test
+    public void testOverridingHeaders() throws IOException
+    {
+        dispatcher.registerResponse("GET", "http://app/users/me").code(200).content("{}");
+        client.headers.put("key", "value");
+        client.headers.put("key2", "value2");
+        client.users.me().header("key2", "value3").execute();
+
+        assertEquals(dispatcher.calls.get(0).headers.get("key"), Collections.singletonList("value"));
+        assertEquals(dispatcher.calls.get(0).headers.get("key2"), Collections.singletonList("value3"));
     }
 }
