@@ -26,7 +26,7 @@ public class ProjectMembershipsBase extends Resource {
      * @param  project The project for which to fetch memberships.
      * @return Request object
      */
-    public CollectionRequest<ProjectMembership> getMany(String project) {
+    public CollectionRequest<ProjectMembership> findByProject(String project) {
     
         String path = String.format("/projects/%s/project_memberships", project);
         return new CollectionRequest<ProjectMembership>(this, ProjectMembership.class, path, "GET");
@@ -35,12 +35,12 @@ public class ProjectMembershipsBase extends Resource {
     /**
      * Returns the project membership record.
      *
-     * @param  project Globally unique identifier for the project membership.
+     * @param  projectMembership Globally unique identifier for the project membership.
      * @return Request object
      */
-    public ItemRequest<ProjectMembership> getSingle(String project) {
+    public ItemRequest<ProjectMembership> findById(String projectMembership) {
     
-        String path = String.format("/project_memberships/%s", project);
+        String path = String.format("/project_memberships/%s", projectMembership);
         return new ItemRequest<ProjectMembership>(this, ProjectMembership.class, path, "GET");
     }
 }

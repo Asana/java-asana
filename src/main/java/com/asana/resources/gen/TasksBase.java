@@ -161,7 +161,7 @@ public class TasksBase extends Resource {
      * @param  workspace The workspace or organization in which to search for tasks.
      * @return Request object
      */
-    public CollectionRequest<Task> search(String workspace) {
+    public CollectionRequest<Task> searchInWorkspace(String workspace) {
     
         String path = String.format("/workspaces/%s/tasks/search", workspace);
         return new CollectionRequest<Task>(this, Task.class, path, "GET");

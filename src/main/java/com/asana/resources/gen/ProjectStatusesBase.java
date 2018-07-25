@@ -30,7 +30,7 @@ public class ProjectStatusesBase extends Resource {
      * @param  project The project on which to create a status update.
      * @return Request object
      */
-    public ItemRequest<ProjectStatus> create(String project) {
+    public ItemRequest<ProjectStatus> createInProject(String project) {
 
         String path = String.format("/projects/%s/project_statuses", project);
         return new ItemRequest<ProjectStatus>(this, ProjectStatus.class, path, "POST");

@@ -101,7 +101,7 @@ public class CustomFieldsBase extends Resource {
      * @param  customField Globally unique identifier for the custom field.
      * @return Request object
      */
-    public ItemRequest<CustomField> addEnumOption(String customField) {
+    public ItemRequest<CustomField> createEnumOption(String customField) {
     
         String path = String.format("/custom_fields/%s/enum_options", customField);
         return new ItemRequest<CustomField>(this, CustomField.class, path, "POST");
@@ -127,7 +127,7 @@ public class CustomFieldsBase extends Resource {
      * @param  customField Globally unique identifier for the custom field.
      * @return Request object
      */
-    public ItemRequest<CustomField> reorderEnumOption(String customField) {
+    public ItemRequest<CustomField> insertEnumOption(String customField) {
     
         String path = String.format("/custom_fields/%s/enum_options/insert", customField);
         return new ItemRequest<CustomField>(this, CustomField.class, path, "POST");
