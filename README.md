@@ -105,7 +105,7 @@ Note: if you're writing a non-browser-based application (e.x. a command line too
 Usage
 -----
 
-The client's methods are divided into several resources: `attachments`, `events`, `projects`, `stories`, `tags`, `tasks`, `teams`, `users`, and `workspaces`.
+The client's methods are divided into several resources: `attachments`, `customFields`, `customFieldSettings`, `events`, `organizationExports`, `projects`, `projectMemberships`, `projectStatuses`, `stories`, `tags`, `tasks`, `teams`, `users`, `webhooks`, and `workspaces`.
 
 Request methods use the "builder" pattern to set query string or JSON body parameters, and various request options, so a request must be initated using the `execute` or `executeRaw` methods:
 

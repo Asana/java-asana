@@ -11,13 +11,11 @@ public class Task extends Resource {
         public Task section;
     }
 
-    public static class Heart {
-        public String id;
-        public User user;
-    }
-
     public String name;
+
     public String notes;
+    @SerializedName("html_notes")
+    public String htmlNotes;
 
     @SerializedName("completed_at")
     public DateTime completedAt;
@@ -25,6 +23,8 @@ public class Task extends Resource {
     public DateTime dueAt;
     @SerializedName("due_on")
     public DateTime dueOn;
+    @SerializedName("start_on")
+    public DateTime startOn;
 
     public User assignee;
     @SerializedName("assignee_status")
@@ -36,12 +36,24 @@ public class Task extends Resource {
     @SerializedName("num_hearts")
     public int numHearts;
 
+    public boolean liked;
+    public Collection<Like> likes;
+    @SerializedName("num_likes")
+    public int numLikes;
+
     public Task parent;
     public Collection<User> followers;
     public Collection<Membership> memberships;
     public Collection<Project> projects;
     public Collection<Tag> tags;
     public Workspace workspace;
+
+    @SerializedName("custom_fields")
+    public Collection<CustomField> customFields;
+    public External external;
+
+    public Collection<Task> dependencies;
+    public Collection<Task> dependents;
 
     @SerializedName("created_at")
     public DateTime createdAt;

@@ -62,4 +62,30 @@ public class StoriesBase extends Resource {
         String path = String.format("/tasks/%s/stories", task);
         return new ItemRequest<Story>(this, Story.class, path, "POST");
     }
+
+    /**
+     * Updates the story and returns the full record for the updated story.
+     * Only comment stories can have their text updated, and only comment stories and
+     * attachment stories can be pinned. Only one of `text` and `html_text` can be specified.
+     *
+     * @param  story Globally unique identifier for the story.
+     * @return Request object
+     */
+    public ItemRequest<Story> update(String story) {
+    
+        String path = String.format("/stories/%s", story);
+        return new ItemRequest<Story>(this, Story.class, path, "PUT");
+    }
+
+    /**
+     * Deletes a story. A user can only delete stories they have created. Returns an empty data record.
+     *
+     * @param  story Globally unique identifier for the story.
+     * @return Request object
+     */
+    public ItemRequest<Story> delete(String story) {
+    
+        String path = String.format("/stories/%s", story);
+        return new ItemRequest<Story>(this, Story.class, path, "DELETE");
+    }
 }

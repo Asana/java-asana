@@ -7,8 +7,21 @@ import com.google.api.client.util.DateTime;
 
 public class Project extends Resource {
     public String name;
+    public User owner;
+    public String layout;
+
+    @SerializedName("current_status")
+    public ProjectStatus currentStatus;
+
+    @SerializedName("due_date")
+    public DateTime dueDate;
+    @SerializedName("start_on")
+    public DateTime startOn;
 
     public String notes;
+    @SerializedName("html_notes")
+    public String htmlNotes;
+
     public String color;
     @SerializedName("archived")
     public boolean isArchived;
@@ -28,15 +41,4 @@ public class Project extends Resource {
     public DateTime createdAt;
     @SerializedName("modified_at")
     public DateTime modifiedAt;
-
-    public User owner;
-
-    public Project() {
-        //no-arg constructor
-    }
-
-    // constructor with id arg provided for convenience
-    public Project(String id) {
-        this.id = id;
-    }
 }

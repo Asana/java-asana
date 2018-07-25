@@ -13,14 +13,22 @@ public class CustomField extends Resource {
       public String color;
     }
 
-
     public String name;
+    public String description;
     public String type;
 
+    // Only for type "text"
+    @SerializedName("text_value")
+    public String textValue;
+
     // Only for type "number"
-    public Integer precision;
+    public int precision;
+    @SerializedName("number_value")
+    public String numberValue;
+
     // Only for type "enum"
     @SerializedName("enum_options")
     public Collection<EnumOption> enumOptions;
-
+    @SerializedName("enum_value")
+    public EnumOption enumValue;
 }
