@@ -21,11 +21,6 @@ public class AsanaError extends IOException {
     public static AsanaError mapException(HttpResponseException exception) throws AsanaError {
         switch (exception.getStatusCode()) {
             case ForbiddenError.STATUS:
-                String constructedErrorMsg = constructMessage("", exception);
-                String premiumOnlyStr = "not available for free";
-                if (constructedErrorMsg.contains(premiumOnlyStr)) {
-                    return new PremiumOnlyError(exception);
-                }
                 return new ForbiddenError(exception);
             case InvalidRequestError.STATUS:
                 return new InvalidRequestError(exception);

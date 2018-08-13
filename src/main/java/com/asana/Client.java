@@ -43,7 +43,8 @@ public class Client {
         put("max_retries", 5);
     }};
 
-    public HashMap<String, Object> options;
+    public Map<String, Object> options;
+    public Map<String, String> headers;
 
     public Dispatcher dispatcher;
 
@@ -73,7 +74,7 @@ public class Client {
      * @param dispatcher Dispatcher to handle authentication
      */
     public Client(Dispatcher dispatcher) {
-        this(dispatcher, null);
+        this(dispatcher, null, null);
     }
 
     /**
@@ -81,12 +82,26 @@ public class Client {
      * @param options    Map of client options, overrides Client.DEFAULTS, overridden by request options
      */
     public Client(Dispatcher dispatcher, Map<String, Object> options) {
+        this(dispatcher, null, null);
+    }
+
+    /**
+     * @param dispatcher Dispatcher to handle authentication
+     * @param options    Map of client options, overrides Client.DEFAULTS, overridden by request options
+     * @param headers    Map of default headers to use for requests, overridden by request headers
+     */
+    public Client(Dispatcher dispatcher, Map<String, Object> options, Map<String, String> headers) {
         this.dispatcher = dispatcher;
 
         this.options = new HashMap<String, Object>();
         this.options.putAll(DEFAULTS);
         if (options != null) {
             this.options.putAll(options);
+        }
+
+        this.headers = new HashMap<String, String>();
+        if (headers != null) {
+            this.headers.putAll(headers);
         }
 
         this.attachments = new Attachments(this);
@@ -153,6 +168,10 @@ public class Client {
             url.put(entry.getKey(), value);
         }
 
+        // Headers
+        Map <String, String> headers = new HashMap<String, String>(this.headers);
+        headers.putAll(request.headers);
+
         if (request.content != null) {
             // Multipart, etc body
             content = request.content;
@@ -168,8 +187,8 @@ public class Client {
         while (true) {
             try {
                 HttpRequest httpRequest = this.dispatcher.buildRequest(request.method, url, content);
-
                 httpRequest.getHeaders().set(CLIENT_VERSION_HEADER_NAME, versionHeader());
+                httpRequest.getHeaders().putAll(headers);
 
                 try {
                     return httpRequest.execute();
@@ -229,7 +248,10 @@ public class Client {
     }
 
     /**
+     * WARNING: API Keys are deprecated and have been removed from Asana's API.
+     * Prefer using {@link #accessToken(String) accessToken method}.
      * @param apiKey Basic Auth API key
+     * @deprecated
      * @return Client instance
      */
     public static Client basicAuth(String apiKey) {
@@ -237,8 +259,11 @@ public class Client {
     }
 
     /**
+     * WARNING: API Keys are deprecated and have been removed from Asana's API.
+     * Prefer using {@link #accessToken(String, HttpTransport) accessToken method}.
      * @param apiKey        Basic Auth API key
      * @param httpTransport HttpTransport implementation to use for requests
+     * @deprecated
      * @return Client instance
      */
     public static Client basicAuth(String apiKey, HttpTransport httpTransport) {

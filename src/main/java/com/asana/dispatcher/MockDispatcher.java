@@ -10,22 +10,21 @@ import com.google.gson.JsonParser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 public class MockDispatcher extends Dispatcher {
     public class Call {
         public LowLevelHttpRequest request;
         public LowLevelHttpResponse response;
+        public Map<String, List<String>> headers;
         public String requestBody;
         public JsonElement parsedRequestBody;
 
-        public Call(LowLevelHttpRequest request, LowLevelHttpResponse response, String requestBody) {
+        public Call(LowLevelHttpRequest request, LowLevelHttpResponse response, String requestBody, Map<String, List<String>> headers) {
             this.request = request;
             this.response = response;
             this.requestBody = requestBody;
+            this.headers = headers;
             try {
                 this.parsedRequestBody = new JsonParser().parse(requestBody);
             } catch (Exception e) {
@@ -57,7 +56,7 @@ public class MockDispatcher extends Dispatcher {
                             if (this.getStreamingContent() != null) {
                                 this.getStreamingContent().writeTo(buffer);
                             }
-                            calls.add(new Call(this, response, buffer.toString()));
+                            calls.add(new Call(this, response, buffer.toString(), this.getHeaders()));
 
                             return response;
                         } else {
