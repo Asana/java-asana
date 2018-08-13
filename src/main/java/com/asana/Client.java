@@ -242,6 +242,29 @@ public class Client {
     }
 
     /**
+     * WARNING: API Keys are deprecated and have been removed from Asana's API.
+     * Prefer using {@link #accessToken(String) accessToken method}.
+     * @param apiKey Basic Auth API key
+     * @deprecated
+     * @return Client instance
+     */
+    public static Client basicAuth(String apiKey) {
+        return new Client(new BasicAuthDispatcher(apiKey));
+    }
+
+    /**
+     * WARNING: API Keys are deprecated and have been removed from Asana's API.
+     * Prefer using {@link #accessToken(String, HttpTransport) accessToken method}.
+     * @param apiKey        Basic Auth API key
+     * @param httpTransport HttpTransport implementation to use for requests
+     * @deprecated
+     * @return Client instance
+     */
+    public static Client basicAuth(String apiKey, HttpTransport httpTransport) {
+        return new Client(new BasicAuthDispatcher(apiKey, httpTransport));
+    }
+
+    /**
      * @param accessToken Personal Access Token
      * @return Client instance
      */
