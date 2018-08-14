@@ -17,7 +17,7 @@ public class RateLimitEnforcedError extends RetryableAsanaError {
             List<String> headers = (List<String>) exception.getHeaders().get("retry-after");
             retryAfter = (long) (1000 * Float.parseFloat((String) headers.get(0)));
         } catch (Exception e) {
-            retryAfter = -1;
+            retryAfter = 60 * 1000;
         }
     }
 }
