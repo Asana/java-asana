@@ -4,6 +4,7 @@ import com.asana.Client;
 import com.asana.resources.Resource;
 import com.asana.models.Section;
 import com.asana.requests.ItemRequest;
+import com.asana.requests.CollectionRequest;
 
 /**
  * A _section_ is a subdivision of a project that groups tasks together. It can
@@ -38,10 +39,10 @@ public class SectionsBase extends Resource {
      * @param  project The project to get sections from.
      * @return Request object
      */
-    public ItemRequest<Section> findByProject(String project) {
+    public CollectionRequest<Section> findByProject(String project) {
     
         String path = String.format("/projects/%s/sections", project);
-        return new ItemRequest<Section>(this, Section.class, path, "GET");
+        return new CollectionRequest<Section>(this, Section.class, path, "GET");
     }
 
     /**
