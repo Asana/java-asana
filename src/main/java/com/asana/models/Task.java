@@ -55,6 +55,8 @@ public class Task extends Resource {
     public Collection<Task> dependencies;
     public Collection<Task> dependents;
 
+    @SerializedName("created_by")
+    public User createdBy;
     @SerializedName("created_at")
     public DateTime createdAt;
     @SerializedName("modified_at")
