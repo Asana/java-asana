@@ -156,6 +156,19 @@ public class TasksBase extends Resource {
     }
 
     /**
+     * Returns the compact task records for all tasks with the given tag.
+     * Tasks can have more than one tag at a time.
+     *
+     * @param  tag The tag to fetch tasks from.
+     * @return Request object
+     */
+    public CollectionRequest<Task> getTasksWithTag(String tag) {
+    
+        String path = String.format("/tags/%s/tasks", tag);
+        return new CollectionRequest<Task>(this, Task.class, path, "GET");
+    }
+
+    /**
      * The search endpoint allows you to build complex queries to find and fetch exactly the data you need from Asana. For a more comprehensive description of all the query parameters and limitations of this endpoint, see our [long-form documentation](/developers/documentation/getting-started/search-api) for this feature.
      *
      * @param  workspace The workspace or organization in which to search for tasks.
