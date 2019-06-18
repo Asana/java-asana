@@ -19,7 +19,14 @@ public class ClientTest extends AsanaTest
     public void testClientGet() throws IOException
     {
         dispatcher.registerResponse("GET", "http://app/users/me").code(200).content("{ \"data\": { \"name\": \"me\" }}");
-        assertEquals(client.users.me().execute().name, "me");
+        assertEquals("me", client.users.me().execute().name);
+    }
+
+    @Test
+    public void testClientGetWithNonEnglishCharacters() throws IOException
+    {
+        dispatcher.registerResponse("GET", "http://app/users/me").code(200).content("{ \"data\": { \"name\": \"öäüßsøθæîó\" }}");
+        assertEquals(client.users.me().execute().name, "öäüßsøθæîó");
     }
 
     @Test
@@ -29,8 +36,20 @@ public class ClientTest extends AsanaTest
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks").code(200).content(req);
 
         List<Task> tasks = client.tasks.findByProject("1").execute();
-        assertEquals(tasks.size(), 1);
-        assertEquals(tasks.get(0).id, "1");
+        assertEquals(1, tasks.size());
+        assertEquals("1", tasks.get(0).id);
+    }
+
+    @Test
+    public void testClientGetCollectionListWithNonEnglishCharacters() throws IOException
+    {
+        String req = "{ \"data\": [ { \"id\": 1, \"name\": \"öäüßsøθæîó\" } ]}";
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks").code(200).content(req);
+
+        List<Task> tasks = client.tasks.findByProject("1").execute();
+        assertEquals(1, tasks.size());
+        assertEquals("1", tasks.get(0).id);
+        assertEquals("öäüßsøθæîó", tasks.get(0).name);
     }
 
     @Test
@@ -40,9 +59,9 @@ public class ClientTest extends AsanaTest
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=50").code(200).content(req);
 
         Iterator<Task> tasks = client.tasks.findByProject("1").iterator();
-        assertEquals(tasks.hasNext(), true);
-        assertEquals(tasks.next().id, "1");
-        assertEquals(tasks.hasNext(), false);
+        assertEquals(true, tasks.hasNext());
+        assertEquals("1", tasks.next().id);
+        assertEquals(false, tasks.hasNext());
     }
 
     @Test
@@ -50,7 +69,7 @@ public class ClientTest extends AsanaTest
     {
         dispatcher.registerResponse("POST", "http://app/tasks").code(201).content("{ \"data\": { \"id\": \"1\" }}");
 
-        assertEquals(client.tasks.create().execute().id, "1");
+        assertEquals("1", client.tasks.create().execute().id);
     }
 
     @Test
@@ -58,7 +77,7 @@ public class ClientTest extends AsanaTest
     {
         dispatcher.registerResponse("PUT", "http://app/tasks/1").code(200).content("{ \"data\": { \"id\": \"1\" }}");
 
-        assertEquals(client.tasks.update("1").execute().id, "1");
+        assertEquals("1", client.tasks.update("1").execute().id);
     }
 
     @Test
@@ -66,7 +85,7 @@ public class ClientTest extends AsanaTest
     {
         dispatcher.registerResponse("DELETE", "http://app/tasks/1").code(200).content("{ \"data\": { \"id\": \"1\" }}");
 
-        assertEquals(client.tasks.delete("1").execute().id, "1");
+        assertEquals("1", client.tasks.delete("1").execute().id);
     }
 
     @Test
@@ -78,7 +97,7 @@ public class ClientTest extends AsanaTest
                 .query("workspace", "14916")
                 .query("assignee", "me")
                 .execute();
-        assertEquals(result.iterator().next().id, "1");
+        assertEquals("1", result.iterator().next().id);
     }
 
     @Test
@@ -93,8 +112,8 @@ public class ClientTest extends AsanaTest
                 .data("followers", Arrays.asList("5678"))
                 .data("name", "Hello, world.")
                 .execute();
-        assertEquals(result.id, "1");
-        assertEquals(dispatcher.calls.get(0).parsedRequestBody, req);
+        assertEquals("1", result.id);
+        assertEquals(req, dispatcher.calls.get(0).parsedRequestBody);
     }
 
     @Test
@@ -109,8 +128,8 @@ public class ClientTest extends AsanaTest
                 .data("followers", Arrays.asList("5678"))
                 .data("name", "Hello, world.")
                 .execute();
-        assertEquals(result.id, "1");
-        assertEquals(dispatcher.calls.get(0).parsedRequestBody, req);
+        assertEquals("1", result.id);
+        assertEquals(req, dispatcher.calls.get(0).parsedRequestBody);
     }
 
     @Test
