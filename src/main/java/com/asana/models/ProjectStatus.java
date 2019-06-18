@@ -7,6 +7,7 @@ public class ProjectStatus extends Resource {
     public String title;
 
     public String text;
+    
     @SerializedName("html_text")
     public String htmlText;
 

@@ -26,7 +26,7 @@ public class AttachmentsBase extends Resource {
      * @return Request object
      */
     public ItemRequest<Attachment> findById(String attachment) {
-    
+
         String path = String.format("/attachments/%s", attachment);
         return new ItemRequest<Attachment>(this, Attachment.class, path, "GET");
     }
@@ -38,7 +38,7 @@ public class AttachmentsBase extends Resource {
      * @return Request object
      */
     public CollectionRequest<Attachment> findByTask(String task) {
-    
+
         String path = String.format("/tasks/%s/attachments", task);
         return new CollectionRequest<Attachment>(this, Attachment.class, path, "GET");
     }

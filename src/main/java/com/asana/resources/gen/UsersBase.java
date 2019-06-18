@@ -47,6 +47,21 @@ public class UsersBase extends Resource {
     }
 
     /**
+     * Returns all of a user's favorites in the given workspace, of the given type.
+     * Results are given in order (The same order as Asana's sidebar).
+     *
+     * @param  user An identifier for the user. Can be one of an email address,
+     * the globally unique identifier for the user, or the keyword `me`
+     * to indicate the current user making the request.
+     * @return Request object
+     */
+    public ItemRequest<User> getUserFavorites(String user) {
+    
+        String path = String.format("/users/%s/favorites", user);
+        return new ItemRequest<User>(this, User.class, path, "GET");
+    }
+
+    /**
      * Returns the user records for all users in the specified workspace or
      * organization.
      *
