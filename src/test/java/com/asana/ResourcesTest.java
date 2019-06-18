@@ -21,9 +21,36 @@ public class ResourcesTest extends AsanaTest {
     }
 
     @Test
+    public void testJobsFindById() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/jobs/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.jobs.findById("1").execute().gid);
+    }
+
+    @Test
+    public void testPortfoliosFindById() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/portfolios/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.portfolios.findById("1").execute().gid);
+    }
+
+    @Test
     public void testProjectsFindById() throws IOException {
         dispatcher.registerResponse("GET", "http://app/projects/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
         assertEquals("1", client.projects.findById("1").execute().gid);
+    }
+
+    @Test
+    public void testPortfolioMembershipsFindById() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/portfolio_memberships/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        System.out.println(client.toString());
+        System.out.println(client.portfolioMemberships);
+        System.out.println(client.portfolioMemberships.findById("1"));
+        assertEquals("1", client.portfolioMemberships.findById("1").execute().gid);
+    }
+
+    @Test
+    public void testProjectMembershipsFindById() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/project_memberships/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.projectMemberships.findById("1").execute().gid);
     }
 
     @Test
@@ -54,6 +81,12 @@ public class ResourcesTest extends AsanaTest {
     public void testUsersFindById() throws IOException {
         dispatcher.registerResponse("GET", "http://app/users/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
         assertEquals("1", client.users.findById("1").execute().gid);
+    }
+
+    @Test
+    public void testUserTaskListsFindById() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/user_task_lists/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.userTaskLists.findById("1").execute().gid);
     }
 
     @Test
