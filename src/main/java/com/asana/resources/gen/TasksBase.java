@@ -1,6 +1,7 @@
 package com.asana.resources.gen;
 
 import com.asana.Client;
+import com.asana.models.Job;
 import com.asana.resources.Resource;
 import com.asana.models.Task;
 import com.asana.requests.ItemRequest;
@@ -112,10 +113,10 @@ public class TasksBase extends Resource {
      * @param  task The task to duplicate.
      * @return Request object
      */
-    public ItemRequest<Task> duplicateTask(String task) {
+    public ItemRequest<Job> duplicateTask(String task) {
 
         String path = String.format("/tasks/%s/duplicate", task);
-        return new ItemRequest<Task>(this, Task.class, path, "POST");
+        return new ItemRequest<Job>(this, Job.class, path, "POST");
     }
 
     /**
