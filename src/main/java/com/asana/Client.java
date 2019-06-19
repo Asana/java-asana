@@ -68,7 +68,7 @@ public class Client {
     public Webhooks webhooks;
     public Workspaces workspaces;
 
-    public boolean logAsanaChangeHeader;
+    public boolean logAsanaChangeWarnings;
 
     private static final String[] QUERY_OPTIONS = new String[]{"limit", "offset", "sync"};
     private static final String[] API_OPTIONS = new String[]{"pretty", "fields", "expand"};
@@ -130,7 +130,7 @@ public class Client {
         this.webhooks = new Webhooks(this);
         this.workspaces = new Workspaces(this);
 
-        this.logAsanaChangeHeader = true;
+        this.logAsanaChangeWarnings = true;
     }
 
     /**

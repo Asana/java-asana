@@ -40,7 +40,7 @@ public class ItemRequest<T> extends Request {
     public ResultBody<T> executeRaw() throws IOException {
         HttpResponse response = this.client.request(this);
 
-        if (this.client.logAsanaChangeHeader) {
+        if (this.client.logAsanaChangeWarnings) {
             HttpHeaders reqHeaders = new HttpHeaders();
             reqHeaders.putAll(this.client.headers);
             handleAsanaChangeHeader(reqHeaders, response.getHeaders());

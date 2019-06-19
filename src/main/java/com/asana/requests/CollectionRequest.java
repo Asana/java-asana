@@ -47,7 +47,7 @@ public class CollectionRequest<T> extends Request implements Iterable<T> {
     public ResultBodyCollection<T> executeRaw() throws IOException {
         HttpResponse response = this.client.request(this);
 
-        if (this.client.logAsanaChangeHeader) {
+        if (this.client.logAsanaChangeWarnings) {
             HttpHeaders reqHeaders = new HttpHeaders();
             reqHeaders.putAll(this.client.headers);
             handleAsanaChangeHeader(reqHeaders, response.getHeaders());
