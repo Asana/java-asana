@@ -5,6 +5,7 @@ import com.asana.iterator.CollectionPageIterator;
 import com.asana.models.ResultBodyCollection;
 import com.asana.resources.Resource;
 import com.google.api.client.http.HttpContent;
+import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpResponse;
 import com.google.common.reflect.TypeParameter;
 
@@ -45,6 +46,13 @@ public class CollectionRequest<T> extends Request implements Iterable<T> {
      */
     public ResultBodyCollection<T> executeRaw() throws IOException {
         HttpResponse response = this.client.request(this);
+
+        if (this.client.logAsanaChangeHeader) {
+            HttpHeaders reqHeaders = new HttpHeaders();
+            reqHeaders.putAll(this.client.headers);
+            handleAsanaChangeHeader(reqHeaders, response.getHeaders());
+        }
+
         return Json.getInstance().fromJson(
                 new BufferedReader(new InputStreamReader(response.getContent(), StandardCharsets.UTF_8)),
                 new com.google.common.reflect.TypeToken<ResultBodyCollection<T>>() {

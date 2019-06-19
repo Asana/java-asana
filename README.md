@@ -112,7 +112,7 @@ Request methods use the "builder" pattern to set query string or JSON body param
 Methods that return a single object return that object directly:
 
     User me = client.users.me().execute();
-    System.out.println("Hello " + name.name);
+    System.out.println("Hello " + me.name);
 
     String workspaceId = me.workspaces.get(0).id;
     Project project = client.projects.createInWorkspace(workspaceId)

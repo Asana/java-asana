@@ -1,6 +1,7 @@
 package com.asana.resources.gen;
 
 import com.asana.Client;
+import com.asana.models.Favorite;
 import com.asana.resources.Resource;
 import com.asana.models.User;
 import com.asana.requests.ItemRequest;
@@ -9,7 +10,7 @@ import com.asana.requests.CollectionRequest;
 /**
  * A _user_ object represents an account in Asana that can be given access to
  * various workspaces, projects, and tasks.
- * 
+ *
  * Like other objects in the system, users are referred to by numerical IDs.
  * However, the special string identifier `me` can be used anywhere
  * a user ID is accepted, to refer to the current authenticated user.
@@ -28,7 +29,7 @@ public class UsersBase extends Resource {
      * @return Request object
      */
     public ItemRequest<User> me() {
-    
+
         return new ItemRequest<User>(this, User.class, "/users/me", "GET");
     }
 
@@ -41,7 +42,7 @@ public class UsersBase extends Resource {
      * @return Request object
      */
     public ItemRequest<User> findById(String user) {
-    
+
         String path = String.format("/users/%s", user);
         return new ItemRequest<User>(this, User.class, path, "GET");
     }
@@ -55,10 +56,10 @@ public class UsersBase extends Resource {
      * to indicate the current user making the request.
      * @return Request object
      */
-    public ItemRequest<User> getUserFavorites(String user) {
-    
+    public CollectionRequest<Favorite> getUserFavorites(String user) {
+
         String path = String.format("/users/%s/favorites", user);
-        return new ItemRequest<User>(this, User.class, path, "GET");
+        return new CollectionRequest<Favorite>(this, Favorite.class, path, "GET");
     }
 
     /**
@@ -69,7 +70,7 @@ public class UsersBase extends Resource {
      * @return Request object
      */
     public CollectionRequest<User> findByWorkspace(String workspace) {
-    
+
         String path = String.format("/workspaces/%s/users", workspace);
         return new CollectionRequest<User>(this, User.class, path, "GET");
     }
@@ -82,7 +83,7 @@ public class UsersBase extends Resource {
      * @return Request object
      */
     public CollectionRequest<User> findAll() {
-    
+
         return new CollectionRequest<User>(this, User.class, "/users", "GET");
     }
 }
