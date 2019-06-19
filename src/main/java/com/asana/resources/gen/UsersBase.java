@@ -1,7 +1,7 @@
 package com.asana.resources.gen;
 
 import com.asana.Client;
-import com.asana.models.Favorite;
+import com.asana.models.ResourceWithSubtype;
 import com.asana.resources.Resource;
 import com.asana.models.User;
 import com.asana.requests.ItemRequest;
@@ -56,10 +56,10 @@ public class UsersBase extends Resource {
      * to indicate the current user making the request.
      * @return Request object
      */
-    public CollectionRequest<Favorite> getUserFavorites(String user) {
+    public CollectionRequest<ResourceWithSubtype> getUserFavorites(String user) {
 
         String path = String.format("/users/%s/favorites", user);
-        return new CollectionRequest<Favorite>(this, Favorite.class, path, "GET");
+        return new CollectionRequest<ResourceWithSubtype>(this, ResourceWithSubtype.class, path, "GET");
     }
 
     /**

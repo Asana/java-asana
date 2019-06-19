@@ -1,5 +1,5 @@
 package com.asana.models;
 
-public class Favorite extends Resource {
+public class ResourceWithSubtype extends Resource {
     public String resource_subtype;
 }
