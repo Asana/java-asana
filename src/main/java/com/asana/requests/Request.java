@@ -4,12 +4,14 @@ import com.asana.Client;
 import com.asana.resources.Resource;
 import com.google.api.client.http.HttpContent;
 
-import java.util.*;
-import java.util.logging.Level;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import com.google.api.client.http.HttpHeaders;
-import com.google.api.client.http.HttpResponse;
 
 /**
  * Encapsulates all the inputs to a request, including the path, query string, headers, and body.
