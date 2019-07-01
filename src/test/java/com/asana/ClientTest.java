@@ -2,6 +2,7 @@ package com.asana;
 
 import com.asana.models.ResultBodyCollection;
 import com.asana.models.Task;
+import com.asana.requests.Request;
 import com.google.gson.JsonElement;
 import org.junit.Test;
 
@@ -10,8 +11,13 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class ClientTest extends AsanaTest
 {
@@ -146,5 +152,85 @@ public class ClientTest extends AsanaTest
         assertEquals("b", result.nextPage.offset);
         assertEquals("/tasks?project=1&limit=5&offset=b", result.nextPage.path);
         assertEquals("https://app.asana.com/api/1.0/tasks?project=1&limit=5&offset=b", result.nextPage.uri);
+    }
+
+    @Test
+    public void testAsanaChangeLogging() throws IOException
+    {
+        Logger logger = Logger.getLogger(Request.class.getCanonicalName());
+        LogHandler handler = new LogHandler();
+        handler.setLevel(Level.ALL);
+        logger.setUseParentHandlers(false);
+        logger.addHandler(handler);
+        logger.setLevel(Level.ALL);
+
+        String req = "{ \"data\": [ { \"gid\": 1 }],\"next_page\": {\"offset\": \"b\",\"path\": \"/tasks?project=1&limit=5&offset=b\",\"uri\": \"https://app.asana.com/api/1.0/tasks?project=1&limit=5&offset=b\"}}";
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=5&offset=a").code(200).content(req)
+                .header("asana-change","name=string_ids;info=something;affected=true")
+                .header("asana-change", "name=new_sections;info=something;affected=true");
+
+        client.tasks.findByProject("1")
+                .option("limit", 5).option("offset", "a")
+                .executeRaw();
+
+        assertEquals("Log level as expected?", Level.WARNING, handler.checkLevel() );
+    }
+
+    @Test
+    public void testAsanaChangeLoggingIgnoreCase() throws IOException
+    {
+        Logger logger = Logger.getLogger(Request.class.getCanonicalName());
+        LogHandler handler = new LogHandler();
+        handler.setLevel(Level.ALL);
+        logger.setUseParentHandlers(false);
+        logger.addHandler(handler);
+        logger.setLevel(Level.ALL);
+
+        String req = "{ \"data\": [ { \"gid\": 1 }],\"next_page\": {\"offset\": \"b\",\"path\": \"/tasks?project=1&limit=5&offset=b\",\"uri\": \"https://app.asana.com/api/1.0/tasks?project=1&limit=5&offset=b\"}}";
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=5&offset=a").code(200).content(req)
+                .header("AsANa-ChaNge","name=new_sections;info=something;affected=true");
+
+        client.tasks.findByProject("1")
+                .option("limit", 5).option("offset", "a")
+                .executeRaw();
+
+        assertEquals("Log level as expected?", Level.WARNING, handler.checkLevel() );
+    }
+
+    @Test
+    public void testAsanaChangeLoggingDontLogIfNotAffected() throws IOException
+    {
+        Logger logger = Logger.getLogger(Request.class.getCanonicalName());
+        LogHandler handler = new LogHandler();
+        handler.setLevel(Level.ALL);
+        logger.setUseParentHandlers(false);
+        logger.addHandler(handler);
+        logger.setLevel(Level.ALL);
+
+        String req = "{ \"data\": [ { \"gid\": 1 }],\"next_page\": {\"offset\": \"b\",\"path\": \"/tasks?project=1&limit=5&offset=b\",\"uri\": \"https://app.asana.com/api/1.0/tasks?project=1&limit=5&offset=b\"}}";
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=5&offset=a").code(200).content(req)
+                .header("asana-change", "name=new_sections;info=something");
+
+        client.tasks.findByProject("1")
+                .option("limit", 5).option("offset", "a")
+                .executeRaw();
+
+        assertNotEquals("Log level as expected?", Level.WARNING, handler.checkLevel() );
+    }
+
+    class LogHandler extends Handler
+    {
+        Level lastLevel = Level.FINEST;
+
+        public Level  checkLevel() {
+            return lastLevel;
+        }
+
+        public void publish(LogRecord record) {
+            lastLevel = record.getLevel();
+        }
+
+        public void close(){}
+        public void flush(){}
     }
 }
