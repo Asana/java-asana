@@ -99,10 +99,10 @@ public class PortfoliosBase extends Resource {
      * @param  portfolio The portfolio from which to get the list of items.
      * @return Request object
      */
-    public ItemRequest<Portfolio> getItems(String portfolio) {
+    public CollectionRequest<Resource> getItems(String portfolio) {
 
         String path = String.format("/portfolios/%s/items", portfolio);
-        return new ItemRequest<Portfolio>(this, Portfolio.class, path, "GET");
+        return new CollectionRequest<Resource>(this, Resource.class, path, "GET");
     }
 
     /**
@@ -163,10 +163,10 @@ public class PortfoliosBase extends Resource {
      * @param  portfolio The portfolio from which to get the custom field settings.
      * @return Request object
      */
-    public ItemRequest<Portfolio> customFieldSettings(String portfolio) {
+    public CollectionRequest<Portfolio> customFieldSettings(String portfolio) {
 
         String path = String.format("/portfolios/%s/custom_field_settings", portfolio);
-        return new ItemRequest<Portfolio>(this, Portfolio.class, path, "GET");
+        return new CollectionRequest<Portfolio>(this, Portfolio.class, path, "GET");
     }
 
     /**
