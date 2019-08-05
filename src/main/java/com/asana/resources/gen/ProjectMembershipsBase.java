@@ -27,7 +27,7 @@ public class ProjectMembershipsBase extends Resource {
      * @return Request object
      */
     public CollectionRequest<ProjectMembership> findByProject(String project) {
-    
+
         String path = String.format("/projects/%s/project_memberships", project);
         return new CollectionRequest<ProjectMembership>(this, ProjectMembership.class, path, "GET");
     }
@@ -39,7 +39,7 @@ public class ProjectMembershipsBase extends Resource {
      * @return Request object
      */
     public ItemRequest<ProjectMembership> findById(String projectMembership) {
-    
+
         String path = String.format("/project_memberships/%s", projectMembership);
         return new ItemRequest<ProjectMembership>(this, ProjectMembership.class, path, "GET");
     }

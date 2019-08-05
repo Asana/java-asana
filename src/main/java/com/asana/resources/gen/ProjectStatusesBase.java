@@ -1,8 +1,8 @@
 package com.asana.resources.gen;
 
 import com.asana.Client;
-import com.asana.resources.Resource;
 import com.asana.models.ProjectStatus;
+import com.asana.resources.Resource;
 import com.asana.requests.ItemRequest;
 import com.asana.requests.CollectionRequest;
 

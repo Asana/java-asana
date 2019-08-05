@@ -9,7 +9,7 @@ import com.asana.requests.CollectionRequest;
 /**
  * A _tag_ is a label that can be attached to any task in Asana. It exists in a
  * single workspace or organization.
- * 
+ *
  * Tags have some metadata associated with them, but it is possible that we will
  * simplify them in the future so it is not encouraged to rely too heavily on it.
  * Unlike projects, tags do not provide any ordering on the tasks they
@@ -25,36 +25,36 @@ public class TagsBase extends Resource {
 
     /**
      * Creates a new tag in a workspace or organization.
-     * 
+     *
      * Every tag is required to be created in a specific workspace or
      * organization, and this cannot be changed once set. Note that you can use
      * the `workspace` parameter regardless of whether or not it is an
      * organization.
-     * 
+     *
      * Returns the full record of the newly created tag.
      *
      * @return Request object
      */
     public ItemRequest<Tag> create() {
-    
+
         return new ItemRequest<Tag>(this, Tag.class, "/tags", "POST");
     }
 
     /**
      * Creates a new tag in a workspace or organization.
-     * 
+     *
      * Every tag is required to be created in a specific workspace or
      * organization, and this cannot be changed once set. Note that you can use
      * the `workspace` parameter regardless of whether or not it is an
      * organization.
-     * 
+     *
      * Returns the full record of the newly created tag.
      *
      * @param  workspace The workspace or organization to create the tag in.
      * @return Request object
      */
     public ItemRequest<Tag> createInWorkspace(String workspace) {
-    
+
         String path = String.format("/workspaces/%s/tags", workspace);
         return new ItemRequest<Tag>(this, Tag.class, path, "POST");
     }
@@ -66,7 +66,7 @@ public class TagsBase extends Resource {
      * @return Request object
      */
     public ItemRequest<Tag> findById(String tag) {
-    
+
         String path = String.format("/tags/%s", tag);
         return new ItemRequest<Tag>(this, Tag.class, path, "GET");
     }
@@ -74,18 +74,18 @@ public class TagsBase extends Resource {
     /**
      * Updates the properties of a tag. Only the fields provided in the `data`
      * block will be updated; any unspecified fields will remain unchanged.
-     * 
+     *
      * When using this method, it is best to specify only those fields you wish
      * to change, or else you may overwrite changes made by another user since
      * you last retrieved the task.
-     * 
+     *
      * Returns the complete updated tag record.
      *
      * @param  tag The tag to update.
      * @return Request object
      */
     public ItemRequest<Tag> update(String tag) {
-    
+
         String path = String.format("/tags/%s", tag);
         return new ItemRequest<Tag>(this, Tag.class, path, "PUT");
     }
@@ -93,14 +93,14 @@ public class TagsBase extends Resource {
     /**
      * A specific, existing tag can be deleted by making a DELETE request
      * on the URL for that tag.
-     * 
+     *
      * Returns an empty data record.
      *
      * @param  tag The tag to delete.
      * @return Request object
      */
     public ItemRequest<Tag> delete(String tag) {
-    
+
         String path = String.format("/tags/%s", tag);
         return new ItemRequest<Tag>(this, Tag.class, path, "DELETE");
     }
@@ -112,7 +112,7 @@ public class TagsBase extends Resource {
      * @return Request object
      */
     public CollectionRequest<Tag> findAll() {
-    
+
         return new CollectionRequest<Tag>(this, Tag.class, "/tags", "GET");
     }
 
@@ -123,7 +123,7 @@ public class TagsBase extends Resource {
      * @return Request object
      */
     public CollectionRequest<Tag> findByWorkspace(String workspace) {
-    
+
         String path = String.format("/workspaces/%s/tags", workspace);
         return new CollectionRequest<Tag>(this, Tag.class, path, "GET");
     }

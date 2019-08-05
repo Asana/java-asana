@@ -52,7 +52,10 @@ public class Client {
     public CustomFields customFields;
     public CustomFieldSettings customFieldSettings;
     public Events events;
+    public Jobs jobs;
     public OrganizationExports organizationExports;
+    public Portfolios portfolios;
+    public PortfolioMemberships portfolioMemberships;
     public Projects projects;
     public ProjectStatuses projectStatuses;
     public ProjectMemberships projectMemberships;
@@ -61,8 +64,11 @@ public class Client {
     public Tasks tasks;
     public Teams teams;
     public Users users;
+    public UserTaskLists userTaskLists;
     public Webhooks webhooks;
     public Workspaces workspaces;
+
+    public boolean logAsanaChangeWarnings;
 
     private static final String[] QUERY_OPTIONS = new String[]{"limit", "offset", "sync"};
     private static final String[] API_OPTIONS = new String[]{"pretty", "fields", "expand"};
@@ -108,7 +114,10 @@ public class Client {
         this.customFields = new CustomFields(this);
         this.customFieldSettings = new CustomFieldSettings(this);
         this.events = new Events(this);
+        this.jobs = new Jobs(this);
         this.organizationExports = new OrganizationExports(this);
+        this.portfolios = new Portfolios(this);
+        this.portfolioMemberships = new PortfolioMemberships(this);
         this.projects = new Projects(this);
         this.projectStatuses = new ProjectStatuses(this);
         this.projectMemberships = new ProjectMemberships(this);
@@ -117,8 +126,11 @@ public class Client {
         this.tasks = new Tasks(this);
         this.teams = new Teams(this);
         this.users = new Users(this);
+        this.userTaskLists = new UserTaskLists(this);
         this.webhooks = new Webhooks(this);
         this.workspaces = new Workspaces(this);
+
+        this.logAsanaChangeWarnings = true;
     }
 
     /**

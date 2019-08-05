@@ -7,8 +7,19 @@ import com.google.api.client.util.DateTime;
 import java.util.Collection;
 
 public class Story extends Resource {
-    public String type;
-    public String source;
+    @SerializedName("resource_subtype")
+    public String resourceSubtype;
+
+    @SerializedName("created_at")
+    public DateTime createdAt;
+    @SerializedName("created_by")
+    public User createdBy;
+
+
+    public boolean liked;
+    public Collection<Like> likes;
+    @SerializedName("num_likes")
+    public int numLikes;
 
     public String text;
     @SerializedName("html_text")
@@ -21,13 +32,6 @@ public class Story extends Resource {
     @SerializedName("is_edited")
     public boolean isEdited;
 
-    public boolean liked;
-    public Collection<Like> likes;
-    @SerializedName("num_likes")
-    public int numLikes;
-
-    @SerializedName("created_by")
-    public User createdBy;
-    @SerializedName("created_at")
-    public DateTime createdAt;
+    public String source;
+    public String type;
 }

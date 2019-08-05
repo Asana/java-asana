@@ -14,6 +14,8 @@ public class User extends Resource {
     public String name;
 
     public String email;
+
     public Photo photo;
+
     public Collection<Workspace> workspaces;
 }

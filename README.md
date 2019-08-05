@@ -105,14 +105,14 @@ Note: if you're writing a non-browser-based application (e.x. a command line too
 Usage
 -----
 
-The client's methods are divided into several resources: `attachments`, `customFields`, `customFieldSettings`, `events`, `organizationExports`, `projects`, `projectMemberships`, `projectStatuses`, `stories`, `tags`, `tasks`, `teams`, `users`, `webhooks`, and `workspaces`.
+The client's methods are divided into several resources: `attachments`, `customFields`, `customFieldSettings`, `events`, `jobs`, `organizationExports`, `portfolios`, `portfolioMemberships`, `projects`, `projectMemberships`, `projectStatuses`, `stories`, `tags`, `tasks`, `teams`, `users`, `userTaskLists`, `webhooks`, and `workspaces`.
 
 Request methods use the "builder" pattern to set query string or JSON body parameters, and various request options, so a request must be initated using the `execute` or `executeRaw` methods:
 
 Methods that return a single object return that object directly:
 
     User me = client.users.me().execute();
-    System.out.println("Hello " + name.name);
+    System.out.println("Hello " + me.name);
 
     String workspaceId = me.workspaces.get(0).id;
     Project project = client.projects.createInWorkspace(workspaceId)
@@ -154,6 +154,13 @@ Events:
 * `poll_interval` (default: 5): polling interval for getting new events via an `EventsRequest` iterator (e.x. `for (Event event : client.events.get(resourceId)) { ... }`)
 * `sync`: sync token returned by previous calls to `events.get` (e.x. `client.events.get(resourceId, syncToken).executeRaw().sync`)
 
+Headers
+-------
+
+To add global headers (like for our [deprecation framework](https://asana.com/developers/documentation/getting-started/deprecations)), you simply add them to the client.
+
+    client.headers.put("asana-enable", "string_ids");
+    
 ### Asana Change Warnings
 
 You will receive warning logs if performing requests that may be affected by a deprecation. The warning contains a link that explains the deprecation.
@@ -163,7 +170,7 @@ If you receive one of these warnings, you should:
 * Resolve sections of your code that would be affected by the deprecation.
 * Add the deprecation flag to your "asana-enable" header.
 
-You can place it on the client for all requests, or place it on a single request.
+You can place it on the client for all requests.
 
     client.headers.put("asana-enable", "string_ids,new_sections");
     or

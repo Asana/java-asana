@@ -1,6 +1,7 @@
 package com.asana.resources.gen;
 
 import com.asana.Client;
+import com.asana.models.ResourceWithSubtype;
 import com.asana.resources.Resource;
 import com.asana.models.Workspace;
 import com.asana.requests.ItemRequest;
@@ -9,13 +10,13 @@ import com.asana.requests.CollectionRequest;
 /**
  * A _workspace_ is the highest-level organizational unit in Asana. All projects
  * and tasks have an associated workspace.
- * 
+ *
  * An _organization_ is a special kind of workspace that represents a company.
  * In an organization, you can group your projects into teams. You can read
  * more about how organizations work on the Asana Guide.
  * To tell if your workspace is an organization or not, check its
  * `is_organization` property.
- * 
+ *
  * Over time, we intend to migrate most workspaces into organizations and to
  * release more organization-specific functionality. We may eventually deprecate
  * using workspace-based APIs for organizations. Currently, and until after
@@ -37,7 +38,7 @@ public class WorkspacesBase extends Resource {
      * @return Request object
      */
     public ItemRequest<Workspace> findById(String workspace) {
-    
+
         String path = String.format("/workspaces/%s", workspace);
         return new ItemRequest<Workspace>(this, Workspace.class, path, "GET");
     }
@@ -48,7 +49,7 @@ public class WorkspacesBase extends Resource {
      * @return Request object
      */
     public CollectionRequest<Workspace> findAll() {
-    
+
         return new CollectionRequest<Workspace>(this, Workspace.class, "/workspaces", "GET");
     }
 
@@ -56,16 +57,16 @@ public class WorkspacesBase extends Resource {
      * A specific, existing workspace can be updated by making a PUT request on
      * the URL for that workspace. Only the fields provided in the data block
      * will be updated; any unspecified fields will remain unchanged.
-     * 
+     *
      * Currently the only field that can be modified for a workspace is its `name`.
-     * 
+     *
      * Returns the complete, updated workspace record.
      *
      * @param  workspace The workspace to update.
      * @return Request object
      */
     public ItemRequest<Workspace> update(String workspace) {
-    
+
         String path = String.format("/workspaces/%s", workspace);
         return new ItemRequest<Workspace>(this, Workspace.class, path, "PUT");
     }
@@ -80,10 +81,10 @@ public class WorkspacesBase extends Resource {
      * @param  workspace The workspace to fetch objects from.
      * @return Request object
      */
-    public CollectionRequest<Workspace> typeahead(String workspace) {
-    
+    public CollectionRequest<ResourceWithSubtype> typeahead(String workspace) {
+
         String path = String.format("/workspaces/%s/typeahead", workspace);
-        return new CollectionRequest<Workspace>(this, Workspace.class, path, "GET");
+        return new CollectionRequest<ResourceWithSubtype>(this, ResourceWithSubtype.class, path, "GET");
     }
 
     /**
@@ -94,7 +95,7 @@ public class WorkspacesBase extends Resource {
      * @return Request object
      */
     public ItemRequest<Workspace> addUser(String workspace) {
-    
+
         String path = String.format("/workspaces/%s/addUser", workspace);
         return new ItemRequest<Workspace>(this, Workspace.class, path, "POST");
     }
@@ -107,7 +108,7 @@ public class WorkspacesBase extends Resource {
      * @return Request object
      */
     public ItemRequest<Workspace> removeUser(String workspace) {
-    
+
         String path = String.format("/workspaces/%s/removeUser", workspace);
         return new ItemRequest<Workspace>(this, Workspace.class, path, "POST");
     }

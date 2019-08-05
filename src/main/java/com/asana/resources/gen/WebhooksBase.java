@@ -26,12 +26,14 @@ import com.asana.requests.CollectionRequest;
  *     {\
  *       "resource": {\
  *         "id": 1337,\
+ *         "resource_type": "task",\
  *         "name": "My Task"\
  *       },\
  *       "parent": null,\
  *       "created_at": "2013-08-21T18:20:37.972Z",\
  *       "user": {\
  *         "id": 1123,\
+ *         "resource_type": "user",\
  *         "name": "Tom Bizarro"\
  *       },\
  *       "action": "changed",\

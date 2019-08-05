@@ -13,6 +13,7 @@ public class Attachment extends Resource {
 
     @SerializedName("download_url")
     public URL downloadUrl;
+
     @SerializedName("view_url")
     public URL viewUrl;
 

@@ -4,6 +4,7 @@ import com.asana.Json;
 import com.asana.models.ResultBody;
 import com.asana.resources.Resource;
 import com.google.api.client.http.HttpContent;
+import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpResponse;
 import com.google.common.reflect.TypeParameter;
 import com.google.common.reflect.TypeToken;
@@ -38,6 +39,13 @@ public class ItemRequest<T> extends Request {
      */
     public ResultBody<T> executeRaw() throws IOException {
         HttpResponse response = this.client.request(this);
+
+        if (this.client.logAsanaChangeWarnings) {
+            HttpHeaders reqHeaders = new HttpHeaders();
+            reqHeaders.putAll(this.client.headers);
+            handleAsanaChangeHeader(reqHeaders, response.getHeaders());
+        }
+
         return Json.getInstance().fromJson(
                 new BufferedReader(new InputStreamReader(response.getContent(), StandardCharsets.UTF_8)),
                 new TypeToken<ResultBody<T>>() {

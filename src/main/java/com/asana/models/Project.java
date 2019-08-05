@@ -15,6 +15,8 @@ public class Project extends Resource {
 
     @SerializedName("due_date")
     public DateTime dueDate;
+    @SerializedName("due_on")
+    public DateTime dueOn;
     @SerializedName("start_on")
     public DateTime startOn;
 
@@ -33,6 +35,9 @@ public class Project extends Resource {
 
     public Team team;
     public Workspace workspace;
+
+    @SerializedName("custom_fields")
+    public Collection<CustomField> customFields;
 
     @SerializedName("custom_field_settings")
     public Collection<CustomFieldSetting> customFieldSettings;

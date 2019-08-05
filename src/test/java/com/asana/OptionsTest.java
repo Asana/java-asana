@@ -19,7 +19,7 @@ public class OptionsTest extends AsanaTest
         User user = client.users.me()
                 .option("pretty", true)
                 .execute();
-        assertEquals(user.name, "me");
+        assertEquals("me", user.name);
     }
 
     @Test
@@ -29,8 +29,8 @@ public class OptionsTest extends AsanaTest
         Task task = client.tasks.create()
                 .option("pretty", true)
                 .execute();
-        assertEquals(task.name, "task");
-        assertEquals(dispatcher.calls.get(0).requestBody, "{\"data\":{},\"options\":{\"pretty\":true}}");
+        assertEquals("task", task.name);
+        assertEquals("{\"data\":{},\"options\":{\"pretty\":true}}", dispatcher.calls.get(0).requestBody);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class OptionsTest extends AsanaTest
         User user = client.users.me()
                 .option("fields", Arrays.asList("name", "notes"))
                 .execute();
-        assertEquals(user.name, "me");
+        assertEquals("me", user.name);
     }
 
     @Test
@@ -52,8 +52,8 @@ public class OptionsTest extends AsanaTest
         Task task = client.tasks.create()
                 .option("fields", Arrays.asList("name", "notes"))
                 .execute();
-        assertEquals(task.name, "task");
-        assertEquals(dispatcher.calls.get(0).parsedRequestBody, req);
+        assertEquals("task", task.name);
+        assertEquals(req, dispatcher.calls.get(0).parsedRequestBody);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class OptionsTest extends AsanaTest
                 .data("assignee", "1234")
                 .option("expand", Arrays.asList("projects"))
                 .execute();
-        assertEquals(task.name, "me");
-        assertEquals(dispatcher.calls.get(0).parsedRequestBody, req);
+        assertEquals("me", task.name);
+        assertEquals(req, dispatcher.calls.get(0).parsedRequestBody);
     }
 }
