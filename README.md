@@ -170,6 +170,12 @@ If you receive one of these warnings, you should:
 * Resolve sections of your code that would be affected by the deprecation.
 * Add the deprecation flag to your "asana-enable" header.
 
+You can place it on the client for all requests.
+
+    client.headers.put("asana-enable", "string_ids,new_sections");
+    or
+    client.headers.put("asana-disable", "string_ids");
+
 If you would rather suppress these warnings, you can set
 
     client.logAsanaChangeWarnings = false;
