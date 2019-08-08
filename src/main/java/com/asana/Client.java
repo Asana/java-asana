@@ -266,6 +266,7 @@ public class Client {
      * @deprecated
      * @return Client instance
      */
+    @Deprecated
     public static Client basicAuth(String apiKey) {
         return new Client(new BasicAuthDispatcher(apiKey));
     }
@@ -278,6 +279,7 @@ public class Client {
      * @deprecated
      * @return Client instance
      */
+    @Deprecated
     public static Client basicAuth(String apiKey, HttpTransport httpTransport) {
         return new Client(new BasicAuthDispatcher(apiKey, httpTransport));
     }

@@ -73,7 +73,7 @@ public class MockDispatcher extends Dispatcher {
     }
 
     public void sleep(long millis) {
-        this.sleepCalls.add(new Integer((int) millis));
+        this.sleepCalls.add((int) millis);
     }
 
     public MockHttpResponse registerResponse(String method, String path) {
