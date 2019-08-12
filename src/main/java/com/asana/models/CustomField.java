@@ -31,4 +31,7 @@ public class CustomField extends Resource {
     public Collection<EnumOption> enumOptions;
     @SerializedName("enum_value")
     public EnumOption enumValue;
+
+    @SerializedName("resource_subtype")
+    public String resourceSubtype;
 }
