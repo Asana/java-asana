@@ -6,10 +6,7 @@ import com.google.api.client.util.DateTime;
 
 import java.util.Collection;
 
-public class Story extends Resource {
-    @SerializedName("resource_subtype")
-    public String resourceSubtype;
-
+public class Story extends ResourceWithSubtype {
     @SerializedName("created_at")
     public DateTime createdAt;
     @SerializedName("created_by")
