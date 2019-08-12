@@ -5,14 +5,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Collection;
 
-public class Task extends Resource {
+public class Task extends ResourceWithSubtype {
     public static class Membership {
         public Project project;
         public Task section;
     }
-
-    @SerializedName("resource_subtype")
-    public String resourceSubtype;
 
     public User assignee;
 
