@@ -21,7 +21,7 @@ public class AttachmentsTest extends AsanaTest
         String fileType = "text/plain";
         String fileContent = "hello world";
 
-        String res = "{\"data\":{\"id\":\"2\",\"name\":\"" + fileName + "\"}}";
+        String res = "{\"data\":{\"gid\":\"2\",\"name\":\"" + fileName + "\"}}";
         dispatcher.registerResponse("POST", "http://app/tasks/1/attachments").code(200).content(res);
 
         Attachment attachment = client.attachments.createOnTask(
@@ -31,7 +31,7 @@ public class AttachmentsTest extends AsanaTest
                 fileType
         ).execute();
 
-        assertEquals("2", attachment.id);
+        assertEquals("2", attachment.gid);
         assertEquals(fileName, attachment.name);
 
         // TODO: real multipart parsing?

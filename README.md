@@ -114,11 +114,11 @@ Methods that return a single object return that object directly:
     User me = client.users.me().execute();
     System.out.println("Hello " + me.name);
 
-    String workspaceId = me.workspaces.get(0).id;
+    String workspaceId = me.workspaces.get(0).gid;
     Project project = client.projects.createInWorkspace(workspaceId)
         .data("name", "new project")
         .execute();
-    System.out.println("Created project with id: " + project.id);
+    System.out.println("Created project with id: " + project.gid);
 
 Methods that return multiple items (e.x. `findAll`) return an `Iterable` object. See the "Collections" section
 

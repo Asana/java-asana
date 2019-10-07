@@ -32,7 +32,7 @@ public class ExampleCreateProjectAndStreamEvents {
         }
 
         // create a "demo project" if it doesn't exist
-        List<Project> projects = client.projects.findByWorkspace(personalProjects.id).execute();
+        List<Project> projects = client.projects.findByWorkspace(personalProjects.gid).execute();
         Project demoProject = null;
         for (Project project : projects) {
             if (project.name.equals("demo project")) {
@@ -41,7 +41,7 @@ public class ExampleCreateProjectAndStreamEvents {
             }
         }
         if (demoProject == null) {
-            demoProject = client.projects.createInWorkspace(personalProjects.id)
+            demoProject = client.projects.createInWorkspace(personalProjects.gid)
                     .data("name", "demo project")
                     .execute();
         }
@@ -49,7 +49,7 @@ public class ExampleCreateProjectAndStreamEvents {
         // start streaming modifications to the demo project.
         // make some changes in Asana to see this working
         System.out.println("== Streaming events for 'demo project' in 'Personal Projects' workspace:");
-        for (Event e : client.events.get(demoProject.id)) {
+        for (Event e : client.events.get(demoProject.gid)) {
             System.out.println(e.action + ": " + e.type);
         }
     }

@@ -60,7 +60,7 @@ public class ExampleOAuth {
         // get some information about your own user
         User user = client.users.me().execute();
         System.out.println("me=" + user.name);
-        System.out.println(user.id);
+        System.out.println(user.gid);
 
         // get your photo, if you have one
         if (user.photo != null) {

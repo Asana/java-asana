@@ -15,9 +15,9 @@ public class WebhooksTest extends AsanaTest
 {
     private final static String RESPONSE =
             "{" +
-            "    \"id\": 222," +
+            "    \"gid\": 222," +
             "    \"resource\": {" +
-            "        \"id\": 111," +
+            "        \"gid\": 111," +
             "        \"name\": \"the resource\"" +
             "    }," +
             "    \"target\": \"https://foo/123\"," +
@@ -27,8 +27,8 @@ public class WebhooksTest extends AsanaTest
     private void verifyResponse(Webhook w) {
         assertTrue(w.active);
         assertEquals("https://foo/123", w.target);
-        assertEquals("222", w.id);
-        assertEquals("111", w.resource.id);
+        assertEquals("222", w.gid);
+        assertEquals("111", w.resource.gid);
         assertEquals("the resource", w.resource.name);
     }
 
@@ -64,7 +64,7 @@ public class WebhooksTest extends AsanaTest
     {
         dispatcher.registerResponse("DELETE", "http://app/webhooks/222").code(200).content("{\"data\": {}}");
         final Webhook w = client.webhooks.deleteById("222").execute();
-        assertEquals(null, w.id);
+        assertEquals(null, w.gid);
     }
 
 }

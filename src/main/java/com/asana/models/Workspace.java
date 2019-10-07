@@ -16,7 +16,7 @@ public class Workspace extends Resource {
 
     // constructor with id arg provided for convenience
     public Workspace(String id) {
-        this.id = id;
+        this.gid = id;
     }
 
 }

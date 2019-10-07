@@ -28,15 +28,15 @@ public class IteratorTest extends AsanaTest
     public void testItemIteratorItemLimitLessThanItems() throws IOException
     {
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2").code(200)
-                .content("{\"data\": [{\"id\":1},{\"id\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
+                .content("{\"data\": [{\"gid\":1},{\"gid\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
 
         Iterator<Task> iter = client.tasks.findByProject("1")
                 .option("item_limit", 2).option("page_size", 2)
                 .iterator();
         assertEquals(true, iter.hasNext());
-        assertEquals("1", iter.next().id);
+        assertEquals("1", iter.next().gid);
         assertEquals(true, iter.hasNext());
-        assertEquals("2", iter.next().id);
+        assertEquals("2", iter.next().gid);
         assertEquals(false, iter.hasNext());
     }
 
@@ -49,7 +49,7 @@ public class IteratorTest extends AsanaTest
         // remaining items have meanwhile been removed. In the spirit of loose coupling, it is probably good not to
         // overly rely on backend implementation details and verify this case, too.
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2").code(200)
-                .content("{\"data\": [{\"id\":1},{\"id\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
+                .content("{\"data\": [{\"gid\":1},{\"gid\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=1&offset=a").code(200)
                 .content("{ \"data\": [], \"next_page\": null }");
 
@@ -57,9 +57,9 @@ public class IteratorTest extends AsanaTest
                 .option("item_limit", 3).option("page_size", 2)
                 .iterator();
         assertEquals(true, iter.hasNext());
-        assertEquals("1", iter.next().id);
+        assertEquals("1", iter.next().gid);
         assertEquals(true, iter.hasNext());
-        assertEquals("2", iter.next().id);
+        assertEquals("2", iter.next().gid);
         assertEquals(false, iter.hasNext());
     }
 
@@ -67,19 +67,19 @@ public class IteratorTest extends AsanaTest
     public void testItemIteratorItemLimitEqualItems() throws IOException
     {
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2").code(200)
-                .content("{\"data\": [{\"id\":1},{\"id\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
+                .content("{\"data\": [{\"gid\":1},{\"gid\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=1&offset=a").code(200)
-                .content("{ \"data\": [{\"id\":3}], \"next_page\": null }");
+                .content("{ \"data\": [{\"gid\":3}], \"next_page\": null }");
 
         Iterator<Task> iter = client.tasks.findByProject("1")
                 .option("item_limit", 3).option("page_size", 2)
                 .iterator();
         assertEquals(true, iter.hasNext());
-        assertEquals("1", iter.next().id);
+        assertEquals("1", iter.next().gid);
         assertEquals(true, iter.hasNext());
-        assertEquals("2", iter.next().id);
+        assertEquals("2", iter.next().gid);
         assertEquals(true, iter.hasNext());
-        assertEquals("3", iter.next().id);
+        assertEquals("3", iter.next().gid);
         assertEquals(false, iter.hasNext());
     }
 
@@ -87,19 +87,19 @@ public class IteratorTest extends AsanaTest
     public void testItemIteratorItemLimitGreaterThanItems() throws IOException
     {
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2").code(200)
-                .content("{\"data\": [{\"id\":1},{\"id\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
+                .content("{\"data\": [{\"gid\":1},{\"gid\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2&offset=a").code(200)
-                .content("{ \"data\": [{\"id\":3}], \"next_page\": null }");
+                .content("{ \"data\": [{\"gid\":3}], \"next_page\": null }");
 
         Iterator<Task> iter = client.tasks.findByProject("1")
                 .option("item_limit", 4).option("page_size", 2)
                 .iterator();
         assertEquals(true, iter.hasNext());
-        assertEquals("1", iter.next().id);
+        assertEquals("1", iter.next().gid);
         assertEquals(true, iter.hasNext());
-        assertEquals("2", iter.next().id);
+        assertEquals("2", iter.next().gid);
         assertEquals(true, iter.hasNext());
-        assertEquals("3", iter.next().id);
+        assertEquals("3", iter.next().gid);
         assertEquals(false, iter.hasNext());
     }
 
@@ -107,20 +107,20 @@ public class IteratorTest extends AsanaTest
     public void testItemIteratorPreserveOptFields() throws IOException
     {
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2&opt_fields=foo").code(200)
-                .content("{\"data\": [{\"id\":1},{\"id\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
+                .content("{\"data\": [{\"gid\":1},{\"gid\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=1&offset=a&opt_fields=foo").code(200)
-                .content("{ \"data\": [{\"id\":3}], \"next_page\": null }");
+                .content("{ \"data\": [{\"gid\":3}], \"next_page\": null }");
 
         Iterator<Task> iter = client.tasks.findByProject("1")
                 .option("fields", Arrays.asList("foo"))
                 .option("item_limit", 3).option("page_size", 2)
                 .iterator();
         assertEquals(true, iter.hasNext());
-        assertEquals("1", iter.next().id);
+        assertEquals("1", iter.next().gid);
         assertEquals(true, iter.hasNext());
-        assertEquals("2", iter.next().id);
+        assertEquals("2", iter.next().gid);
         assertEquals(true, iter.hasNext());
-        assertEquals("3", iter.next().id);
+        assertEquals("3", iter.next().gid);
         assertEquals(false, iter.hasNext());
     }
 }
