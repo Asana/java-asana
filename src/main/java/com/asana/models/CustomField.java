@@ -6,8 +6,7 @@ import java.util.Collection;
 
 public class CustomField extends ResourceWithSubtype {
 
-    public static class EnumOption {
-      public String id;
+    public static class EnumOption extends ResourceWithSubtype {
       public String name;
       public Boolean enabled;
       public String color;
