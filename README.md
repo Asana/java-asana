@@ -39,6 +39,7 @@ should be set to "urn:ietf:wg:oauth:2.0:oob" for command line scripts examples, 
     export ASANA_ACCESS_TOKEN="X"
     export ASANA_CLIENT_ID="X"
     export ASANA_CLIENT_SECRET="X"
+    export SLACK_TOKEN="X"
 
 Web application example:
 
@@ -62,7 +63,7 @@ Demo create project and stream change events:
 
 Sending a slack channel message on milestone completion for a given project:
 
-    mvn exec:java -Dexec.mainClass="com.asana.examples.MilestoneCelebratorySlackMessage" -Dexec.args=[PROJECT_ID]
+    mvn exec:java -Dexec.mainClass="com.asana.examples.ExampleMilestoneCelebratorySlackMessage" -Dexec.args=[PROJECT_ID]
 
 Authentication
 --------------
