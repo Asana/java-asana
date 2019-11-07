@@ -60,6 +60,10 @@ Demo create project and stream change events:
 
     mvn exec:java -Dexec.mainClass="com.asana.examples.ExampleCreateProjectAndStreamEvents"
 
+Sending a slack channel message on milestone completion for a given project:
+
+    mvn exec:java -Dexec.mainClass="com.asana.examples.MilestoneCelebratorySlackMessage" -Dexec.args=[PROJECT_ID]
+
 Authentication
 --------------
 
