@@ -81,9 +81,9 @@ public class ExampleMilestoneCelebratorySlackMessage {
         for (Event event : events) {
             if (event.type.equals("story") && event.action.equals("added") && event.resource.resourceType.equals("story")) {
                 Story story = client.stories.findById(event.resource.gid).execute();
-                if (story.text.equals("marked this milestone complete") && story.target.resourceType.equals("task")) {
+                if (story.resourceSubtype.equals("marked_complete") && story.target.resourceType.equals("task")) {
                     Task task = client.tasks.findById(story.target.gid).execute();
-                    // Check to make sure the task is currently a completed milestone (in case it was marked incomplete).
+                    // Check to make sure the task is currently a completed milestone (in case it was marked incomplete after the story was added).
                     if (task.completed && task.resourceSubtype.equals("milestone")) {
                         notifySlack(slackClient, task.name);
                     }
