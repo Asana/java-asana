@@ -124,6 +124,7 @@ public class ExampleMilestoneCelebratorySlackMessage {
 
         String slackToken = System.getenv("SLACK_TOKEN");
 
+        // create a client with your Slack PAT
         return SlackClientFactory
             .defaultFactory()
             .build(SlackClientRuntimeConfig
