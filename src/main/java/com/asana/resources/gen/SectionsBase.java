@@ -104,12 +104,12 @@ public class SectionsBase extends Resource {
      *
      * This does not work for separators (tasks with the `resource_subtype` of section).
      *
-     * @param  task The task to add to this section
+     * @param  section The section in which to add the task
      * @return Request object
      */
-    public ItemRequest<Section> addTask(String task) {
+    public ItemRequest<Section> addTask(String section) {
 
-        String path = String.format("/sections/%s/addTask", task);
+        String path = String.format("/sections/%s/addTask", section);
         return new ItemRequest<Section>(this, Section.class, path, "POST");
     }
 
