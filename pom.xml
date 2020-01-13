@@ -4,7 +4,7 @@
     <groupId>com.asana</groupId>
     <artifactId>asana</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.1</version>
+    <version>0.10.0</version>
     <url>http://maven.apache.org</url>
     <name>java-asana</name>
     <description>A Java client for the Asana API.</description>
@@ -53,6 +53,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.1.1</version>
+        </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -104,8 +109,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
 

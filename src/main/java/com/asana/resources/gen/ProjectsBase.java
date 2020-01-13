@@ -1,259 +1,393 @@
 package com.asana.resources.gen;
 
 import com.asana.Client;
-import com.asana.models.Job;
 import com.asana.resources.Resource;
-import com.asana.models.Project;
 import com.asana.requests.ItemRequest;
 import com.asana.requests.CollectionRequest;
+import com.asana.models.gen.AddCustomFieldSettingRequest;
+import com.asana.models.gen.EmptyObject;
+import com.asana.models.gen.ErrorResponse;
+import com.asana.models.gen.JobResponse;
+import com.asana.models.gen.ProjectBase;
+import com.asana.models.gen.ProjectCompact;
+import com.asana.models.gen.ProjectDuplicateRequest;
+import com.asana.models.gen.ProjectResponse;
+import com.asana.models.gen.RemoveCustomFieldSettingRequest;
+import com.asana.models.gen.TaskCountResponse;
+import java.io.IOException;
+import java.util.List;
 
-/**
- * A _project_ represents a prioritized list of tasks in Asana or a board with
- * columns of tasks represented as cards. It exists in a single workspace or
- * organization and is accessible to a subset of users in that workspace or
- * organization, depending on its permissions.
- *
- * Projects in organizations are shared with a single team. You cannot currently
- * change the team of a project via the API. Non-organization workspaces do not
- * have teams and so you should not specify the team of project in a regular
- * workspace.
- */
 public class ProjectsBase extends Resource {
     /**
-     * @param client Parent client instance
+    * @param client Parent client instance
+    */
+    public ProjectsBase(Client client) { super(client); }
+
+    /**
+     * Add a custom field to a project
+     * Custom fields are associated with projects by way of custom field settings.  This method creates a setting for the project.
+     * @param projectGid Globally unique identifier for the project. (required)
+     * @param body Information about the custom field setting. (required)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return ItemRequest<EmptyObject>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ProjectsBase(Client client) {
-        super(client);
+    public ItemRequest<EmptyObject> addCustomFieldSettingForProject(String projectGid, AddCustomFieldSettingRequest body, Boolean optPretty) throws IOException {
+        String path = "/projects/{project_gid}/addCustomFieldSetting".replace("{project_gid}", projectGid);
+
+        ItemRequest<EmptyObject> req = new ItemRequest<EmptyObject>(this, EmptyObject.class, path, "POST")
+            .query("opt_pretty", optPretty);
+
+        req.data = Resource.getMapFromResource(body);
+
+        return req;
+    }
+
+    public ItemRequest<EmptyObject> addCustomFieldSettingForProject(String projectGid, AddCustomFieldSettingRequest body) throws IOException {
+        return addCustomFieldSettingForProject(projectGid, body, false);
     }
 
     /**
-     * Creates a new project in a workspace or team.
-     *
-     * Every project is required to be created in a specific workspace or
-     * organization, and this cannot be changed once set. Note that you can use
-     * the `workspace` parameter regardless of whether or not it is an
-     * organization.
-     *
-     * If the workspace for your project _is_ an organization, you must also
-     * supply a `team` to share the project with.
-     *
-     * Returns the full record of the newly created project.
-     *
-     * @return Request object
+     * Create a project
+     * Create a new project in a workspace or team.  Every project is required to be created in a specific workspace or organization, and this cannot be changed once set. Note that you can use the &#x60;workspace&#x60; parameter regardless of whether or not it is an organization.  If the workspace for your project is an organization, you must also supply a &#x60;team&#x60; to share the project with.  Returns the full record of the newly created project.
+     * @param body The project to create. (required)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return ItemRequest<ProjectResponse>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ItemRequest<Project> create() {
+    public ItemRequest<ProjectResponse> createProject(ProjectBase body, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/projects";
 
-        return new ItemRequest<Project>(this, Project.class, "/projects", "POST");
+        ItemRequest<ProjectResponse> req = new ItemRequest<ProjectResponse>(this, ProjectResponse.class, path, "POST")
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields);
+
+        req.data = Resource.getMapFromResource(body);
+
+        return req;
+    }
+
+    public ItemRequest<ProjectResponse> createProject(ProjectBase body) throws IOException {
+        return createProject(body, null, false);
     }
 
     /**
-     * If the workspace for your project _is_ an organization, you must also
-     * supply a `team` to share the project with.
-     *
-     * Returns the full record of the newly created project.
-     *
-     * @param  workspace The workspace or organization to create the project in.
-     * @return Request object
+     * Create a project in a team
+     * Creates a project shared with the given team.  Returns the full record of the newly created project.
+     * @param teamGid Globally unique identifier for the team. (required)
+     * @param body The new project to create. (required)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return ItemRequest<ProjectResponse>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ItemRequest<Project> createInWorkspace(String workspace) {
+    public ItemRequest<ProjectResponse> createProjectForTeam(String teamGid, ProjectBase body, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/teams/{team_gid}/projects".replace("{team_gid}", teamGid);
 
-        String path = String.format("/workspaces/%s/projects", workspace);
-        return new ItemRequest<Project>(this, Project.class, path, "POST");
+        ItemRequest<ProjectResponse> req = new ItemRequest<ProjectResponse>(this, ProjectResponse.class, path, "POST")
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields);
+
+        req.data = Resource.getMapFromResource(body);
+
+        return req;
+    }
+
+    public ItemRequest<ProjectResponse> createProjectForTeam(String teamGid, ProjectBase body) throws IOException {
+        return createProjectForTeam(teamGid, body, null, false);
     }
 
     /**
-     * Creates a project shared with the given team.
-     *
-     * Returns the full record of the newly created project.
-     *
-     * @param  team The team to create the project in.
-     * @return Request object
+     * Create a project in a workspace
+     * Returns the compact project records for all projects in the workspace.  If the workspace for your project is an organization, you must also supply a team to share the project with.  Returns the full record of the newly created project.
+     * @param workspaceGid Globally unique identifier for the workspace or organization. (required)
+     * @param body The new project to create. (required)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return ItemRequest<ProjectResponse>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ItemRequest<Project> createInTeam(String team) {
+    public ItemRequest<ProjectResponse> createProjectForWorkspace(String workspaceGid, ProjectBase body, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/workspaces/{workspace_gid}/projects".replace("{workspace_gid}", workspaceGid);
 
-        String path = String.format("/teams/%s/projects", team);
-        return new ItemRequest<Project>(this, Project.class, path, "POST");
+        ItemRequest<ProjectResponse> req = new ItemRequest<ProjectResponse>(this, ProjectResponse.class, path, "POST")
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields);
+
+        req.data = Resource.getMapFromResource(body);
+
+        return req;
+    }
+
+    public ItemRequest<ProjectResponse> createProjectForWorkspace(String workspaceGid, ProjectBase body) throws IOException {
+        return createProjectForWorkspace(workspaceGid, body, null, false);
     }
 
     /**
-     * Returns the complete project record for a single project.
-     *
-     * @param  project The project to get.
-     * @return Request object
+     * Delete a project
+     * A specific, existing project can be deleted by making a DELETE request on the URL for that project.  Returns an empty data record.
+     * @param projectGid Globally unique identifier for the project. (required)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return ItemRequest<EmptyObject>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ItemRequest<Project> findById(String project) {
+    public ItemRequest<EmptyObject> deleteProject(String projectGid, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/projects/{project_gid}".replace("{project_gid}", projectGid);
 
-        String path = String.format("/projects/%s", project);
-        return new ItemRequest<Project>(this, Project.class, path, "GET");
+        ItemRequest<EmptyObject> req = new ItemRequest<EmptyObject>(this, EmptyObject.class, path, "DELETE")
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields);
+
+        return req;
+    }
+
+    public ItemRequest<EmptyObject> deleteProject(String projectGid) throws IOException {
+        return deleteProject(projectGid, null, false);
     }
 
     /**
-     * A specific, existing project can be updated by making a PUT request on the
-     * URL for that project. Only the fields provided in the `data` block will be
-     * updated; any unspecified fields will remain unchanged.
-     *
-     * When using this method, it is best to specify only those fields you wish
-     * to change, or else you may overwrite changes made by another user since
-     * you last retrieved the task.
-     *
-     * Returns the complete updated project record.
-     *
-     * @param  project The project to update.
-     * @return Request object
-     */
-    public ItemRequest<Project> update(String project) {
-
-        String path = String.format("/projects/%s", project);
-        return new ItemRequest<Project>(this, Project.class, path, "PUT");
-    }
-
-    /**
-     * A specific, existing project can be deleted by making a DELETE request
-     * on the URL for that project.
-     *
-     * Returns an empty data record.
-     *
-     * @param  project The project to delete.
-     * @return Request object
-     */
-    public ItemRequest<Project> delete(String project) {
-
-        String path = String.format("/projects/%s", project);
-        return new ItemRequest<Project>(this, Project.class, path, "DELETE");
-    }
-
-    /**
+     * Duplicate a project
      * Creates and returns a job that will asynchronously handle the duplication.
-     *
-     * @param  project The project to duplicate.
-     * @return Request object
+     * @param projectGid Globally unique identifier for the project. (required)
+     * @param body Describes the duplicate&#x27;s name and the elements that will be duplicated. (optional)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return ItemRequest<JobResponse>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ItemRequest<Job> duplicateProject(String project) {
+    public ItemRequest<JobResponse> duplicateProject(String projectGid, ProjectDuplicateRequest body, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/projects/{project_gid}/duplicate".replace("{project_gid}", projectGid);
 
-        String path = String.format("/projects/%s/duplicate", project);
-        return new ItemRequest<Job>(this, Job.class, path, "POST");
+        ItemRequest<JobResponse> req = new ItemRequest<JobResponse>(this, JobResponse.class, path, "POST")
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields);
+
+        req.data = Resource.getMapFromResource(body);
+
+        return req;
+    }
+
+    public ItemRequest<JobResponse> duplicateProject(String projectGid, ProjectDuplicateRequest body) throws IOException {
+        return duplicateProject(projectGid, body, null, false);
     }
 
     /**
-     * Returns the compact project records for some filtered set of projects.
-     * Use one or more of the parameters provided to filter the projects returned.
-     *
-     * @return Request object
+     * Get a project
+     * Returns the complete project record for a single project.
+     * @param projectGid Globally unique identifier for the project. (required)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return ItemRequest<ProjectResponse>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CollectionRequest<Project> findAll() {
+    public ItemRequest<ProjectResponse> getProject(String projectGid, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/projects/{project_gid}".replace("{project_gid}", projectGid);
 
-        return new CollectionRequest<Project>(this, Project.class, "/projects", "GET");
+        ItemRequest<ProjectResponse> req = new ItemRequest<ProjectResponse>(this, ProjectResponse.class, path, "GET")
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields);
+
+        return req;
+    }
+
+    public ItemRequest<ProjectResponse> getProject(String projectGid) throws IOException {
+        return getProject(projectGid, null, false);
     }
 
     /**
-     * Returns the compact project records for all projects in the workspace.
-     *
-     * @param  workspace The workspace or organization to find projects in.
-     * @return Request object
+     * Get multiple projects
+     * Returns the compact project records for some filtered set of projects. Use one or more of the parameters provided to filter the projects returned.
+     * @param workspace The workspace or organization to filter projects on. (optional)
+     * @param team The team to filter projects on. (optional)
+     * @param archived Only return projects whose &#x60;archived&#x60; field takes on the value of this parameter. (optional)
+     * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
+     * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return CollectionRequest<ProjectCompact>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CollectionRequest<Project> findByWorkspace(String workspace) {
+    public CollectionRequest<ProjectCompact> getProjects(String workspace, String team, Boolean archived, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/projects";
 
-        String path = String.format("/workspaces/%s/projects", workspace);
-        return new CollectionRequest<Project>(this, Project.class, path, "GET");
+        CollectionRequest<ProjectCompact> req = new CollectionRequest<ProjectCompact>(this, ProjectCompact.class, path, "GET")
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields)
+            .query("limit", limit)
+            .query("offset", offset)
+            .query("workspace", workspace)
+            .query("team", team)
+            .query("archived", archived);
+
+        return req;
+    }
+
+    public CollectionRequest<ProjectCompact> getProjects(String workspace, String team, Boolean archived) throws IOException {
+        return getProjects(workspace, team, archived, null, (int)Client.DEFAULTS.get("page_size"), null, false);
     }
 
     /**
+     * Get projects a task is in
+     * Returns a compact representation of all of the projects the task is in.
+     * @param taskGid The task to operate on. (required)
+     * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
+     * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return CollectionRequest<ProjectCompact>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public CollectionRequest<ProjectCompact> getProjectsForTask(String taskGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/tasks/{task_gid}/projects".replace("{task_gid}", taskGid);
+
+        CollectionRequest<ProjectCompact> req = new CollectionRequest<ProjectCompact>(this, ProjectCompact.class, path, "GET")
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields)
+            .query("limit", limit)
+            .query("offset", offset);
+
+        return req;
+    }
+
+    public CollectionRequest<ProjectCompact> getProjectsForTask(String taskGid) throws IOException {
+        return getProjectsForTask(taskGid, null, (int)Client.DEFAULTS.get("page_size"), null, false);
+    }
+
+    /**
+     * Get a team&#x27;s projects
      * Returns the compact project records for all projects in the team.
-     *
-     * @param  team The team to find projects in.
-     * @return Request object
+     * @param teamGid Globally unique identifier for the team. (required)
+     * @param archived Only return projects whose &#x60;archived&#x60; field takes on the value of this parameter. (optional)
+     * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
+     * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return CollectionRequest<ProjectCompact>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CollectionRequest<Project> findByTeam(String team) {
+    public CollectionRequest<ProjectCompact> getProjectsForTeam(String teamGid, Boolean archived, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/teams/{team_gid}/projects".replace("{team_gid}", teamGid);
 
-        String path = String.format("/teams/%s/projects", team);
-        return new CollectionRequest<Project>(this, Project.class, path, "GET");
+        CollectionRequest<ProjectCompact> req = new CollectionRequest<ProjectCompact>(this, ProjectCompact.class, path, "GET")
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields)
+            .query("limit", limit)
+            .query("offset", offset)
+            .query("archived", archived);
+
+        return req;
+    }
+
+    public CollectionRequest<ProjectCompact> getProjectsForTeam(String teamGid, Boolean archived) throws IOException {
+        return getProjectsForTeam(teamGid, archived, null, (int)Client.DEFAULTS.get("page_size"), null, false);
     }
 
     /**
-     * Returns the compact task records for all tasks within the given project,
-     * ordered by their priority within the project. Tasks can exist in more than one project at a time.
-     *
-     * @param  project The project in which to search for tasks.
-     * @return Request object
+     * Get all projects in a workspace
+     * Returns the compact project records for all projects in the workspace.
+     * @param workspaceGid Globally unique identifier for the workspace or organization. (required)
+     * @param archived Only return projects whose &#x60;archived&#x60; field takes on the value of this parameter. (optional)
+     * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
+     * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return CollectionRequest<ProjectCompact>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public CollectionRequest<Project> tasks(String project) {
+    public CollectionRequest<ProjectCompact> getProjectsForWorkspace(String workspaceGid, Boolean archived, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/workspaces/{workspace_gid}/projects".replace("{workspace_gid}", workspaceGid);
 
-        String path = String.format("/projects/%s/tasks", project);
-        return new CollectionRequest<Project>(this, Project.class, path, "GET");
+        CollectionRequest<ProjectCompact> req = new CollectionRequest<ProjectCompact>(this, ProjectCompact.class, path, "GET")
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields)
+            .query("limit", limit)
+            .query("offset", offset)
+            .query("archived", archived);
+
+        return req;
+    }
+
+    public CollectionRequest<ProjectCompact> getProjectsForWorkspace(String workspaceGid, Boolean archived) throws IOException {
+        return getProjectsForWorkspace(workspaceGid, archived, null, (int)Client.DEFAULTS.get("page_size"), null, false);
     }
 
     /**
-     * Adds the specified list of users as followers to the project. Followers are a subset of members, therefore if
-     * the users are not already members of the project they will also become members as a result of this operation.
-     * Returns the updated project record.
-     *
-     * @param  project The project to add followers to.
-     * @return Request object
+     * Get task count of a project
+     * Get an object that holds task count fields. **All fields are excluded by default**. You must [opt in](#input-output-options) using &#x60;opt_fields&#x60; to get any information from this endpoint.  This endpoint has an additional [rate limit](#standard-rate-limits) and each field counts especially high against our [cost limits](#cost-limits).  Milestones are just tasks, so they are included in the &#x60;num_tasks&#x60;, &#x60;num_incomplete_tasks&#x60;, and &#x60;num_completed_tasks&#x60; counts.
+     * @param projectGid Globally unique identifier for the project. (required)
+     * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
+     * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return ItemRequest<TaskCountResponse>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ItemRequest<Project> addFollowers(String project) {
+    public ItemRequest<TaskCountResponse> getTaskCountsForProject(String projectGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/projects/{project_gid}/task_counts".replace("{project_gid}", projectGid);
 
-        String path = String.format("/projects/%s/addFollowers", project);
-        return new ItemRequest<Project>(this, Project.class, path, "POST");
+        ItemRequest<TaskCountResponse> req = new ItemRequest<TaskCountResponse>(this, TaskCountResponse.class, path, "GET")
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields)
+            .query("limit", limit)
+            .query("offset", offset);
+
+        return req;
+    }
+
+    public ItemRequest<TaskCountResponse> getTaskCountsForProject(String projectGid) throws IOException {
+        return getTaskCountsForProject(projectGid, null, (int)Client.DEFAULTS.get("page_size"), null, false);
     }
 
     /**
-     * Removes the specified list of users from following the project, this will not affect project membership status.
-     * Returns the updated project record.
-     *
-     * @param  project The project to remove followers from.
-     * @return Request object
+     * Remove a custom field from a project
+     * Removes a custom field setting from a project.
+     * @param projectGid Globally unique identifier for the project. (required)
+     * @param body Information about the custom field setting being removed. (required)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return ItemRequest<EmptyObject>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ItemRequest<Project> removeFollowers(String project) {
+    public ItemRequest<EmptyObject> removeCustomFieldSettingForProject(String projectGid, RemoveCustomFieldSettingRequest body, Boolean optPretty) throws IOException {
+        String path = "/projects/{project_gid}/removeCustomFieldSetting".replace("{project_gid}", projectGid);
 
-        String path = String.format("/projects/%s/removeFollowers", project);
-        return new ItemRequest<Project>(this, Project.class, path, "POST");
+        ItemRequest<EmptyObject> req = new ItemRequest<EmptyObject>(this, EmptyObject.class, path, "POST")
+            .query("opt_pretty", optPretty);
+
+        req.data = Resource.getMapFromResource(body);
+
+        return req;
+    }
+
+    public ItemRequest<EmptyObject> removeCustomFieldSettingForProject(String projectGid, RemoveCustomFieldSettingRequest body) throws IOException {
+        return removeCustomFieldSettingForProject(projectGid, body, false);
     }
 
     /**
-     * Adds the specified list of users as members of the project. Returns the updated project record.
-     *
-     * @param  project The project to add members to.
-     * @return Request object
+     * Update a project
+     * A specific, existing project can be updated by making a PUT request on the URL for that project. Only the fields provided in the &#x60;data&#x60; block will be updated; any unspecified fields will remain unchanged.  When using this method, it is best to specify only those fields you wish to change, or else you may overwrite changes made by another user since you last retrieved the task.  Returns the complete updated project record.
+     * @param projectGid Globally unique identifier for the project. (required)
+     * @param body The updated fields for the project. (required)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return ItemRequest<ProjectResponse>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ItemRequest<Project> addMembers(String project) {
+    public ItemRequest<ProjectResponse> updateProject(String projectGid, ProjectBase body, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/projects/{project_gid}".replace("{project_gid}", projectGid);
 
-        String path = String.format("/projects/%s/addMembers", project);
-        return new ItemRequest<Project>(this, Project.class, path, "POST");
+        ItemRequest<ProjectResponse> req = new ItemRequest<ProjectResponse>(this, ProjectResponse.class, path, "PUT")
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields);
+
+        req.data = Resource.getMapFromResource(body);
+
+        return req;
     }
 
-    /**
-     * Removes the specified list of members from the project. Returns the updated project record.
-     *
-     * @param  project The project to remove members from.
-     * @return Request object
-     */
-    public ItemRequest<Project> removeMembers(String project) {
-
-        String path = String.format("/projects/%s/removeMembers", project);
-        return new ItemRequest<Project>(this, Project.class, path, "POST");
+    public ItemRequest<ProjectResponse> updateProject(String projectGid, ProjectBase body) throws IOException {
+        return updateProject(projectGid, body, null, false);
     }
 
-    /**
-     * Create a new custom field setting on the project.
-     *
-     * @param  project The project to associate the custom field with
-     * @return Request object
-     */
-    public ItemRequest<Project> addCustomFieldSetting(String project) {
-
-        String path = String.format("/projects/%s/addCustomFieldSetting", project);
-        return new ItemRequest<Project>(this, Project.class, path, "POST");
-    }
-
-    /**
-     * Remove a custom field setting on the project.
-     *
-     * @param  project The project to associate the custom field with
-     * @return Request object
-     */
-    public ItemRequest<Project> removeCustomFieldSetting(String project) {
-
-        String path = String.format("/projects/%s/removeCustomFieldSetting", project);
-        return new ItemRequest<Project>(this, Project.class, path, "POST");
-    }
 }

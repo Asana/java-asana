@@ -1,0 +1,9 @@
+{
+  "modelPackage" : "com.asana.models.gen",
+  "apiPackage"   : "com.asana.resources.gen",
+  "invokerPackage" : "com.asana",
+  "groupId" : "com.asana",
+  "dateLibrary" : "java8",
+  "hideGenerationTimestamp": true,
+  "generateApiTests": false
+}

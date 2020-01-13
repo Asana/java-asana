@@ -2,39 +2,43 @@ package com.asana.resources.gen;
 
 import com.asana.Client;
 import com.asana.resources.Resource;
+import com.asana.requests.ItemRequest;
+import com.asana.requests.CollectionRequest;
+import com.asana.models.gen.ErrorResponse;
+import com.asana.models.gen.EventResponse;
+import java.io.IOException;
+import java.util.List;
 
-/**
- * An _event_ is an object representing a change to a resource that was observed
- * by an event subscription.
- * 
- * In general, requesting events on a resource is faster and subject to higher
- * rate limits than requesting the resource itself. Additionally, change events
- * bubble up - listening to events on a project would include when stories are
- * added to tasks in the project, even on subtasks.
- * 
- * Establish an initial sync token by making a request with no sync token.
- * The response will be a `412` error - the same as if the sync token had
- * expired.
- * 
- * Subsequent requests should always provide the sync token from the immediately
- * preceding call.
- * 
- * Sync tokens may not be valid if you attempt to go 'backward' in the history
- * by requesting previous tokens, though re-requesting the current sync token
- * is generally safe, and will always return the same results.
- * 
- * When you receive a `412 Precondition Failed` error, it means that the
- * sync token is either invalid or expired. If you are attempting to keep a set
- * of data in sync, this signals you may need to re-crawl the data.
- * 
- * Sync tokens always expire after 24 hours, but may expire sooner, depending on
- * load on the service.
- */
 public class EventsBase extends Resource {
     /**
-     * @param client Parent client instance
+    * @param client Parent client instance
+    */
+    public EventsBase(Client client) { super(client); }
+
+    /**
+     * Get events on a resource
+     * Returns the full record for all events that have occurred since the sync token was created.  A GET request to the endpoint /[path_to_resource]/events can be made in lieu of including the resource ID in the data for the request.  *Note: The resource returned will be the resource that triggered the event. This may be different from the one that the events were requested for. For example, a subscription to a project will contain events for tasks contained within the project.*
+     * @param resource A resource ID to subscribe to. The resource can be a task or project. (required)
+     * @param sync A sync token received from the last request, or none on first sync. Events will be returned from the point in time that the sync token was generated. *Note: On your first request, omit the sync token. The response will be the same as for an expired sync token, and will include a new valid sync token.If the sync token is too old (which may happen from time to time) the API will return a &#x60;412 Precondition Failed&#x60; error, and include a fresh sync token in the response.* (optional)
+     * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+     * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+     * @return CollectionRequest<EventResponse>
+     * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public EventsBase(Client client) {
-        super(client);
+    public CollectionRequest<EventResponse> getEvents(String resource, String sync, List<String> optFields, Boolean optPretty) throws IOException {
+        String path = "/events";
+
+        CollectionRequest<EventResponse> req = new CollectionRequest<EventResponse>(this, EventResponse.class, path, "GET")
+            .query("resource", resource)
+            .query("sync", sync)
+            .query("opt_pretty", optPretty)
+            .query("opt_fields", optFields);
+
+        return req;
     }
+
+    public CollectionRequest<EventResponse> getEvents(String resource, String sync) throws IOException {
+        return getEvents(resource, sync, null, false);
+    }
+
 }
