@@ -23,13 +23,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import com.asana.models.GenResource;
 /**
  * Pagination (&#x60;limit&#x60; and &#x60;offset&#x60;) and output options (&#x60;fields&#x60; or &#x60;expand&#x60;) for the action. “Pretty” JSON output is not an available option on individual actions; if you want pretty output, specify that option on the parent request.
  */
 @Schema(description = "Pagination (`limit` and `offset`) and output options (`fields` or `expand`) for the action. “Pretty” JSON output is not an available option on individual actions; if you want pretty output, specify that option on the parent request.")
 
-public class BatchRequestActionOptions extends GenResource {
+public class BatchRequestActionOptions {
   @SerializedName("limit")
   private Integer limit = null;
 

@@ -14,13 +14,12 @@ package com.asana.models.gen;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.asana.models.GenResource;
 /**
  * ProjectStatusResponse
  */
 
 
-public class ProjectStatusResponse extends GenResource {
+public class ProjectStatusResponse {
 
   @Override
   public boolean equals(java.lang.Object o) {

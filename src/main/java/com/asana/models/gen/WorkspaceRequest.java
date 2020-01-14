@@ -14,13 +14,12 @@ package com.asana.models.gen;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.asana.models.GenResource;
 /**
  * WorkspaceRequest
  */
 
 
-public class WorkspaceRequest extends GenResource {
+public class WorkspaceRequest {
 
   @Override
   public boolean equals(java.lang.Object o) {

@@ -23,13 +23,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import com.asana.models.GenResource;
 /**
  * TaskRemoveFollowersRequest
  */
 
 
-public class TaskRemoveFollowersRequest extends GenResource {
+public class TaskRemoveFollowersRequest {
   @SerializedName("followers")
   private List<String> followers = new ArrayList<>();
 

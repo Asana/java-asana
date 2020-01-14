@@ -22,13 +22,12 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.File;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * AttachmentRequest
  */
 
 
-public class AttachmentRequest extends GenResource {
+public class AttachmentRequest {
   @SerializedName("file")
   private File file = null;
 

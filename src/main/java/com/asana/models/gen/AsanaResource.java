@@ -21,13 +21,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * A generic Asana Resource, containing a globally unique identifier.
  */
 @Schema(description = "A generic Asana Resource, containing a globally unique identifier.")
 
-public class AsanaResource extends GenResource {
+public class AsanaResource {
   @SerializedName("gid")
   private String gid = null;
 

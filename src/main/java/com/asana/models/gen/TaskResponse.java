@@ -33,7 +33,6 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import com.asana.models.GenResource;
 /**
  * TaskResponse
  */

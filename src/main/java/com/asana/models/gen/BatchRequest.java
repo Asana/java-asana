@@ -24,13 +24,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import com.asana.models.GenResource;
 /**
  * A request object for use in a batch request.
  */
 @Schema(description = "A request object for use in a batch request.")
 
-public class BatchRequest extends GenResource {
+public class BatchRequest {
   @SerializedName("actions")
   private List<BatchRequestAction> actions = null;
 

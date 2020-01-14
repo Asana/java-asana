@@ -21,13 +21,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * An *organization_export* request starts a job to export the complete data of the given Organization.
  */
 @Schema(description = "An *organization_export* request starts a job to export the complete data of the given Organization.")
 
-public class OrganizationExportRequest extends GenResource {
+public class OrganizationExportRequest {
   @SerializedName("organization")
   private String organization = null;
 

@@ -21,13 +21,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * A collection of rich text that will be displayed as a preview to another app.  This is read-only except for a small group of whitelisted apps.
  */
 @Schema(description = "A collection of rich text that will be displayed as a preview to another app.  This is read-only except for a small group of whitelisted apps.")
 
-public class Preview extends GenResource {
+public class Preview {
   @SerializedName("fallback")
   private String fallback = null;
 

@@ -21,13 +21,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * EnumOptionInsertRequest
  */
 
 
-public class EnumOptionInsertRequest extends GenResource {
+public class EnumOptionInsertRequest {
   @SerializedName("enum_option")
   private String enumOption = null;
 

@@ -23,7 +23,6 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.time.OffsetDateTime;
-import com.asana.models.GenResource;
 /**
  * AttachmentResponse
  */

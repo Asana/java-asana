@@ -21,13 +21,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * A response object returned from a batch request.
  */
 @Schema(description = "A response object returned from a batch request.")
 
-public class BatchResponse extends GenResource {
+public class BatchResponse {
   @SerializedName("status_code")
   private Integer statusCode = null;
 

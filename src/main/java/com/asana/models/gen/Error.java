@@ -21,13 +21,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * Error
  */
 
 
-public class Error extends GenResource {
+public class Error {
   @SerializedName("message")
   private String message = null;
 

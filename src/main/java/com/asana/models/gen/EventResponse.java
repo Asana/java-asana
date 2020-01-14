@@ -23,13 +23,12 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.time.OffsetDateTime;
-import com.asana.models.GenResource;
 /**
  * An *event* is an object representing a change to a resource that was observed by an event subscription.
  */
 @Schema(description = "An *event* is an object representing a change to a resource that was observed by an event subscription.")
 
-public class EventResponse extends GenResource {
+public class EventResponse {
   @SerializedName("user")
   private Object user = null;
 

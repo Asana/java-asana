@@ -21,13 +21,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * A response object returned from the task count endpoint.
  */
 @Schema(description = "A response object returned from the task count endpoint.")
 
-public class TaskCountResponse extends GenResource {
+public class TaskCountResponse {
   @SerializedName("num_tasks")
   private Integer numTasks = null;
 

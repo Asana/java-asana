@@ -21,13 +21,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * A user identification object for specification with the addUser/removeUser endpoints.
  */
 @Schema(description = "A user identification object for specification with the addUser/removeUser endpoints.")
 
-public class TeamAddUserRequest extends GenResource {
+public class TeamAddUserRequest {
   @SerializedName("user")
   private String user = null;
 

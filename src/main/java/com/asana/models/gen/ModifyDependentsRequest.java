@@ -23,13 +23,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import com.asana.models.GenResource;
 /**
  * A set of dependent tasks.
  */
 @Schema(description = "A set of dependent tasks.")
 
-public class ModifyDependentsRequest extends GenResource {
+public class ModifyDependentsRequest {
   @SerializedName("dependents")
   private List<String> dependents = null;
 

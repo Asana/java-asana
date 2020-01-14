@@ -21,13 +21,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * PortfolioAddMembersRequest
  */
 
 
-public class PortfolioAddMembersRequest extends GenResource {
+public class PortfolioAddMembersRequest {
   @SerializedName("members")
   private String members = null;
 

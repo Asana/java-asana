@@ -22,13 +22,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * An action object for use in a batch request.
  */
 @Schema(description = "An action object for use in a batch request.")
 
-public class BatchRequestAction extends GenResource {
+public class BatchRequestAction {
   @SerializedName("relative_path")
   private String relativePath = null;
 

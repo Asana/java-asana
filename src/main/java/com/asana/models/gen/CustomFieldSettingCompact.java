@@ -15,7 +15,6 @@ package com.asana.models.gen;
 import java.util.Objects;
 import java.util.Arrays;
 import com.asana.models.gen.AsanaResource;
-import com.asana.models.GenResource;
 /**
  * CustomFieldSettingCompact
  */

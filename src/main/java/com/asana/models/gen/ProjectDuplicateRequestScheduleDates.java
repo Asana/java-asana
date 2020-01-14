@@ -21,13 +21,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * A dictionary of options to auto-shift dates. &#x60;task_dates&#x60; must be included to use this option. Requires either &#x60;start_on&#x60; or &#x60;due_on&#x60;, but not both.
  */
 @Schema(description = "A dictionary of options to auto-shift dates. `task_dates` must be included to use this option. Requires either `start_on` or `due_on`, but not both.")
 
-public class ProjectDuplicateRequestScheduleDates extends GenResource {
+public class ProjectDuplicateRequestScheduleDates {
   @SerializedName("should_skip_weekends")
   private Boolean shouldSkipWeekends = null;
 

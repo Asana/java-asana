@@ -21,13 +21,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-import com.asana.models.GenResource;
 /**
  * TaskRemoveProjectRequest
  */
 
 
-public class TaskRemoveProjectRequest extends GenResource {
+public class TaskRemoveProjectRequest {
   @SerializedName("project")
   private String project = null;
 

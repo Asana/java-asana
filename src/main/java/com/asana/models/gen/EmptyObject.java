@@ -15,13 +15,12 @@ package com.asana.models.gen;
 import java.util.Objects;
 import java.util.Arrays;
 import io.swagger.v3.oas.annotations.media.Schema;
-import com.asana.models.GenResource;
 /**
  * An empty object.
  */
 @Schema(description = "An empty object.")
 
-public class EmptyObject extends GenResource {
+public class EmptyObject {
 
   @Override
   public boolean equals(java.lang.Object o) {

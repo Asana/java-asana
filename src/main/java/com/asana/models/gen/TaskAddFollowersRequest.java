@@ -23,13 +23,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import com.asana.models.GenResource;
 /**
  * TaskAddFollowersRequest
  */
 
 
-public class TaskAddFollowersRequest extends GenResource {
+public class TaskAddFollowersRequest {
   @SerializedName("followers")
   private List<String> followers = new ArrayList<>();
 
