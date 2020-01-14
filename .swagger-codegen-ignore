@@ -1,5 +1,4 @@
 # Swagger Codegen Ignore
 
-docs
-docs/*.md
-src/test/java/com.asana/resources/gen
+docs/*
+src/test/java/com/asana/resources/gen/*
