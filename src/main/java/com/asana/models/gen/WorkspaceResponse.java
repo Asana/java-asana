@@ -36,6 +36,7 @@ public class WorkspaceResponse extends WorkspaceCompact {
   @SerializedName("is_organization")
   private Boolean isOrganization = null;
 
+
   public WorkspaceResponse emailDomains(List<String> emailDomains) {
     this.emailDomains = emailDomains;
     return this;

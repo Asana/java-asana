@@ -90,6 +90,14 @@ public class ProjectDuplicateRequest {
   @SerializedName("schedule_dates")
   private ProjectDuplicateRequestScheduleDates scheduleDates = null;
 
+
+  public ProjectDuplicateRequest(ProjectDuplicateResponse responseModel) {
+    super();
+    name = responseModel.name;
+    team = responseModel.team;
+    include = responseModel.include;
+    schedule_dates = responseModel.schedule_dates;
+  }
   public ProjectDuplicateRequest name(String name) {
     this.name = name;
     return this;

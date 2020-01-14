@@ -34,6 +34,12 @@ public class EnumOptionRequest extends EnumOptionCompact {
   @SerializedName("insert_after")
   private String insertAfter = null;
 
+
+  public EnumOptionRequest(EnumOptionResponse responseModel) {
+    super();
+    insert_before = responseModel.insert_before;
+    insert_after = responseModel.insert_after;
+  }
   public EnumOptionRequest insertBefore(String insertBefore) {
     this.insertBefore = insertBefore;
     return this;

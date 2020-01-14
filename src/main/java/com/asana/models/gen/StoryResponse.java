@@ -142,6 +142,7 @@ public class StoryResponse extends StoryBase {
   @SerializedName("target")
   private Object target = null;
 
+
    /**
    * *Conditional*. Whether the text of the story has been edited after creation.
    * @return isEdited

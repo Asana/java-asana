@@ -85,6 +85,7 @@ public class JobResponse extends AsanaResource {
   @SerializedName("new_task")
   private TaskCompact newTask = null;
 
+
    /**
    * The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.
    * @return resourceSubtype

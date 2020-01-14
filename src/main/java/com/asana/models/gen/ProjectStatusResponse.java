@@ -21,6 +21,7 @@ import java.util.Arrays;
 
 public class ProjectStatusResponse {
 
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {

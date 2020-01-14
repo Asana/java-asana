@@ -136,6 +136,7 @@ public class CustomFieldCompact extends AsanaResource {
   @SerializedName("text_value")
   private String textValue = null;
 
+
   public CustomFieldCompact name(String name) {
     this.name = name;
     return this;

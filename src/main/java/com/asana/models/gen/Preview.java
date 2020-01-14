@@ -51,6 +51,7 @@ public class Preview {
   @SerializedName("title_link")
   private String titleLink = null;
 
+
   public Preview fallback(String fallback) {
     this.fallback = fallback;
     return this;

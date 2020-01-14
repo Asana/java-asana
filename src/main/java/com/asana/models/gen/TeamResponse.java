@@ -37,6 +37,7 @@ public class TeamResponse extends TeamCompact {
   @SerializedName("organization")
   private Object organization = null;
 
+
   public TeamResponse description(String description) {
     this.description = description;
     return this;

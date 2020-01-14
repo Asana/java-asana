@@ -198,6 +198,7 @@ public class TaskBase extends TaskCompact {
   @SerializedName("start_on")
   private LocalDate startOn = null;
 
+
   public TaskBase assigneeStatus(AssigneeStatusEnum assigneeStatus) {
     this.assigneeStatus = assigneeStatus;
     return this;

@@ -38,6 +38,7 @@ public class WebhookCompact extends AsanaResource {
   @SerializedName("target")
   private String target = null;
 
+
   public WebhookCompact active(Boolean active) {
     this.active = active;
     return this;

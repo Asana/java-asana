@@ -33,6 +33,7 @@ public class TaskBaseExternal {
   @SerializedName("data")
   private String data = null;
 
+
   public TaskBaseExternal gid(String gid) {
     this.gid = gid;
     return this;

@@ -31,6 +31,7 @@ public class TagCompact extends AsanaResource {
   @SerializedName("name")
   private String name = null;
 
+
   public TagCompact name(String name) {
     this.name = name;
     return this;

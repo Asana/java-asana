@@ -33,6 +33,11 @@ public class BatchRequest {
   @SerializedName("actions")
   private List<BatchRequestAction> actions = null;
 
+
+  public BatchRequest(BatchResponse responseModel) {
+    super();
+    actions = responseModel.actions;
+  }
   public BatchRequest actions(List<BatchRequestAction> actions) {
     this.actions = actions;
     return this;

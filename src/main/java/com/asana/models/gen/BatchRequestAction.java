@@ -85,6 +85,7 @@ public class BatchRequestAction {
   @SerializedName("options")
   private BatchRequestActionOptions options = null;
 
+
   public BatchRequestAction relativePath(String relativePath) {
     this.relativePath = relativePath;
     return this;

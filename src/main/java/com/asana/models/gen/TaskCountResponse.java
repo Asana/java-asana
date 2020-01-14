@@ -45,6 +45,7 @@ public class TaskCountResponse {
   @SerializedName("num_completed_milestones")
   private Integer numCompletedMilestones = null;
 
+
   public TaskCountResponse numTasks(Integer numTasks) {
     this.numTasks = numTasks;
     return this;

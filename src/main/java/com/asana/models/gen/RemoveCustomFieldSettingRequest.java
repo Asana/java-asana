@@ -30,6 +30,11 @@ public class RemoveCustomFieldSettingRequest {
   @SerializedName("custom_field")
   private String customField = null;
 
+
+  public RemoveCustomFieldSettingRequest(RemoveCustomFieldSettingResponse responseModel) {
+    super();
+    custom_field = responseModel.custom_field;
+  }
   public RemoveCustomFieldSettingRequest customField(String customField) {
     this.customField = customField;
     return this;

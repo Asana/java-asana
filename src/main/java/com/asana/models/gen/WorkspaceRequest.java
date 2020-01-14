@@ -21,6 +21,10 @@ import java.util.Arrays;
 
 public class WorkspaceRequest {
 
+  public WorkspaceRequest(WorkspaceResponse responseModel) {
+    super();
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {

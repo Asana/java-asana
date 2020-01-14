@@ -30,6 +30,11 @@ public class OrganizationExportRequest {
   @SerializedName("organization")
   private String organization = null;
 
+
+  public OrganizationExportRequest(OrganizationExportResponse responseModel) {
+    super();
+    organization = responseModel.organization;
+  }
   public OrganizationExportRequest organization(String organization) {
     this.organization = organization;
     return this;

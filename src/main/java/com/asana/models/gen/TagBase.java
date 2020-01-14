@@ -88,6 +88,7 @@ public class TagBase extends TagCompact {
   }  @SerializedName("color")
   private ColorEnum color = null;
 
+
   public TagBase color(ColorEnum color) {
     this.color = color;
     return this;

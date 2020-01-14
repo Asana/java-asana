@@ -42,6 +42,7 @@ public class WebhookResponse extends WebhookCompact {
   @SerializedName("last_success_at")
   private OffsetDateTime lastSuccessAt = null;
 
+
    /**
    * The time at which this resource was created.
    * @return createdAt

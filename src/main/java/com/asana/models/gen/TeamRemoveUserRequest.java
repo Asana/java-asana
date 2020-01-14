@@ -30,6 +30,11 @@ public class TeamRemoveUserRequest {
   @SerializedName("user")
   private String user = null;
 
+
+  public TeamRemoveUserRequest(TeamRemoveUserResponse responseModel) {
+    super();
+    user = responseModel.user;
+  }
   public TeamRemoveUserRequest user(String user) {
     this.user = user;
     return this;

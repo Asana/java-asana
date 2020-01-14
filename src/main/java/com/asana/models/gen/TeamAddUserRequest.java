@@ -30,6 +30,11 @@ public class TeamAddUserRequest {
   @SerializedName("user")
   private String user = null;
 
+
+  public TeamAddUserRequest(TeamAddUserResponse responseModel) {
+    super();
+    user = responseModel.user;
+  }
   public TeamAddUserRequest user(String user) {
     this.user = user;
     return this;

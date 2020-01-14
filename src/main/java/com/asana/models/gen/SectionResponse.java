@@ -38,6 +38,7 @@ public class SectionResponse extends SectionCompact {
   @SerializedName("projects")
   private List<ProjectCompact> projects = null;
 
+
    /**
    * The time at which this resource was created.
    * @return createdAt

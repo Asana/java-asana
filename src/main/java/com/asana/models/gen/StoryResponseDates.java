@@ -38,6 +38,7 @@ public class StoryResponseDates {
   @SerializedName("due_on")
   private LocalDate dueOn = null;
 
+
   public StoryResponseDates startOn(LocalDate startOn) {
     this.startOn = startOn;
     return this;

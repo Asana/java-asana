@@ -31,6 +31,7 @@ public class UserCompact extends AsanaResource {
   @SerializedName("name")
   private String name = null;
 
+
   public UserCompact name(String name) {
     this.name = name;
     return this;

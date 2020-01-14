@@ -36,6 +36,13 @@ public class PortfolioAddItemRequest {
   @SerializedName("insert_after")
   private String insertAfter = null;
 
+
+  public PortfolioAddItemRequest(PortfolioAddItemResponse responseModel) {
+    super();
+    item = responseModel.item;
+    insert_before = responseModel.insert_before;
+    insert_after = responseModel.insert_after;
+  }
   public PortfolioAddItemRequest item(String item) {
     this.item = item;
     return this;

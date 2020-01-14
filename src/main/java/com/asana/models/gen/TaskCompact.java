@@ -31,6 +31,7 @@ public class TaskCompact extends AsanaResource {
   @SerializedName("name")
   private String name = null;
 
+
   public TaskCompact name(String name) {
     this.name = name;
     return this;

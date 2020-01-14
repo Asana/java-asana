@@ -57,6 +57,7 @@ public class TaskResponse extends TaskBase {
   @SerializedName("workspace")
   private Object workspace = null;
 
+
   public TaskResponse assignee(Object assignee) {
     this.assignee = assignee;
     return this;

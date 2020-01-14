@@ -21,6 +21,10 @@ import java.util.Arrays;
 
 public class ProjectStatusRequest {
 
+  public ProjectStatusRequest(ProjectStatusResponse responseModel) {
+    super();
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {

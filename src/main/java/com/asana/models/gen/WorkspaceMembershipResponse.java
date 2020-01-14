@@ -43,6 +43,7 @@ public class WorkspaceMembershipResponse extends WorkspaceMembershipCompact {
   @SerializedName("is_guest")
   private Boolean isGuest = null;
 
+
   public WorkspaceMembershipResponse userTaskList(UserTaskListResponse userTaskList) {
     this.userTaskList = userTaskList;
     return this;

@@ -36,6 +36,7 @@ public class WorkspaceMembershipCompact extends AsanaResource {
   @SerializedName("workspace")
   private WorkspaceCompact workspace = null;
 
+
   public WorkspaceMembershipCompact user(UserCompact user) {
     this.user = user;
     return this;

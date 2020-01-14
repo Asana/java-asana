@@ -38,6 +38,7 @@ public class TagResponse extends TagBase {
   @SerializedName("workspace")
   private WorkspaceCompact workspace = null;
 
+
    /**
    * Array of users following this tag.
    * @return followers

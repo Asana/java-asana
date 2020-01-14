@@ -31,6 +31,7 @@ public class WorkspaceCompact extends AsanaResource {
   @SerializedName("name")
   private String name = null;
 
+
   public WorkspaceCompact name(String name) {
     this.name = name;
     return this;

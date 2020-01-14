@@ -36,6 +36,7 @@ public class PortfolioResponse extends PortfolioBase {
   @SerializedName("members")
   private List<UserCompact> members = null;
 
+
    /**
    * Get members
    * @return members

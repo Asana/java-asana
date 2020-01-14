@@ -35,6 +35,7 @@ public class TaskBaseMemberships {
   @SerializedName("section")
   private SectionCompact section = null;
 
+
   public TaskBaseMemberships project(ProjectCompact project) {
     this.project = project;
     return this;

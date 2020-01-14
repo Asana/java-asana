@@ -39,6 +39,14 @@ public class TaskAddProjectRequest {
   @SerializedName("section")
   private String section = null;
 
+
+  public TaskAddProjectRequest(TaskAddProjectResponse responseModel) {
+    super();
+    project = responseModel.project;
+    insert_after = responseModel.insert_after;
+    insert_before = responseModel.insert_before;
+    section = responseModel.section;
+  }
   public TaskAddProjectRequest project(String project) {
     this.project = project;
     return this;

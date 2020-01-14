@@ -33,6 +33,7 @@ public class AsanaResource {
   @SerializedName("resource_type")
   private String resourceType = null;
 
+
    /**
    * Globally unique identifier of the resource, as a string.
    * @return gid

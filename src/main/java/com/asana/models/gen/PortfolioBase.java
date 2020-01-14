@@ -108,6 +108,7 @@ public class PortfolioBase extends PortfolioCompact {
   @SerializedName("workspace")
   private Object workspace = null;
 
+
   public PortfolioBase color(ColorEnum color) {
     this.color = color;
     return this;

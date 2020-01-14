@@ -37,6 +37,7 @@ public class EnumOptionCompact extends AsanaResource {
   @SerializedName("color")
   private String color = null;
 
+
   public EnumOptionCompact name(String name) {
     this.name = name;
     return this;

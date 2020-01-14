@@ -33,6 +33,11 @@ public class CustomFieldRequest extends CustomFieldBase {
   @SerializedName("workspace")
   private String workspace = null;
 
+
+  public CustomFieldRequest(CustomFieldResponse responseModel) {
+    super();
+    workspace = responseModel.workspace;
+  }
   public CustomFieldRequest workspace(String workspace) {
     this.workspace = workspace;
     return this;

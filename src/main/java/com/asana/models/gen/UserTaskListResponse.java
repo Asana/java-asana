@@ -34,6 +34,7 @@ public class UserTaskListResponse extends AsanaResource {
   @SerializedName("workspace")
   private Object workspace = null;
 
+
    /**
    * The owner of the user task list, i.e. the person whose My Tasks is represented by this resource.
    * @return owner

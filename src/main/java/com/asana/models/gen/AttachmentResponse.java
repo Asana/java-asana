@@ -44,6 +44,7 @@ public class AttachmentResponse extends AttachmentCompact {
   @SerializedName("view_url")
   private String viewUrl = null;
 
+
    /**
    * The time at which this resource was created.
    * @return createdAt

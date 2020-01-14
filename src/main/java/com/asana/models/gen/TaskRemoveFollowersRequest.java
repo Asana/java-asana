@@ -32,6 +32,11 @@ public class TaskRemoveFollowersRequest {
   @SerializedName("followers")
   private List<String> followers = new ArrayList<>();
 
+
+  public TaskRemoveFollowersRequest(TaskRemoveFollowersResponse responseModel) {
+    super();
+    followers = responseModel.followers;
+  }
   public TaskRemoveFollowersRequest followers(List<String> followers) {
     this.followers = followers;
     return this;

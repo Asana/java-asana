@@ -39,6 +39,14 @@ public class ProjectSectionInsertRequest {
   @SerializedName("after_section")
   private String afterSection = null;
 
+
+  public ProjectSectionInsertRequest(ProjectSectionInsertResponse responseModel) {
+    super();
+    project = responseModel.project;
+    section = responseModel.section;
+    before_section = responseModel.before_section;
+    after_section = responseModel.after_section;
+  }
   public ProjectSectionInsertRequest project(String project) {
     this.project = project;
     return this;

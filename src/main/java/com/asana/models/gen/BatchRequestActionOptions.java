@@ -38,6 +38,7 @@ public class BatchRequestActionOptions {
   @SerializedName("fields")
   private List<String> fields = null;
 
+
   public BatchRequestActionOptions limit(Integer limit) {
     this.limit = limit;
     return this;

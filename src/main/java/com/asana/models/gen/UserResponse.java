@@ -41,6 +41,7 @@ public class UserResponse extends UserCompact {
   @SerializedName("workspaces")
   private List<WorkspaceCompact> workspaces = null;
 
+
    /**
    * The user’s email address.
    * @return email

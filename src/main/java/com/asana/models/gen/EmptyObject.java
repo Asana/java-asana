@@ -22,6 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class EmptyObject {
 
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {

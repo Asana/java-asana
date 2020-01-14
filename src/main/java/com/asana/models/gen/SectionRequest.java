@@ -33,6 +33,12 @@ public class SectionRequest {
   @SerializedName("name")
   private String name = null;
 
+
+  public SectionRequest(SectionResponse responseModel) {
+    super();
+    project = responseModel.project;
+    name = responseModel.name;
+  }
   public SectionRequest project(String project) {
     this.project = project;
     return this;

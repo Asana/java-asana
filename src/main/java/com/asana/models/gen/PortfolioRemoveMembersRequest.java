@@ -30,6 +30,11 @@ public class PortfolioRemoveMembersRequest {
   @SerializedName("members")
   private String members = null;
 
+
+  public PortfolioRemoveMembersRequest(PortfolioRemoveMembersResponse responseModel) {
+    super();
+    members = responseModel.members;
+  }
   public PortfolioRemoveMembersRequest members(String members) {
     this.members = members;
     return this;

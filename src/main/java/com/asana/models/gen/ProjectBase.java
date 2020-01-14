@@ -285,6 +285,7 @@ public class ProjectBase extends ProjectCompact {
   @SerializedName("workspace")
   private Object workspace = null;
 
+
   public ProjectBase archived(Boolean archived) {
     this.archived = archived;
     return this;

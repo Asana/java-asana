@@ -30,6 +30,11 @@ public class PortfolioAddMembersRequest {
   @SerializedName("members")
   private String members = null;
 
+
+  public PortfolioAddMembersRequest(PortfolioAddMembersResponse responseModel) {
+    super();
+    members = responseModel.members;
+  }
   public PortfolioAddMembersRequest members(String members) {
     this.members = members;
     return this;

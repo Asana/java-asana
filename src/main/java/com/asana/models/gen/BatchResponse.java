@@ -36,6 +36,7 @@ public class BatchResponse {
   @SerializedName("body")
   private Object body = null;
 
+
   public BatchResponse statusCode(Integer statusCode) {
     this.statusCode = statusCode;
     return this;

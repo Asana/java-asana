@@ -31,6 +31,7 @@ public class AttachmentCompact extends AsanaResource {
   @SerializedName("name")
   private String name = null;
 
+
    /**
    * The name of the file.
    * @return name

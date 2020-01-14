@@ -33,6 +33,12 @@ public class WebhookRequest {
   @SerializedName("target")
   private String target = null;
 
+
+  public WebhookRequest(WebhookResponse responseModel) {
+    super();
+    resource = responseModel.resource;
+    target = responseModel.target;
+  }
   public WebhookRequest resource(String resource) {
     this.resource = resource;
     return this;

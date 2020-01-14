@@ -42,6 +42,7 @@ public class UserResponsePhoto {
   @SerializedName("image_128x128")
   private String image128x128 = null;
 
+
   public UserResponsePhoto image21x21(String image21x21) {
     this.image21x21 = image21x21;
     return this;

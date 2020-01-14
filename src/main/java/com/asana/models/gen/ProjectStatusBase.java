@@ -90,6 +90,7 @@ public class ProjectStatusBase extends ProjectStatusCompact {
   }  @SerializedName("color")
   private ColorEnum color = null;
 
+
    /**
    * The time at which this resource was created.
    * @return createdAt

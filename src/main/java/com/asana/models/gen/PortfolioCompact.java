@@ -31,6 +31,7 @@ public class PortfolioCompact extends AsanaResource {
   @SerializedName("name")
   private String name = null;
 
+
   public PortfolioCompact name(String name) {
     this.name = name;
     return this;

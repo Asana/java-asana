@@ -31,6 +31,7 @@ public class SectionCompact extends AsanaResource {
   @SerializedName("name")
   private String name = null;
 
+
   public SectionCompact name(String name) {
     this.name = name;
     return this;

@@ -36,6 +36,7 @@ public class Error {
   @SerializedName("phrase")
   private String phrase = null;
 
+
    /**
    * Message providing more detail about the error that occurred, if available.
    * @return message

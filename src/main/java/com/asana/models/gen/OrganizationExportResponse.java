@@ -85,6 +85,7 @@ public class OrganizationExportResponse extends AsanaResource {
   @SerializedName("organization")
   private WorkspaceCompact organization = null;
 
+
    /**
    * The time at which this resource was created.
    * @return createdAt

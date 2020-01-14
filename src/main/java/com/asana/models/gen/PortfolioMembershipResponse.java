@@ -33,6 +33,7 @@ public class PortfolioMembershipResponse extends PortfolioMembershipCompact {
   @SerializedName("portfolio")
   private PortfolioCompact portfolio = null;
 
+
   public PortfolioMembershipResponse portfolio(PortfolioCompact portfolio) {
     this.portfolio = portfolio;
     return this;

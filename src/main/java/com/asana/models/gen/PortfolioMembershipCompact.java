@@ -32,6 +32,7 @@ public class PortfolioMembershipCompact extends AsanaResource {
   @SerializedName("user")
   private UserCompact user = null;
 
+
   public PortfolioMembershipCompact user(UserCompact user) {
     this.user = user;
     return this;

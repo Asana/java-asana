@@ -32,6 +32,11 @@ public class TaskAddFollowersRequest {
   @SerializedName("followers")
   private List<String> followers = new ArrayList<>();
 
+
+  public TaskAddFollowersRequest(TaskAddFollowersResponse responseModel) {
+    super();
+    followers = responseModel.followers;
+  }
   public TaskAddFollowersRequest followers(List<String> followers) {
     this.followers = followers;
     return this;

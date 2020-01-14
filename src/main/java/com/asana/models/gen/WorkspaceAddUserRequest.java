@@ -30,6 +30,11 @@ public class WorkspaceAddUserRequest {
   @SerializedName("user")
   private String user = null;
 
+
+  public WorkspaceAddUserRequest(WorkspaceAddUserResponse responseModel) {
+    super();
+    user = responseModel.user;
+  }
   public WorkspaceAddUserRequest user(String user) {
     this.user = user;
     return this;

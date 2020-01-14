@@ -45,6 +45,7 @@ public class StoryCompact extends AsanaResource {
   @SerializedName("type")
   private String type = null;
 
+
    /**
    * The time at which this resource was created.
    * @return createdAt

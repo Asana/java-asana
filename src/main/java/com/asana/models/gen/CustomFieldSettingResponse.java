@@ -40,6 +40,7 @@ public class CustomFieldSettingResponse extends CustomFieldSettingCompact {
   @SerializedName("custom_field")
   private Object customField = null;
 
+
   public CustomFieldSettingResponse project(Object project) {
     this.project = project;
     return this;

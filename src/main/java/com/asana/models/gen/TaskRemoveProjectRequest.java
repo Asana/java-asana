@@ -30,6 +30,11 @@ public class TaskRemoveProjectRequest {
   @SerializedName("project")
   private String project = null;
 
+
+  public TaskRemoveProjectRequest(TaskRemoveProjectResponse responseModel) {
+    super();
+    project = responseModel.project;
+  }
   public TaskRemoveProjectRequest project(String project) {
     this.project = project;
     return this;

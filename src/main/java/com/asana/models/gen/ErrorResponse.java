@@ -33,6 +33,7 @@ public class ErrorResponse {
   @SerializedName("errors")
   private List<Error> errors = null;
 
+
   public ErrorResponse errors(List<Error> errors) {
     this.errors = errors;
     return this;

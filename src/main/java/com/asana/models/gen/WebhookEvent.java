@@ -46,6 +46,7 @@ public class WebhookEvent {
   @SerializedName("user")
   private String user = null;
 
+
    /**
    * The type of action taken that triggered the event.
    * @return action

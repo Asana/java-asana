@@ -31,6 +31,7 @@ public class AsanaNamedResource extends AsanaResource {
   @SerializedName("name")
   private String name = null;
 
+
   public AsanaNamedResource name(String name) {
     this.name = name;
     return this;

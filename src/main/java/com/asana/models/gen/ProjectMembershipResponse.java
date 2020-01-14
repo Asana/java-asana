@@ -77,6 +77,7 @@ public class ProjectMembershipResponse extends ProjectMembershipCompact {
   }  @SerializedName("write_access")
   private WriteAccessEnum writeAccess = null;
 
+
   public ProjectMembershipResponse project(ProjectCompact project) {
     this.project = project;
     return this;

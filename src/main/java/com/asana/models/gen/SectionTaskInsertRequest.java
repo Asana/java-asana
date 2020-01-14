@@ -36,6 +36,13 @@ public class SectionTaskInsertRequest {
   @SerializedName("insert_after")
   private String insertAfter = null;
 
+
+  public SectionTaskInsertRequest(SectionTaskInsertResponse responseModel) {
+    super();
+    task = responseModel.task;
+    insert_before = responseModel.insert_before;
+    insert_after = responseModel.insert_after;
+  }
   public SectionTaskInsertRequest task(String task) {
     this.task = task;
     return this;

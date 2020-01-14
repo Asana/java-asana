@@ -36,6 +36,7 @@ public class ProjectDuplicateRequestScheduleDates {
   @SerializedName("start_on")
   private String startOn = null;
 
+
   public ProjectDuplicateRequestScheduleDates shouldSkipWeekends(Boolean shouldSkipWeekends) {
     this.shouldSkipWeekends = shouldSkipWeekends;
     return this;

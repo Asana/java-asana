@@ -39,6 +39,7 @@ public class StoryBase extends StoryCompact {
   @SerializedName("is_pinned")
   private Boolean isPinned = null;
 
+
   public StoryBase text(String text) {
     this.text = text;
     return this;

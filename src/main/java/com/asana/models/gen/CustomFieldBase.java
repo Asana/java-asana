@@ -46,6 +46,7 @@ public class CustomFieldBase extends CustomFieldCompact {
   @SerializedName("has_notifications_enabled")
   private Boolean hasNotificationsEnabled = null;
 
+
   public CustomFieldBase description(String description) {
     this.description = description;
     return this;

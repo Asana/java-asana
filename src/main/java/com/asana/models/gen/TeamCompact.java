@@ -31,6 +31,7 @@ public class TeamCompact extends AsanaResource {
   @SerializedName("name")
   private String name = null;
 
+
   public TeamCompact name(String name) {
     this.name = name;
     return this;
