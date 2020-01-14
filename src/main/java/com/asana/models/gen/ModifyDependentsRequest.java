@@ -33,10 +33,6 @@ public class ModifyDependentsRequest {
   private List<String> dependents = null;
 
 
-  public ModifyDependentsRequest(ModifyDependentsResponse responseModel) {
-    super();
-    dependents = responseModel.dependents;
-  }
   public ModifyDependentsRequest dependents(List<String> dependents) {
     this.dependents = dependents;
     return this;

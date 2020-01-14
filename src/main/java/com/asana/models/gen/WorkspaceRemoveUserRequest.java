@@ -31,10 +31,6 @@ public class WorkspaceRemoveUserRequest {
   private String user = null;
 
 
-  public WorkspaceRemoveUserRequest(WorkspaceRemoveUserResponse responseModel) {
-    super();
-    user = responseModel.user;
-  }
   public WorkspaceRemoveUserRequest user(String user) {
     this.user = user;
     return this;

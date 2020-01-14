@@ -37,12 +37,6 @@ public class TaskSetParentRequest {
   private String insertBefore = null;
 
 
-  public TaskSetParentRequest(TaskSetParentResponse responseModel) {
-    super();
-    parent = responseModel.parent;
-    insert_after = responseModel.insert_after;
-    insert_before = responseModel.insert_before;
-  }
   public TaskSetParentRequest parent(String parent) {
     this.parent = parent;
     return this;

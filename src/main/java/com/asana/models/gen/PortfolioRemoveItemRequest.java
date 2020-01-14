@@ -31,10 +31,6 @@ public class PortfolioRemoveItemRequest {
   private String item = null;
 
 
-  public PortfolioRemoveItemRequest(PortfolioRemoveItemResponse responseModel) {
-    super();
-    item = responseModel.item;
-  }
   public PortfolioRemoveItemRequest item(String item) {
     this.item = item;
     return this;

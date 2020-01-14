@@ -32,10 +32,6 @@ public class AttachmentRequest {
   private File file = null;
 
 
-  public AttachmentRequest(AttachmentResponse responseModel) {
-    super();
-    file = responseModel.file;
-  }
   public AttachmentRequest file(File file) {
     this.file = file;
     return this;

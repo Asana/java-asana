@@ -31,10 +31,6 @@ public class TaskAddTagRequest {
   private String tag = null;
 
 
-  public TaskAddTagRequest(TaskAddTagResponse responseModel) {
-    super();
-    tag = responseModel.tag;
-  }
   public TaskAddTagRequest tag(String tag) {
     this.tag = tag;
     return this;

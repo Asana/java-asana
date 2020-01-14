@@ -37,12 +37,6 @@ public class EnumOptionInsertRequest {
   private String afterEnumOption = null;
 
 
-  public EnumOptionInsertRequest(EnumOptionInsertResponse responseModel) {
-    super();
-    enum_option = responseModel.enum_option;
-    before_enum_option = responseModel.before_enum_option;
-    after_enum_option = responseModel.after_enum_option;
-  }
   public EnumOptionInsertRequest enumOption(String enumOption) {
     this.enumOption = enumOption;
     return this;

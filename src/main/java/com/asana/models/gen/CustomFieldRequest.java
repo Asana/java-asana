@@ -34,10 +34,6 @@ public class CustomFieldRequest extends CustomFieldBase {
   private String workspace = null;
 
 
-  public CustomFieldRequest(CustomFieldResponse responseModel) {
-    super();
-    workspace = responseModel.workspace;
-  }
   public CustomFieldRequest workspace(String workspace) {
     this.workspace = workspace;
     return this;

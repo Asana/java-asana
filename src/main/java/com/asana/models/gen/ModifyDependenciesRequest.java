@@ -33,10 +33,6 @@ public class ModifyDependenciesRequest {
   private List<String> dependencies = null;
 
 
-  public ModifyDependenciesRequest(ModifyDependenciesResponse responseModel) {
-    super();
-    dependencies = responseModel.dependencies;
-  }
   public ModifyDependenciesRequest dependencies(List<String> dependencies) {
     this.dependencies = dependencies;
     return this;

@@ -37,10 +37,6 @@ public class PortfolioRequest extends PortfolioBase {
   private List<String> members = null;
 
 
-  public PortfolioRequest(PortfolioResponse responseModel) {
-    super();
-    members = responseModel.members;
-  }
   public PortfolioRequest members(List<String> members) {
     this.members = members;
     return this;

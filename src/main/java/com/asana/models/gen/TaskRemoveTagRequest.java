@@ -31,10 +31,6 @@ public class TaskRemoveTagRequest {
   private String tag = null;
 
 
-  public TaskRemoveTagRequest(TaskRemoveTagResponse responseModel) {
-    super();
-    tag = responseModel.tag;
-  }
   public TaskRemoveTagRequest tag(String tag) {
     this.tag = tag;
     return this;

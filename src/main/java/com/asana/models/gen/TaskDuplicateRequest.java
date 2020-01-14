@@ -83,11 +83,6 @@ public class TaskDuplicateRequest {
   private IncludeEnum include = null;
 
 
-  public TaskDuplicateRequest(TaskDuplicateResponse responseModel) {
-    super();
-    name = responseModel.name;
-    include = responseModel.include;
-  }
   public TaskDuplicateRequest name(String name) {
     this.name = name;
     return this;

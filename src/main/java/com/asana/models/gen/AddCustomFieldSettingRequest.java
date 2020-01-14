@@ -40,13 +40,6 @@ public class AddCustomFieldSettingRequest {
   private String insertAfter = null;
 
 
-  public AddCustomFieldSettingRequest(AddCustomFieldSettingResponse responseModel) {
-    super();
-    custom_field = responseModel.custom_field;
-    is_important = responseModel.is_important;
-    insert_before = responseModel.insert_before;
-    insert_after = responseModel.insert_after;
-  }
   public AddCustomFieldSettingRequest customField(String customField) {
     this.customField = customField;
     return this;

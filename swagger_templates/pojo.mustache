@@ -92,14 +92,6 @@ public class {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{{#parcela
   {{/gson}}
   {{/parcelableModel}}
 
-  {{#isRequestModel classname}}
-  public {{classname}}({{getRequestModel classname}} responseModel) {
-    super();
-    {{#vars}}
-    {{baseName}} = responseModel.{{baseName}};
-    {{/vars}}
-  }
-  {{/isRequestModel}}
   {{#vars}}
   {{^isReadOnly}}
   public {{classname}} {{name}}({{{datatypeWithEnum}}} {{name}}) {

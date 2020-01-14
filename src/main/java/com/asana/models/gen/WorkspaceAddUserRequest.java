@@ -31,10 +31,6 @@ public class WorkspaceAddUserRequest {
   private String user = null;
 
 
-  public WorkspaceAddUserRequest(WorkspaceAddUserResponse responseModel) {
-    super();
-    user = responseModel.user;
-  }
   public WorkspaceAddUserRequest user(String user) {
     this.user = user;
     return this;

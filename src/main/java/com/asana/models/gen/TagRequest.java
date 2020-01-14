@@ -37,11 +37,6 @@ public class TagRequest extends TagBase {
   private String workspace = null;
 
 
-  public TagRequest(TagResponse responseModel) {
-    super();
-    followers = responseModel.followers;
-    workspace = responseModel.workspace;
-  }
   public TagRequest followers(List<String> followers) {
     this.followers = followers;
     return this;

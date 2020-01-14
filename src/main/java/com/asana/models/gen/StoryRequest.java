@@ -21,9 +21,6 @@ import java.util.Arrays;
 
 public class StoryRequest {
 
-  public StoryRequest(StoryResponse responseModel) {
-    super();
-  }
 
   @Override
   public boolean equals(java.lang.Object o) {
