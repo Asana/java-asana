@@ -9,73 +9,82 @@ import com.google.gson.JsonElement;
 import java.io.IOException;
 import java.util.List;
 
-    public class StoriesBase extends Resource {
+    public class TeamMembershipsBase extends Resource {
     /**
     * @param client Parent client instance
     */
-    public StoriesBase(Client client) { super(client); }
+    public TeamMembershipsBase(Client client) { super(client); }
 
             /**
-            * Create a story on a task
-            * Adds a story to a task. This endpoint currently only allows for comment stories to be created. The comment will be authored by the currently authenticated user, and timestamped when the server receives the request.  Returns the full record for the new story added to the task.
-                * @param taskGid The task to operate on. (required)
-                * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
-                * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-            * @return ItemRequest<Story>
-            * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
-            */
-            public ItemRequest<Story> createStoryForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
-                String path = "/tasks/{task_gid}/stories".replace("{task_gid}", taskGid);
-
-                ItemRequest<Story> req = new ItemRequest<Story>(this, Story.class, path, "POST")
-                    .query("opt_pretty", optPretty)
-                    .query("opt_fields", optFields);
-
-                return req;
-            }
-
-            public ItemRequest<Story> createStoryForTask(String taskGid) throws IOException {
-                return createStoryForTask(taskGid, null, false);
-            }
-
-            /**
-            * Delete a story
-            * Deletes a story. A user can only delete stories they have created.  Returns an empty data record.
-                * @param storyGid Globally unique identifier for the story. (required)
+            * Get a team membership
+            * Returns the complete team membership record for a single team membership.
+                * @param teamMembershipGid  (required)
                 * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
                 * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
             * @return ItemRequest<JsonElement>
             * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
             */
-            public ItemRequest<JsonElement> deleteStory(String storyGid, List<String> optFields, Boolean optPretty) throws IOException {
-                String path = "/stories/{story_gid}".replace("{story_gid}", storyGid);
+            public ItemRequest<JsonElement> getTeamMembership(String teamMembershipGid, List<String> optFields, Boolean optPretty) throws IOException {
+                String path = "/team_memberships/{team_membership_gid}".replace("{team_membership_gid}", teamMembershipGid);
 
-                ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "DELETE")
+                ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "GET")
                     .query("opt_pretty", optPretty)
                     .query("opt_fields", optFields);
 
                 return req;
             }
 
-            public ItemRequest<JsonElement> deleteStory(String storyGid) throws IOException {
-                return deleteStory(storyGid, null, false);
+            public ItemRequest<JsonElement> getTeamMembership(String teamMembershipGid) throws IOException {
+                return getTeamMembership(teamMembershipGid, null, false);
             }
 
             /**
-            * Get stories from a task
-            * Returns the compact records for all stories on the task.
-                * @param taskGid The task to operate on. (required)
+            * Get team memberships
+            * Returns compact team membership records.
+                * @param workspace Globally unique identifier for the workspace. This parameter must be used with the user parameter. (optional)
+                * @param user Globally unique identifier for the user. This parameter must be used with the workspace parameter. (optional)
+                * @param team Globally unique identifier for the team. (optional)
                 * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
                 * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
                 * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
                 * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-            * @return CollectionRequest<Story>
+            * @return CollectionRequest<JsonElement>
             * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
             */
-            public CollectionRequest<Story> getStoriesForTask(String taskGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
-                String path = "/tasks/{task_gid}/stories".replace("{task_gid}", taskGid);
+            public CollectionRequest<JsonElement> getTeamMemberships(String workspace, String user, String team, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
+                String path = "/team_memberships";
 
-                CollectionRequest<Story> req = new CollectionRequest<Story>(this, Story.class, path, "GET")
+                CollectionRequest<JsonElement> req = new CollectionRequest<JsonElement>(this, JsonElement.class, path, "GET")
+                    .query("opt_pretty", optPretty)
+                    .query("opt_fields", optFields)
+                    .query("limit", limit)
+                    .query("offset", offset)
+                    .query("team", team)
+                    .query("user", user)
+                    .query("workspace", workspace);
+
+                return req;
+            }
+
+            public CollectionRequest<JsonElement> getTeamMemberships(String workspace, String user, String team) throws IOException {
+                return getTeamMemberships(workspace, user, team, null, (int)Client.DEFAULTS.get("page_size"), null, false);
+            }
+
+            /**
+            * Get memberships from a team
+            * Returns the compact team memberships for the team.
+                * @param teamGid Globally unique identifier for the team. (required)
+                * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
+                * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
+                * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+                * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+            * @return CollectionRequest<JsonElement>
+            * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
+            */
+            public CollectionRequest<JsonElement> getTeamMembershipsForTeam(String teamGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
+                String path = "/teams/{team_gid}/team_memberships".replace("{team_gid}", teamGid);
+
+                CollectionRequest<JsonElement> req = new CollectionRequest<JsonElement>(this, JsonElement.class, path, "GET")
                     .query("opt_pretty", optPretty)
                     .query("opt_fields", optFields)
                     .query("limit", limit)
@@ -84,58 +93,37 @@ import java.util.List;
                 return req;
             }
 
-            public CollectionRequest<Story> getStoriesForTask(String taskGid) throws IOException {
-                return getStoriesForTask(taskGid, null, (int)Client.DEFAULTS.get("page_size"), null, false);
+            public CollectionRequest<JsonElement> getTeamMembershipsForTeam(String teamGid) throws IOException {
+                return getTeamMembershipsForTeam(teamGid, null, (int)Client.DEFAULTS.get("page_size"), null, false);
             }
 
             /**
-            * Get a story
-            * Returns the full record for a single story.
-                * @param storyGid Globally unique identifier for the story. (required)
+            * Get memberships from a user
+            * Returns the compact team membership records for the user.
+                * @param userGid Globally unique identifier for the user. (required)
+                * @param workspace Globally unique identifier for the workspace. (required)
                 * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
                 * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
                 * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
                 * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-            * @return ItemRequest<Story>
+            * @return CollectionRequest<JsonElement>
             * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
             */
-            public ItemRequest<Story> getStory(String storyGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
-                String path = "/stories/{story_gid}".replace("{story_gid}", storyGid);
+            public CollectionRequest<JsonElement> getTeamMembershipsForUser(String userGid, String workspace, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
+                String path = "/users/{user_gid}/team_memberships".replace("{user_gid}", userGid);
 
-                ItemRequest<Story> req = new ItemRequest<Story>(this, Story.class, path, "GET")
+                CollectionRequest<JsonElement> req = new CollectionRequest<JsonElement>(this, JsonElement.class, path, "GET")
                     .query("opt_pretty", optPretty)
                     .query("opt_fields", optFields)
                     .query("limit", limit)
-                    .query("offset", offset);
+                    .query("offset", offset)
+                    .query("workspace", workspace);
 
                 return req;
             }
 
-            public ItemRequest<Story> getStory(String storyGid) throws IOException {
-                return getStory(storyGid, null, (int)Client.DEFAULTS.get("page_size"), null, false);
-            }
-
-            /**
-            * Update a story
-            * Updates the story and returns the full record for the updated story. Only comment stories can have their text updated, and only comment stories and attachment stories can be pinned. Only one of &#x60;text&#x60; and &#x60;html_text&#x60; can be specified.
-                * @param storyGid Globally unique identifier for the story. (required)
-                * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
-                * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-            * @return ItemRequest<Story>
-            * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
-            */
-            public ItemRequest<Story> updateStory(String storyGid, List<String> optFields, Boolean optPretty) throws IOException {
-                String path = "/stories/{story_gid}".replace("{story_gid}", storyGid);
-
-                ItemRequest<Story> req = new ItemRequest<Story>(this, Story.class, path, "PUT")
-                    .query("opt_pretty", optPretty)
-                    .query("opt_fields", optFields);
-
-                return req;
-            }
-
-            public ItemRequest<Story> updateStory(String storyGid) throws IOException {
-                return updateStory(storyGid, null, false);
+            public CollectionRequest<JsonElement> getTeamMembershipsForUser(String userGid, String workspace) throws IOException {
+                return getTeamMembershipsForUser(userGid, workspace, null, (int)Client.DEFAULTS.get("page_size"), null, false);
             }
 
     }

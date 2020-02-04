@@ -1,0 +1,4 @@
+# Swagger Codegen Ignore
+
+docs/*
+src/test/java/com/asana/resources/gen/*
