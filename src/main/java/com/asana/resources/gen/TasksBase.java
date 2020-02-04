@@ -1,6 +1,7 @@
 package com.asana.resources.gen;
 
 import com.asana.Client;
+import com.asana.models.Job;
 import com.asana.resources.Resource;
 import com.asana.requests.ItemRequest;
 import com.asana.requests.CollectionRequest;
@@ -8,6 +9,8 @@ import com.asana.models.Task;
 import com.google.gson.JsonElement;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 
     public class TasksBase extends Resource {
