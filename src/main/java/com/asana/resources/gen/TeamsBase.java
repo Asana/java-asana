@@ -95,7 +95,7 @@ import java.util.List;
         /**
         * Get teams for a user
         * Returns the compact records for all teams to which the given user is assigned.
-            * @param userGid Globally unique identifier for the user. (required)
+            * @param userGid A string identifying a user. This can either be the string \&quot;me\&quot;, an email, or the gid of a user. (required)
             * @param organization The workspace or organization to filter teams on. (required)
             * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)

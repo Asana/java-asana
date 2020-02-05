@@ -44,7 +44,7 @@ import java.util.List;
         * Get team memberships
         * Returns compact team membership records.
             * @param workspace Globally unique identifier for the workspace. This parameter must be used with the user parameter. (optional)
-            * @param user Globally unique identifier for the user. This parameter must be used with the workspace parameter. (optional)
+            * @param user A string identifying a user. This can either be the string \&quot;me\&quot;, an email, or the gid of a user. This parameter must be used with the workspace parameter. (optional)
             * @param team Globally unique identifier for the team. (optional)
             * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
@@ -100,7 +100,7 @@ import java.util.List;
         /**
         * Get memberships from a user
         * Returns the compact team membership records for the user.
-            * @param userGid Globally unique identifier for the user. (required)
+            * @param userGid A string identifying a user. This can either be the string \&quot;me\&quot;, an email, or the gid of a user. (required)
             * @param workspace Globally unique identifier for the workspace. (required)
             * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)

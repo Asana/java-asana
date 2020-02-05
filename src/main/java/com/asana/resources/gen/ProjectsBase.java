@@ -39,7 +39,7 @@ import java.util.List;
             return addCustomFieldSettingForProject(projectGid, false);
         }
         /**
-        * Add users to a project
+        * Add followers to a project
         * Adds the specified list of users as followers to the project. Followers are a subset of members, therefore if the users are not already members of the project they will also become members as a result of this operation. Returns the updated project record.
             * @param projectGid Globally unique identifier for the project. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
