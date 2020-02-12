@@ -22,7 +22,7 @@ import java.util.List;
     */
     public {{baseName}}Base(Client client) { super(client); }
 
-    {{#operation}}
+    {{#operation}}{{^formParams}}
         {{#contents}}
         /**
         * {{summary}}
@@ -48,6 +48,6 @@ import java.util.List;
             return {{operationId}}({{#allParams}}{{#neq baseName 'offset'}}{{#neq baseName 'limit'}}{{#neq baseName 'opt_pretty'}}{{#neq baseName 'opt_fields'}}{{#unless @first}}, {{/unless}}{{#if useBeanValidation}}{{>beanValidationQueryParams}}{{/if}}{{paramName}}{{/neq}}{{/neq}}{{/neq}}{{/neq}}{{#eq baseName 'offset'}}{{#unless @first}}, {{/unless}}null{{/eq}}{{#eq baseName 'limit'}}{{#unless @first}}, {{/unless}}(int)Client.DEFAULTS.get("page_size"){{/eq}}{{#eq baseName 'opt_pretty'}}{{#unless @first}}, {{/unless}}false{{/eq}}{{#eq baseName 'opt_fields'}}{{#unless @first}}, {{/unless}}null{{/eq}}{{/allParams}});
         }
         {{/contents}}
-    {{/operation}}
+    {{/formParams}}{{/operation}}
     }
 {{/operations}}
