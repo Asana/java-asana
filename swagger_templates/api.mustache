@@ -1,0 +1,53 @@
+package com.asana.resources.gen;
+
+import com.asana.Client;
+import com.asana.resources.Resource;
+import com.asana.requests.ItemRequest;
+import com.asana.requests.CollectionRequest;
+import com.asana.models.*;
+{{#needsFileImport baseName}}
+import java.io.File;
+{{/needsFileImport}}
+import com.google.gson.JsonElement;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.List;
+
+{{#operations}}
+    public class {{baseName}}Base extends Resource {
+    /**
+    * @param client Parent client instance
+    */
+    public {{baseName}}Base(Client client) { super(client); }
+
+    {{#operation}}{{^formParams}}
+        {{#contents}}
+        /**
+        * {{summary}}
+        * {{notes}}{{#allParams}}
+            * @param {{paramName}} {{description}}{{#required}} (required){{/required}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/allParams}}
+        * @return {{#returnContainer}}{{returnContainer}}<{{/returnContainer}}{{#if (firstClassResponseObject returnType)}}{{firstClassResponseObject returnType}}{{else}}JsonElement{{/if}}{{#returnContainer}}>{{/returnContainer}}
+        * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
+        {{#externalDocs}}
+            * {{description}}
+            * @see <a href="{{url}}">{{summary}} Documentation</a>
+        {{/externalDocs}}
+        */
+        public {{#returnContainer}}{{returnContainer}}<{{/returnContainer}}{{#if (firstClassResponseObject returnType)}}{{firstClassResponseObject returnType}}{{else}}JsonElement{{/if}}{{#returnContainer}}>{{/returnContainer}} {{operationId}}({{#allParams}}{{#if useBeanValidation}}{{>beanValidationQueryParams}}{{/if}}{{#unless @first}}, {{/unless}}{{{dataType}}} {{paramName}}{{/allParams}}) throws IOException {
+            String path = "{{path}}"{{#pathParams}}.replace("{ {{~baseName~}} }", {{paramName}}){{/pathParams}};
+
+            {{#returnContainer}}{{returnContainer}}<{{/returnContainer}}{{#if (firstClassResponseObject returnType)}}{{firstClassResponseObject returnType}}{{else}}JsonElement{{/if}}{{#returnContainer}}>{{/returnContainer}} req = new {{#returnContainer}}{{returnContainer}}<{{/returnContainer}}{{#if (firstClassResponseObject returnType)}}{{firstClassResponseObject returnType}}{{else}}JsonElement{{/if}}{{#returnContainer}}>{{/returnContainer}}(this, {{#if (firstClassResponseObject returnType)}}{{firstClassResponseObject returnType}}{{else}}JsonElement{{/if}}.class, path, "{{httpMethod}}"){{#queryParams}}
+                .query("{{baseName}}", {{paramName}}){{/queryParams}};
+
+            return req;
+        }
+
+        public {{#returnContainer}}{{returnContainer}}<{{/returnContainer}}{{#if (firstClassResponseObject returnType)}}{{firstClassResponseObject returnType}}{{else}}JsonElement{{/if}}{{#returnContainer}}>{{/returnContainer}} {{operationId}}({{#allParams}}{{#neq baseName 'offset'}}{{#neq baseName 'limit'}}{{#neq baseName 'opt_pretty'}}{{#neq baseName 'opt_fields'}}{{#unless @first}}, {{/unless}}{{#if useBeanValidation}}{{>beanValidationQueryParams}}{{/if}}{{{dataType}}} {{paramName}}{{/neq}}{{/neq}}{{/neq}}{{/neq}}{{/allParams}}) throws IOException {
+            return {{operationId}}({{#allParams}}{{#neq baseName 'offset'}}{{#neq baseName 'limit'}}{{#neq baseName 'opt_pretty'}}{{#neq baseName 'opt_fields'}}{{#unless @first}}, {{/unless}}{{#if useBeanValidation}}{{>beanValidationQueryParams}}{{/if}}{{paramName}}{{/neq}}{{/neq}}{{/neq}}{{/neq}}{{#eq baseName 'offset'}}{{#unless @first}}, {{/unless}}null{{/eq}}{{#eq baseName 'limit'}}{{#unless @first}}, {{/unless}}(int)Client.DEFAULTS.get("page_size"){{/eq}}{{#eq baseName 'opt_pretty'}}{{#unless @first}}, {{/unless}}false{{/eq}}{{#eq baseName 'opt_fields'}}{{#unless @first}}, {{/unless}}null{{/eq}}{{/allParams}});
+        }
+        {{/contents}}
+    {{/formParams}}{{/operation}}
+    }
+{{/operations}}
