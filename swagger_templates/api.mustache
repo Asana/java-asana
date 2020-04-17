@@ -28,7 +28,7 @@ import java.util.List;
         * {{summary}}
         * {{notes}}{{#allParams}}
             * @param {{paramName}} {{description}}{{#required}} (required){{/required}}{{^required}} (optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{/allParams}}
-        * @return {{#returnContainer}}{{returnContainer}}<{{/returnContainer}}{{#if (firstClassResponseObject returnType)}}{{firstClassResponseObject returnType}}{{else}}JsonElement{{/if}}{{#returnContainer}}>{{/returnContainer}}
+        * @return {{#returnContainer}}{{returnContainer}}({{/returnContainer}}{{#if (firstClassResponseObject returnType)}}{{firstClassResponseObject returnType}}{{else}}JsonElement{{/if}}{{#returnContainer}}){{/returnContainer}}
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         {{#externalDocs}}
             * {{description}}

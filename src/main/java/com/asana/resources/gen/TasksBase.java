@@ -24,20 +24,20 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Task>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public CollectionRequest<Task> addDependenciesForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
+        public ItemRequest<JsonElement> addDependenciesForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
             String path = "/tasks/{task_gid}/addDependencies".replace("{task_gid}", taskGid);
 
-            CollectionRequest<Task> req = new CollectionRequest<Task>(this, Task.class, path, "POST")
+            ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
                 .query("opt_pretty", optPretty)
                 .query("opt_fields", optFields);
 
             return req;
         }
 
-        public CollectionRequest<Task> addDependenciesForTask(String taskGid) throws IOException {
+        public ItemRequest<JsonElement> addDependenciesForTask(String taskGid) throws IOException {
             return addDependenciesForTask(taskGid, null, false);
         }
         /**
@@ -46,7 +46,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Task>
+        * @return CollectionRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Task> addDependentsForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -68,7 +68,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> addFollowersForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -90,7 +90,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> addProjectForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -112,7 +112,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> addTagForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -134,7 +134,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Task>
+        * @return ItemRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Task> createSubtaskForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -155,7 +155,7 @@ import java.util.List;
         * Creating a new task is as easy as POSTing to the &#x60;/tasks&#x60; endpoint with a data block containing the fields you’d like to set on the task. Any unspecified fields will take on default values.  Every task is required to be created in a specific workspace, and this workspace cannot be changed once set. The workspace need not be set explicitly if you specify &#x60;projects&#x60; or a &#x60;parent&#x60; task instead.
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Task>
+        * @return ItemRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Task> createTask(List<String> optFields, Boolean optPretty) throws IOException {
@@ -177,7 +177,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> deleteTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -199,7 +199,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Job>
+        * @return ItemRequest(Job)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Job> duplicateTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -223,7 +223,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Task>
+        * @return CollectionRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Task> getDependenciesForTask(String taskGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -249,7 +249,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Task>
+        * @return CollectionRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Task> getDependentsForTask(String taskGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -275,7 +275,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Task>
+        * @return CollectionRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Task> getSubtasksForTask(String taskGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -299,7 +299,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Task>
+        * @return ItemRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Task> getTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -328,7 +328,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Task>
+        * @return CollectionRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Task> getTasks(OffsetDateTime modifiedSince, OffsetDateTime completedSince, String workspace, String section, String project, String assignee, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -360,7 +360,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Task>
+        * @return CollectionRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Task> getTasksForProject(String projectGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -386,7 +386,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Task>
+        * @return CollectionRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Task> getTasksForSection(String sectionGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -412,7 +412,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Task>
+        * @return CollectionRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Task> getTasksForTag(String tagGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -439,7 +439,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Task>
+        * @return CollectionRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Task> getTasksForUserTaskList(String userTaskListGid, String completedSince, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -464,7 +464,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<JsonElement>
+        * @return CollectionRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<JsonElement> removeDependenciesForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -486,7 +486,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<JsonElement>
+        * @return CollectionRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<JsonElement> removeDependentsForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -508,7 +508,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> removeFollowerForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -530,7 +530,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> removeProjectForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -552,7 +552,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> removeTagForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -629,7 +629,7 @@ import java.util.List;
             * @param text Performs full-text search on both task name and description (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Task>
+        * @return CollectionRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Task> searchTasksForWorkspace(String workspaceGid, Boolean sortAscending, String sortBy, Boolean isSubtask, Boolean completed, Boolean hasAttachment, Boolean isBlocked, Boolean isBlocking, OffsetDateTime modifiedAtAfter, OffsetDateTime modifiedAtBefore, LocalDate dueOnBefore, LocalDate modifiedOn, LocalDate modifiedOnAfter, LocalDate modifiedOnBefore, OffsetDateTime completedAtAfter, OffsetDateTime completedAtBefore, LocalDate completedOn, LocalDate completedOnAfter, LocalDate completedOnBefore, OffsetDateTime createdAtAfter, String commentedOnByNot, OffsetDateTime createdAtBefore, LocalDate createdOn, LocalDate createdOnAfter, LocalDate createdOnBefore, LocalDate startOn, LocalDate startOnAfter, LocalDate startOnBefore, OffsetDateTime dueAtAfter, OffsetDateTime dueAtBefore, LocalDate dueOn, String commentedOnByAny, LocalDate dueOnAfter, String likedByNot, String likedByAny, String assignedByNot, String assignedByAny, String createdByNot, String createdByAny, String followersNot, String followersAny, String teamsAny, String tagsAll, String tagsNot, String tagsAny, String sectionsAll, String sectionsNot, String sectionsAny, String projectsAll, String projectsNot, String projectsAny, String assigneeStatus, String assigneeNot, String assigneeAny, String resourceSubtype, String text, List<String> optFields, Boolean optPretty) throws IOException {
@@ -706,7 +706,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Task>
+        * @return ItemRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Task> setParentForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -728,7 +728,7 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Task>
+        * @return ItemRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Task> updateTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {

@@ -23,7 +23,7 @@ import java.util.List;
         * Custom fields are associated with portfolios by way of custom field settings.  This method creates a setting for the portfolio.
             * @param portfolioGid Globally unique identifier for the portfolio. (required)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> addCustomFieldSettingForPortfolio(String portfolioGid, Boolean optPretty) throws IOException {
@@ -44,7 +44,7 @@ import java.util.List;
             * @param portfolioGid Globally unique identifier for the portfolio. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> addItemForPortfolio(String portfolioGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -66,7 +66,7 @@ import java.util.List;
             * @param portfolioGid Globally unique identifier for the portfolio. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> addMembersForPortfolio(String portfolioGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -87,7 +87,7 @@ import java.util.List;
         * Creates a new portfolio in the given workspace with the supplied name.  Note that portfolios created in the Asana UI may have some state (like the “Priority” custom field) which is automatically added to the portfolio when it is created. Portfolios created via our API will *not* be created with the same initial state to allow integrations to create their own starting state on a portfolio.
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Portfolio>
+        * @return ItemRequest(Portfolio)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Portfolio> createPortfolio(List<String> optFields, Boolean optPretty) throws IOException {
@@ -109,7 +109,7 @@ import java.util.List;
             * @param portfolioGid Globally unique identifier for the portfolio. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> deletePortfolio(String portfolioGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -133,7 +133,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Project>
+        * @return CollectionRequest(Project)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Project> getItemsForPortfolio(String portfolioGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -157,7 +157,7 @@ import java.util.List;
             * @param portfolioGid Globally unique identifier for the portfolio. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Portfolio>
+        * @return ItemRequest(Portfolio)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Portfolio> getPortfolio(String portfolioGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -182,7 +182,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Portfolio>
+        * @return CollectionRequest(Portfolio)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Portfolio> getPortfolios(String owner, String workspace, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -207,7 +207,7 @@ import java.util.List;
         * Removes a custom field setting from a portfolio.
             * @param portfolioGid Globally unique identifier for the portfolio. (required)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> removeCustomFieldSettingForPortfolio(String portfolioGid, Boolean optPretty) throws IOException {
@@ -228,7 +228,7 @@ import java.util.List;
             * @param portfolioGid Globally unique identifier for the portfolio. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> removeItemForPortfolio(String portfolioGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -250,7 +250,7 @@ import java.util.List;
             * @param portfolioGid Globally unique identifier for the portfolio. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<JsonElement>
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<JsonElement> removeMembersForPortfolio(String portfolioGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -272,7 +272,7 @@ import java.util.List;
             * @param portfolioGid Globally unique identifier for the portfolio. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Portfolio>
+        * @return ItemRequest(Portfolio)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Portfolio> updatePortfolio(String portfolioGid, List<String> optFields, Boolean optPretty) throws IOException {

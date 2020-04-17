@@ -136,7 +136,7 @@ public class Client {
     /**
      * @param request Asana client request object
      * @return Raw HttpResponse object
-     * @throws IOException
+     * @throws IOException if the request fails
      */
     public HttpResponse request(Request request) throws IOException {
         GenericUrl url = new GenericUrl(request.options.get("base_url") + request.path);

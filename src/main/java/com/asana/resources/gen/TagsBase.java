@@ -23,7 +23,7 @@ import java.util.List;
         * Creates a new tag in a workspace or organization.  Every tag is required to be created in a specific workspace or organization, and this cannot be changed once set. Note that you can use the workspace parameter regardless of whether or not it is an organization.  Returns the full record of the newly created tag.
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Tag>
+        * @return ItemRequest(Tag)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Tag> createTag(List<String> optFields, Boolean optPretty) throws IOException {
@@ -45,7 +45,7 @@ import java.util.List;
             * @param workspaceGid Globally unique identifier for the workspace or organization. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Tag>
+        * @return ItemRequest(Tag)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Tag> createTagForWorkspace(String workspaceGid, List<String> optFields, Boolean optPretty) throws IOException {
@@ -69,7 +69,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Tag>
+        * @return ItemRequest(Tag)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Tag> getTag(String tagGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -90,16 +90,15 @@ import java.util.List;
         /**
         * Get multiple tags
         * Returns the compact tag records for some filtered set of tags. Use one or more of the parameters provided to filter the tags returned.
-            * @param archived Only return tags whose &#x60;archived&#x60; field takes on the value of this parameter. (optional)
             * @param workspace The workspace to filter tags on. (optional)
             * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Tag>
+        * @return CollectionRequest(Tag)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public CollectionRequest<Tag> getTags(Boolean archived, String workspace, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
+        public CollectionRequest<Tag> getTags(String workspace, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
             String path = "/tags";
 
             CollectionRequest<Tag> req = new CollectionRequest<Tag>(this, Tag.class, path, "GET")
@@ -107,14 +106,13 @@ import java.util.List;
                 .query("opt_fields", optFields)
                 .query("limit", limit)
                 .query("offset", offset)
-                .query("workspace", workspace)
-                .query("archived", archived);
+                .query("workspace", workspace);
 
             return req;
         }
 
-        public CollectionRequest<Tag> getTags(Boolean archived, String workspace) throws IOException {
-            return getTags(archived, workspace, null, (int)Client.DEFAULTS.get("page_size"), null, false);
+        public CollectionRequest<Tag> getTags(String workspace) throws IOException {
+            return getTags(workspace, null, (int)Client.DEFAULTS.get("page_size"), null, false);
         }
         /**
         * Get a task&#x27;s tags
@@ -124,7 +122,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Tag>
+        * @return CollectionRequest(Tag)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Tag> getTagsForTask(String taskGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -150,7 +148,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest<Tag>
+        * @return CollectionRequest(Tag)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public CollectionRequest<Tag> getTagsForWorkspace(String workspaceGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
@@ -176,7 +174,7 @@ import java.util.List;
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest<Tag>
+        * @return ItemRequest(Tag)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
         public ItemRequest<Tag> updateTag(String tagGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
