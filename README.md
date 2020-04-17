@@ -223,7 +223,7 @@ Before you do this, you must set a few environment variables to authenticate:
 * Maven credentials: `MAVEN_USERNAME` and `MAVEN_PASSWORD`
 * GPG keyname and password: `MAVEN_GPG_KEYNAME` and `MAVEN_GPG_PASSWORD`
 
-You then can [log in](https://oss.sonatype.org/) to close and deploy the release.
+You can [log in](https://oss.sonatype.org/) to verify the new version landed, and after some time it will be deployed to maven.
 
 [travis-url]: http://travis-ci.org/Asana/java-asana
 [travis-image]: http://img.shields.io/travis/Asana/java-asana.svg?style=flat-square
