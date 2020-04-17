@@ -7,6 +7,9 @@ import java.util.Collection;
 public class Workspace extends Resource {
     public String name;
 
+    @SerializedName("email_domains")
+    public Collection<String> emailDomains;
+
     @SerializedName("is_organization")
     public boolean isOrganization;
 
