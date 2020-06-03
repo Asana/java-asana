@@ -1,0 +1,13 @@
+batchapibase: 
+    createBatchRequest: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<JsonElement> result = client.batchapi.createBatchRequest()
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();

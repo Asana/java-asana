@@ -1,0 +1,11 @@
+jobsbase: 
+    getJob: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        Job result = client.jobs.getJob(jobGid)
+            .option("pretty", true)
+            .execute();

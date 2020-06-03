@@ -1,0 +1,21 @@
+usertasklistsbase: 
+    getUserTaskList: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        UserTaskList result = client.usertasklists.getUserTaskList(userTaskListGid)
+            .option("pretty", true)
+            .execute();
+    getUserTaskListForUser: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        UserTaskList result = client.usertasklists.getUserTaskListForUser(userGid, workspace)
+            .option("pretty", true)
+            .execute();

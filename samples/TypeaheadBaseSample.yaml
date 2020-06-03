@@ -1,0 +1,11 @@
+typeaheadbase: 
+    typeaheadForWorkspace: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<JsonElement> result = client.typeahead.typeaheadForWorkspace(workspaceGid, count, query, type, resourceType)
+            .option("pretty", true)
+            .execute();

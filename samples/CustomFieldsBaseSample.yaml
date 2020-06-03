@@ -1,0 +1,91 @@
+customfieldsbase: 
+    createCustomField: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        CustomField result = client.customfields.createCustomField()
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    createEnumOptionForCustomField: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.customfields.createEnumOptionForCustomField(customFieldGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    deleteCustomField: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.customfields.deleteCustomField(customFieldGid)
+            .option("pretty", true)
+            .execute();
+    getCustomField: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        CustomField result = client.customfields.getCustomField(customFieldGid)
+            .option("pretty", true)
+            .execute();
+    getCustomFieldsForWorkspace: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<CustomField> result = client.customfields.getCustomFieldsForWorkspace(workspaceGid)
+            .option("pretty", true)
+            .execute();
+    insertEnumOptionForCustomField: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.customfields.insertEnumOptionForCustomField(customFieldGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    updateCustomField: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        CustomField result = client.customfields.updateCustomField(customFieldGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    updateEnumOption: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.customfields.updateEnumOption(enumOptionGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();

@@ -1,0 +1,16 @@
+{{#operations}}{{toLowerCase classname}}: {{#operation}}{{#contents}}
+    {{operationId}}: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        {{#eq returnContainer "CollectionRequest"}}List<{{/eq}}{{#if (firstClassResponseObject returnType)}}{{firstClassResponseObject returnType}}{{else}}JsonElement{{/if}}{{#eq returnContainer "CollectionRequest"}}>{{/eq}} result = client.{{toLowerCase baseName}}.{{operationId}}({{#allParams}}{{#neq baseName 'offset'}}{{#neq baseName 'limit'}}{{#neq baseName 'opt_pretty'}}{{#neq baseName 'opt_fields'}}{{#unless @first}}, {{/unless}}{{#if useBeanValidation}}{{>beanValidationQueryParams}}{{/if}}{{paramName}}{{/neq}}{{/neq}}{{/neq}}{{/neq}}{{/allParams}})
+        {{#neq httpMethod 'GET'}}{{#neq httpMethod 'DELETE'}}
+            .data("field", "value")
+            .data("field", "value")
+        {{/neq}}{{/neq}}
+            .option("pretty", true)
+            .execute();{{/contents}}{{/operation}}
+{{/operations}}

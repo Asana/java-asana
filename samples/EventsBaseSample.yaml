@@ -1,0 +1,11 @@
+eventsbase: 
+    getEvents: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<JsonElement> result = client.events.getEvents(sync, resource)
+            .option("pretty", true)
+            .execute();

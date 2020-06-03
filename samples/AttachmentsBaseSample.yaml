@@ -1,0 +1,43 @@
+attachmentsbase: 
+    createAttachmentForTask: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        Attachment result = client.attachments.createAttachmentForTask(taskGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    deleteAttachment: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.attachments.deleteAttachment(attachmentGid)
+            .option("pretty", true)
+            .execute();
+    getAttachment: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        Attachment result = client.attachments.getAttachment(attachmentGid)
+            .option("pretty", true)
+            .execute();
+    getAttachmentsForTask: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<Attachment> result = client.attachments.getAttachmentsForTask(taskGid)
+            .option("pretty", true)
+            .execute();

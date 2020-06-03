@@ -1,0 +1,79 @@
+sectionsbase: 
+    addTaskForSection: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.sections.addTaskForSection(sectionGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    createSectionForProject: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        Section result = client.sections.createSectionForProject(projectGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    deleteSection: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.sections.deleteSection(sectionGid)
+            .option("pretty", true)
+            .execute();
+    getSection: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        Section result = client.sections.getSection(sectionGid)
+            .option("pretty", true)
+            .execute();
+    getSectionsForProject: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<Section> result = client.sections.getSectionsForProject(projectGid)
+            .option("pretty", true)
+            .execute();
+    insertSectionForProject: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.sections.insertSectionForProject(projectGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    updateSection: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        Section result = client.sections.updateSection(sectionGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();

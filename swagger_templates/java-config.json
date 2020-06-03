@@ -4,6 +4,7 @@
   "invokerPackage" : "com.asana",
   "groupId" : "com.asana",
   "dateLibrary" : "java8",
+  "templateDir": "swagger_templates",
   "hideGenerationTimestamp": true,
   "generateApiTests": false
 }

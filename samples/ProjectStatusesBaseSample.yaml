@@ -1,0 +1,43 @@
+projectstatusesbase: 
+    createProjectStatusForProject: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        ProjectStatus result = client.projectstatuses.createProjectStatusForProject(projectGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    deleteProjectStatus: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.projectstatuses.deleteProjectStatus(projectStatusGid)
+            .option("pretty", true)
+            .execute();
+    getProjectStatus: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        ProjectStatus result = client.projectstatuses.getProjectStatus(projectStatusGid)
+            .option("pretty", true)
+            .execute();
+    getProjectStatusesForProject: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<ProjectStatus> result = client.projectstatuses.getProjectStatusesForProject(projectGid)
+            .option("pretty", true)
+            .execute();

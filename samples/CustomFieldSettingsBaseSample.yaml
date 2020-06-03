@@ -1,0 +1,21 @@
+customfieldsettingsbase: 
+    getCustomFieldSettingsForPortfolio: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<CustomFieldSetting> result = client.customfieldsettings.getCustomFieldSettingsForPortfolio(portfolioGid)
+            .option("pretty", true)
+            .execute();
+    getCustomFieldSettingsForProject: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<CustomFieldSetting> result = client.customfieldsettings.getCustomFieldSettingsForProject(projectGid)
+            .option("pretty", true)
+            .execute();
