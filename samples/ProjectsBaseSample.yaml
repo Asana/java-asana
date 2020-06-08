@@ -6,7 +6,7 @@ projectsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.projects.addCustomFieldSettingForProject(projectGid)
+        CustomFieldSetting result = client.projects.addCustomFieldSettingForProject(projectGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)

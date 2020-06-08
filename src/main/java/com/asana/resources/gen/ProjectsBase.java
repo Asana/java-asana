@@ -23,19 +23,19 @@ import java.util.List;
         * Custom fields are associated with projects by way of custom field settings.  This method creates a setting for the project.
             * @param projectGid Globally unique identifier for the project. (required)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest(JsonElement)
+        * @return ItemRequest(CustomFieldSetting)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> addCustomFieldSettingForProject(String projectGid, Boolean optPretty) throws IOException {
+        public ItemRequest<CustomFieldSetting> addCustomFieldSettingForProject(String projectGid, Boolean optPretty) throws IOException {
             String path = "/projects/{project_gid}/addCustomFieldSetting".replace("{project_gid}", projectGid);
 
-            ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
+            ItemRequest<CustomFieldSetting> req = new ItemRequest<CustomFieldSetting>(this, CustomFieldSetting.class, path, "POST")
                 .query("opt_pretty", optPretty);
 
             return req;
         }
 
-        public ItemRequest<JsonElement> addCustomFieldSettingForProject(String projectGid) throws IOException {
+        public ItemRequest<CustomFieldSetting> addCustomFieldSettingForProject(String projectGid) throws IOException {
             return addCustomFieldSettingForProject(projectGid, false);
         }
         /**
