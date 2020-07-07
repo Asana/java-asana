@@ -16,4 +16,6 @@ public class ResultBodyCollection<T> {
     public String sync;
     @SerializedName("next_page")
     public NextPage nextPage;
+    @SerializedName("has_more")
+    public Boolean hasMore;
 }
