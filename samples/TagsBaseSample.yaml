@@ -23,6 +23,16 @@ tagsbase:
             .data("field", "value")
             .option("pretty", true)
             .execute();
+    deleteTag: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.tags.deleteTag(tagGid)
+            .option("pretty", true)
+            .execute();
     getTag: >-
         import com.asana.Client;
 
