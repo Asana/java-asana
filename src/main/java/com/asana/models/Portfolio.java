@@ -23,5 +23,5 @@ public class Portfolio extends Resource {
     public DateTime createdAt;
 
     @SerializedName("created_by")
-    public DateTime createdBy;
+    public User createdBy;
 }
