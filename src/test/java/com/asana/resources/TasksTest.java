@@ -3,12 +3,12 @@ package com.asana.resources;
 import com.asana.AsanaTest;
 import com.asana.models.Attachment;
 import com.asana.models.Task;
-import com.sun.tools.javac.util.List;
 
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,7 +24,7 @@ public class TasksTest extends AsanaTest {
 
     Task task = client.tasks
         .findById("1")
-        .option("fields", List.of("gid", "name", "attachments.name"))
+        .option("fields", Arrays.asList("gid", "name", "attachments.name"))
         .execute();
 
     assertEquals("1", task.gid);
