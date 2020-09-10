@@ -77,4 +77,6 @@ public class Task extends ResourceWithSubtype {
     public Collection<Heart> hearts;
     @SerializedName("num_hearts")
     public int numHearts;
+
+    public Collection<Attachment> attachments;
 }
