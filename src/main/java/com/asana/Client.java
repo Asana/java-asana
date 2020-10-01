@@ -59,6 +59,7 @@ public class Client {
     public Projects projects;
     public ProjectStatuses projectStatuses;
     public ProjectMemberships projectMemberships;
+    public Sections sections;
     public Stories stories;
     public Tags tags;
     public Tasks tasks;
@@ -121,6 +122,7 @@ public class Client {
         this.projects = new Projects(this);
         this.projectStatuses = new ProjectStatuses(this);
         this.projectMemberships = new ProjectMemberships(this);
+        this.sections = new Sections(this);
         this.stories = new Stories(this);
         this.tags = new Tags(this);
         this.tasks = new Tasks(this);
