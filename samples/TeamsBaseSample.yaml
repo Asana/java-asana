@@ -11,6 +11,18 @@ teamsbase:
             .data("field", "value")
             .option("pretty", true)
             .execute();
+    createTeam: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        Team result = client.teams.createTeam()
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
     getTeam: >-
         import com.asana.Client;
 

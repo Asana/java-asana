@@ -215,7 +215,7 @@ import java.util.List;
         }
         /**
         * Get multiple projects
-        * Returns the compact project records for some filtered set of projects. Use one or more of the parameters provided to filter the projects returned.
+        * Returns the compact project records for some filtered set of projects. Use one or more of the parameters provided to filter the projects returned. *Note: This endpoint may timeout for large domains. Try filtering by team!*
             * @param archived Only return projects whose &#x60;archived&#x60; field takes on the value of this parameter. (optional)
             * @param team The team to filter projects on. (optional)
             * @param workspace The workspace or organization to filter projects on. (optional)
@@ -300,7 +300,7 @@ import java.util.List;
         }
         /**
         * Get all projects in a workspace
-        * Returns the compact project records for all projects in the workspace.
+        * Returns the compact project records for all projects in the workspace. *Note: This endpoint may timeout for large domains. Prefer the &#x60;/teams/{team_gid}/projects&#x60; endpoint.*
             * @param workspaceGid Globally unique identifier for the workspace or organization. (required)
             * @param archived Only return projects whose &#x60;archived&#x60; field takes on the value of this parameter. (optional)
             * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)

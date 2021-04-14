@@ -3,7 +3,7 @@ package com.asana.errors;
 import com.asana.Json;
 import com.asana.models.ErrorBody;
 import com.google.api.client.http.HttpResponseException;
-import com.google.api.client.repackaged.com.google.common.base.Joiner;
+import com.google.api.client.util.Joiner;
 
 import java.io.IOException;
 
@@ -45,7 +45,7 @@ public class AsanaError extends IOException {
         try {
             ErrorBody body = Json.getInstance().fromJson(exception.getContent(), ErrorBody.class);
             if (body.errors.size() > 0) {
-                return message + " (" + Joiner.on("; ").join(body.errors) + ")";
+                return message + " (" + Joiner.on(';').join(body.errors) + ")";
             }
         } catch (Exception e) {
         }
