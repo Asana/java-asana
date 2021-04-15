@@ -1,9 +1,6 @@
 package com.asana.dispatcher;
 
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpContent;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.*;
 
 import java.io.IOException;
 
@@ -12,6 +9,11 @@ public class BasicAuthDispatcher extends Dispatcher {
 
     public BasicAuthDispatcher(String apiKey) {
         super();
+        this.apiKey = apiKey;
+    }
+
+    public BasicAuthDispatcher(String apiKey, HttpRequestInitializer requestInitializer) {
+        super(requestInitializer);
         this.apiKey = apiKey;
     }
 

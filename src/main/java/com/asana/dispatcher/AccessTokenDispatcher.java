@@ -1,9 +1,6 @@
 package com.asana.dispatcher;
 
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpContent;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.*;
 
 import java.io.IOException;
 
@@ -13,6 +10,11 @@ public class AccessTokenDispatcher extends Dispatcher {
 
     public AccessTokenDispatcher(String accessToken) {
         super();
+        this.accessToken = accessToken;
+    }
+
+    public AccessTokenDispatcher(String accessToken, HttpRequestInitializer requestInitializer) {
+        super(requestInitializer);
         this.accessToken = accessToken;
     }
 

@@ -1,27 +1,40 @@
 package com.asana.dispatcher;
 
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpContent;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.*;
 import com.google.api.client.http.javanet.NetHttpTransport;
 
 import java.io.IOException;
 
 public abstract class Dispatcher {
     protected HttpTransport httpTransport;
+    protected HttpRequestInitializer httpRequestInitializer;
 
 
     public Dispatcher() {
-        this.httpTransport = new NetHttpTransport();
+        this(new NetHttpTransport());
+    }
+
+    public Dispatcher(HttpRequestInitializer requestInitializer) {
+        this(new NetHttpTransport(), requestInitializer);
     }
 
     public Dispatcher(HttpTransport httpTransport) {
+        this(httpTransport, null);
+    }
+
+    public Dispatcher(HttpTransport httpTransport, HttpRequestInitializer requestInitializer) {
         this.httpTransport = httpTransport;
+        this.httpRequestInitializer = requestInitializer;
     }
 
     public HttpRequest buildRequest(String method, GenericUrl url, HttpContent content) throws IOException {
-        return httpTransport.createRequestFactory().buildRequest(method, url, content);
+        HttpRequestFactory requestFactory;
+        if(httpRequestInitializer == null) {
+            requestFactory = httpTransport.createRequestFactory();
+        } else {
+            requestFactory = httpTransport.createRequestFactory(httpRequestInitializer);
+        }
+        return requestFactory.buildRequest(method, url, content);
     }
 
     public void sleep(long millis) {
