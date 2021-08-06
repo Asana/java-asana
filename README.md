@@ -10,7 +10,7 @@ If you use [Maven](http://maven.apache.org/) to manage dependencies you can incl
     <dependency>
          <groupId>com.asana</groupId>
          <artifactId>asana</artifactId>
-         <version>0.10.4</version>
+         <version>0.10.6</version>
     </dependency>
 
 Or, you can build the artifact and install it to your local Maven repository:
