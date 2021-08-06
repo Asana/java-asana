@@ -6,7 +6,7 @@ attachmentsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        Attachment result = client.attachments.createAttachmentForTask(taskGid)
+        Attachment result = client.attachments.createAttachmentForTask(taskGid, file, url, name)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)

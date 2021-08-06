@@ -1,0 +1,169 @@
+goalsbase: 
+    addFollowers: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goals.addFollowers()
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    addSubgoal: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goals.addSubgoal()
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    addSupportingWorkForGoal: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goals.addSupportingWorkForGoal()
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    createGoalMetric: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goals.createGoalMetric()
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    deleteGoal: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goals.deleteGoal(goalGid)
+            .option("pretty", true)
+            .execute();
+    getGoal: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goals.getGoal(goalGid)
+            .option("pretty", true)
+            .execute();
+    getGoals: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<JsonElement> result = client.goals.getGoals(workspace, team, isWorkspaceLevel, project, portfolio)
+            .option("pretty", true)
+            .execute();
+    getParentGoalsForGoal: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<JsonElement> result = client.goals.getParentGoalsForGoal()
+            .option("pretty", true)
+            .execute();
+    getSubgoalsForGoal: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<JsonElement> result = client.goals.getSubgoalsForGoal()
+            .option("pretty", true)
+            .execute();
+    removeFollowers: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goals.removeFollowers()
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    removeSubgoal: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goals.removeSubgoal()
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    removeSupportingWorkForGoal: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goals.removeSupportingWorkForGoal()
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    supportingWork: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<Project> result = client.goals.supportingWork()
+            .option("pretty", true)
+            .execute();
+    updateGoal: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goals.updateGoal(goalGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    updateGoalMetric: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goals.updateGoalMetric()
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
