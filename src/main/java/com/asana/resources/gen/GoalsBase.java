@@ -82,6 +82,31 @@ import java.util.List;
             return addSupportingWorkForGoal(null, false);
         }
         /**
+        * Create a goal
+        * Creates a new goal in a workspace or team.  Returns the full record of the newly created goal.
+            * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
+            * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
+            * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+            * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+        * @return ItemRequest(JsonElement)
+        * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
+        */
+        public ItemRequest<JsonElement> createGoal(String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/goals";
+
+            ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
+                .query("opt_pretty", optPretty)
+                .query("opt_fields", optFields)
+                .query("limit", limit)
+                .query("offset", offset);
+
+            return req;
+        }
+
+        public ItemRequest<JsonElement> createGoal() throws IOException {
+            return createGoal(null, (int)Client.DEFAULTS.get("page_size"), null, false);
+        }
+        /**
         * Create a goal metric
         * Creates and adds a goal metric to a specified goal. Note that this replaces an existing goal metric if one already exists.
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
@@ -149,6 +174,7 @@ import java.util.List;
         /**
         * Get goals
         * Returns compact goal records.
+            * @param timePeriods Globally unique identifiers for the time periods. (optional)
             * @param workspace Globally unique identifier for the workspace. (optional)
             * @param team Globally unique identifier for the team. (optional)
             * @param isWorkspaceLevel Filter to goals with is_workspace_level set to query value. Must be used with the workspace parameter. (optional)
@@ -161,7 +187,7 @@ import java.util.List;
         * @return CollectionRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public CollectionRequest<JsonElement> getGoals(String workspace, String team, Boolean isWorkspaceLevel, String project, String portfolio, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
+        public CollectionRequest<JsonElement> getGoals(List<String> timePeriods, String workspace, String team, Boolean isWorkspaceLevel, String project, String portfolio, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
             String path = "/goals";
 
             CollectionRequest<JsonElement> req = new CollectionRequest<JsonElement>(this, JsonElement.class, path, "GET")
@@ -173,13 +199,14 @@ import java.util.List;
                 .query("project", project)
                 .query("is_workspace_level", isWorkspaceLevel)
                 .query("team", team)
-                .query("workspace", workspace);
+                .query("workspace", workspace)
+                .query("time_periods", timePeriods);
 
             return req;
         }
 
-        public CollectionRequest<JsonElement> getGoals(String workspace, String team, Boolean isWorkspaceLevel, String project, String portfolio) throws IOException {
-            return getGoals(workspace, team, isWorkspaceLevel, project, portfolio, null, (int)Client.DEFAULTS.get("page_size"), null, false);
+        public CollectionRequest<JsonElement> getGoals(List<String> timePeriods, String workspace, String team, Boolean isWorkspaceLevel, String project, String portfolio) throws IOException {
+            return getGoals(timePeriods, workspace, team, isWorkspaceLevel, project, portfolio, null, (int)Client.DEFAULTS.get("page_size"), null, false);
         }
         /**
         * Get parent goals from a goal

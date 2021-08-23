@@ -1,0 +1,21 @@
+timeperiodsbase: 
+    getTimePeriod: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.timeperiods.getTimePeriod(timePeriodGid)
+            .option("pretty", true)
+            .execute();
+    getTimePeriods: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<JsonElement> result = client.timeperiods.getTimePeriods(endOn, startOn, workspace)
+            .option("pretty", true)
+            .execute();

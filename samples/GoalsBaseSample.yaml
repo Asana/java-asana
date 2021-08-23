@@ -35,6 +35,18 @@ goalsbase:
             .data("field", "value")
             .option("pretty", true)
             .execute();
+    createGoal: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goals.createGoal()
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
     createGoalMetric: >-
         import com.asana.Client;
 
@@ -74,7 +86,7 @@ goalsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        List<JsonElement> result = client.goals.getGoals(workspace, team, isWorkspaceLevel, project, portfolio)
+        List<JsonElement> result = client.goals.getGoals(timePeriods, workspace, team, isWorkspaceLevel, project, portfolio)
             .option("pretty", true)
             .execute();
     getParentGoalsForGoal: >-
