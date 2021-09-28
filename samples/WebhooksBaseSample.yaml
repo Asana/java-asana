@@ -41,3 +41,15 @@ webhooksbase:
         List<Webhook> result = client.webhooks.getWebhooks(resource, workspace)
             .option("pretty", true)
             .execute();
+    updateWebhook: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        Webhook result = client.webhooks.updateWebhook(webhookGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
