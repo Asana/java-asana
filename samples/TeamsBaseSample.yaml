@@ -6,7 +6,7 @@ teamsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        User result = client.teams.addUserForTeam(teamGid)
+        JsonElement result = client.teams.addUserForTeam(teamGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)

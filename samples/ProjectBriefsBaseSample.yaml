@@ -1,0 +1,45 @@
+projectbriefsbase: 
+    createProjectBrief: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.projectbriefs.createProjectBrief(projectGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
+    deleteProjectBrief: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.projectbriefs.deleteProjectBrief(projectBriefGid)
+            .option("pretty", true)
+            .execute();
+    getProjectBrief: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.projectbriefs.getProjectBrief(projectBriefGid)
+            .option("pretty", true)
+            .execute();
+    updateProjectBrief: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.projectbriefs.updateProjectBrief(projectBriefGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();

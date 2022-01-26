@@ -581,7 +581,7 @@ import java.util.List;
             * @param isBlocking Filter to incomplete tasks with dependents (optional)
             * @param modifiedAtAfter ISO 8601 datetime string (optional)
             * @param modifiedAtBefore ISO 8601 datetime string (optional)
-            * @param dueOnBefore ISO 8601 date string (optional)
+            * @param dueOn ISO 8601 date string or &#x60;null&#x60; (optional)
             * @param modifiedOn ISO 8601 date string or &#x60;null&#x60; (optional)
             * @param modifiedOnAfter ISO 8601 date string (optional)
             * @param modifiedOnBefore ISO 8601 date string (optional)
@@ -591,7 +591,7 @@ import java.util.List;
             * @param completedOnAfter ISO 8601 date string (optional)
             * @param completedOnBefore ISO 8601 date string (optional)
             * @param createdAtAfter ISO 8601 datetime string (optional)
-            * @param commentedOnByNot Comma-separated list of user identifiers (optional)
+            * @param dueOnAfter ISO 8601 date string (optional)
             * @param createdAtBefore ISO 8601 datetime string (optional)
             * @param createdOn ISO 8601 date string or &#x60;null&#x60; (optional)
             * @param createdOnAfter ISO 8601 date string (optional)
@@ -601,17 +601,14 @@ import java.util.List;
             * @param startOnBefore ISO 8601 date string (optional)
             * @param dueAtAfter ISO 8601 datetime string (optional)
             * @param dueAtBefore ISO 8601 datetime string (optional)
-            * @param dueOn ISO 8601 date string or &#x60;null&#x60; (optional)
-            * @param commentedOnByAny Comma-separated list of user identifiers (optional)
-            * @param dueOnAfter ISO 8601 date string (optional)
+            * @param dueOnBefore ISO 8601 date string (optional)
+            * @param commentedOnByNot Comma-separated list of user identifiers (optional)
             * @param likedByNot Comma-separated list of user identifiers (optional)
-            * @param likedByAny Comma-separated list of user identifiers (optional)
             * @param assignedByNot Comma-separated list of user identifiers (optional)
             * @param assignedByAny Comma-separated list of user identifiers (optional)
             * @param createdByNot Comma-separated list of user identifiers (optional)
             * @param createdByAny Comma-separated list of user identifiers (optional)
             * @param followersNot Comma-separated list of user identifiers (optional)
-            * @param followersAny Comma-separated list of user identifiers (optional)
             * @param teamsAny Comma-separated list of team IDs (optional)
             * @param tagsAll Comma-separated list of tag IDs (optional)
             * @param tagsNot Comma-separated list of tag IDs (optional)
@@ -632,7 +629,7 @@ import java.util.List;
         * @return CollectionRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public CollectionRequest<Task> searchTasksForWorkspace(String workspaceGid, Boolean sortAscending, String sortBy, Boolean isSubtask, Boolean completed, Boolean hasAttachment, Boolean isBlocked, Boolean isBlocking, OffsetDateTime modifiedAtAfter, OffsetDateTime modifiedAtBefore, LocalDate dueOnBefore, LocalDate modifiedOn, LocalDate modifiedOnAfter, LocalDate modifiedOnBefore, OffsetDateTime completedAtAfter, OffsetDateTime completedAtBefore, LocalDate completedOn, LocalDate completedOnAfter, LocalDate completedOnBefore, OffsetDateTime createdAtAfter, String commentedOnByNot, OffsetDateTime createdAtBefore, LocalDate createdOn, LocalDate createdOnAfter, LocalDate createdOnBefore, LocalDate startOn, LocalDate startOnAfter, LocalDate startOnBefore, OffsetDateTime dueAtAfter, OffsetDateTime dueAtBefore, LocalDate dueOn, String commentedOnByAny, LocalDate dueOnAfter, String likedByNot, String likedByAny, String assignedByNot, String assignedByAny, String createdByNot, String createdByAny, String followersNot, String followersAny, String teamsAny, String tagsAll, String tagsNot, String tagsAny, String sectionsAll, String sectionsNot, String sectionsAny, String projectsAll, String projectsNot, String projectsAny, String portfoliosAny, String assigneeNot, String assigneeAny, String resourceSubtype, String text, List<String> optFields, Boolean optPretty) throws IOException {
+        public CollectionRequest<Task> searchTasksForWorkspace(String workspaceGid, Boolean sortAscending, String sortBy, Boolean isSubtask, Boolean completed, Boolean hasAttachment, Boolean isBlocked, Boolean isBlocking, OffsetDateTime modifiedAtAfter, OffsetDateTime modifiedAtBefore, LocalDate dueOn, LocalDate modifiedOn, LocalDate modifiedOnAfter, LocalDate modifiedOnBefore, OffsetDateTime completedAtAfter, OffsetDateTime completedAtBefore, LocalDate completedOn, LocalDate completedOnAfter, LocalDate completedOnBefore, OffsetDateTime createdAtAfter, LocalDate dueOnAfter, OffsetDateTime createdAtBefore, LocalDate createdOn, LocalDate createdOnAfter, LocalDate createdOnBefore, LocalDate startOn, LocalDate startOnAfter, LocalDate startOnBefore, OffsetDateTime dueAtAfter, OffsetDateTime dueAtBefore, LocalDate dueOnBefore, String commentedOnByNot, String likedByNot, String assignedByNot, String assignedByAny, String createdByNot, String createdByAny, String followersNot, String teamsAny, String tagsAll, String tagsNot, String tagsAny, String sectionsAll, String sectionsNot, String sectionsAny, String projectsAll, String projectsNot, String projectsAny, String portfoliosAny, String assigneeNot, String assigneeAny, String resourceSubtype, String text, List<String> optFields, Boolean optPretty) throws IOException {
             String path = "/workspaces/{workspace_gid}/tasks/search".replace("{workspace_gid}", workspaceGid);
 
             CollectionRequest<Task> req = new CollectionRequest<Task>(this, Task.class, path, "GET")
@@ -653,15 +650,12 @@ import java.util.List;
                 .query("tags.not", tagsNot)
                 .query("tags.all", tagsAll)
                 .query("teams.any", teamsAny)
-                .query("followers.any", followersAny)
                 .query("followers.not", followersNot)
                 .query("created_by.any", createdByAny)
                 .query("created_by.not", createdByNot)
                 .query("assigned_by.any", assignedByAny)
                 .query("assigned_by.not", assignedByNot)
-                .query("liked_by.any", likedByAny)
                 .query("liked_by.not", likedByNot)
-                .query("commented_on_by.any", commentedOnByAny)
                 .query("commented_on_by.not", commentedOnByNot)
                 .query("due_on.before", dueOnBefore)
                 .query("due_on.after", dueOnAfter)
@@ -697,8 +691,8 @@ import java.util.List;
             return req;
         }
 
-        public CollectionRequest<Task> searchTasksForWorkspace(String workspaceGid, Boolean sortAscending, String sortBy, Boolean isSubtask, Boolean completed, Boolean hasAttachment, Boolean isBlocked, Boolean isBlocking, OffsetDateTime modifiedAtAfter, OffsetDateTime modifiedAtBefore, LocalDate dueOnBefore, LocalDate modifiedOn, LocalDate modifiedOnAfter, LocalDate modifiedOnBefore, OffsetDateTime completedAtAfter, OffsetDateTime completedAtBefore, LocalDate completedOn, LocalDate completedOnAfter, LocalDate completedOnBefore, OffsetDateTime createdAtAfter, String commentedOnByNot, OffsetDateTime createdAtBefore, LocalDate createdOn, LocalDate createdOnAfter, LocalDate createdOnBefore, LocalDate startOn, LocalDate startOnAfter, LocalDate startOnBefore, OffsetDateTime dueAtAfter, OffsetDateTime dueAtBefore, LocalDate dueOn, String commentedOnByAny, LocalDate dueOnAfter, String likedByNot, String likedByAny, String assignedByNot, String assignedByAny, String createdByNot, String createdByAny, String followersNot, String followersAny, String teamsAny, String tagsAll, String tagsNot, String tagsAny, String sectionsAll, String sectionsNot, String sectionsAny, String projectsAll, String projectsNot, String projectsAny, String portfoliosAny, String assigneeNot, String assigneeAny, String resourceSubtype, String text) throws IOException {
-            return searchTasksForWorkspace(workspaceGid, sortAscending, sortBy, isSubtask, completed, hasAttachment, isBlocked, isBlocking, modifiedAtAfter, modifiedAtBefore, dueOnBefore, modifiedOn, modifiedOnAfter, modifiedOnBefore, completedAtAfter, completedAtBefore, completedOn, completedOnAfter, completedOnBefore, createdAtAfter, commentedOnByNot, createdAtBefore, createdOn, createdOnAfter, createdOnBefore, startOn, startOnAfter, startOnBefore, dueAtAfter, dueAtBefore, dueOn, commentedOnByAny, dueOnAfter, likedByNot, likedByAny, assignedByNot, assignedByAny, createdByNot, createdByAny, followersNot, followersAny, teamsAny, tagsAll, tagsNot, tagsAny, sectionsAll, sectionsNot, sectionsAny, projectsAll, projectsNot, projectsAny, portfoliosAny, assigneeNot, assigneeAny, resourceSubtype, text, null, false);
+        public CollectionRequest<Task> searchTasksForWorkspace(String workspaceGid, Boolean sortAscending, String sortBy, Boolean isSubtask, Boolean completed, Boolean hasAttachment, Boolean isBlocked, Boolean isBlocking, OffsetDateTime modifiedAtAfter, OffsetDateTime modifiedAtBefore, LocalDate dueOn, LocalDate modifiedOn, LocalDate modifiedOnAfter, LocalDate modifiedOnBefore, OffsetDateTime completedAtAfter, OffsetDateTime completedAtBefore, LocalDate completedOn, LocalDate completedOnAfter, LocalDate completedOnBefore, OffsetDateTime createdAtAfter, LocalDate dueOnAfter, OffsetDateTime createdAtBefore, LocalDate createdOn, LocalDate createdOnAfter, LocalDate createdOnBefore, LocalDate startOn, LocalDate startOnAfter, LocalDate startOnBefore, OffsetDateTime dueAtAfter, OffsetDateTime dueAtBefore, LocalDate dueOnBefore, String commentedOnByNot, String likedByNot, String assignedByNot, String assignedByAny, String createdByNot, String createdByAny, String followersNot, String teamsAny, String tagsAll, String tagsNot, String tagsAny, String sectionsAll, String sectionsNot, String sectionsAny, String projectsAll, String projectsNot, String projectsAny, String portfoliosAny, String assigneeNot, String assigneeAny, String resourceSubtype, String text) throws IOException {
+            return searchTasksForWorkspace(workspaceGid, sortAscending, sortBy, isSubtask, completed, hasAttachment, isBlocked, isBlocking, modifiedAtAfter, modifiedAtBefore, dueOn, modifiedOn, modifiedOnAfter, modifiedOnBefore, completedAtAfter, completedAtBefore, completedOn, completedOnAfter, completedOnBefore, createdAtAfter, dueOnAfter, createdAtBefore, createdOn, createdOnAfter, createdOnBefore, startOn, startOnAfter, startOnBefore, dueAtAfter, dueAtBefore, dueOnBefore, commentedOnByNot, likedByNot, assignedByNot, assignedByAny, createdByNot, createdByAny, followersNot, teamsAny, tagsAll, tagsNot, tagsAny, sectionsAll, sectionsNot, sectionsAny, projectsAll, projectsNot, projectsAny, portfoliosAny, assigneeNot, assigneeAny, resourceSubtype, text, null, false);
         }
         /**
         * Set the parent of a task

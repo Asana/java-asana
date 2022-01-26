@@ -20,24 +20,24 @@ import java.util.List;
 
         /**
         * Add a user to a team
-        * The user making this call must be a member of the team in order to add others. The user being added must exist in the same organization as the team.
+        * The user making this call must be a member of the team in order to add others. The user being added must exist in the same organization as the team.  Returns the complete team membership record for the newly added user.
             * @param teamGid Globally unique identifier for the team. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest(User)
+        * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<User> addUserForTeam(String teamGid, List<String> optFields, Boolean optPretty) throws IOException {
+        public ItemRequest<JsonElement> addUserForTeam(String teamGid, List<String> optFields, Boolean optPretty) throws IOException {
             String path = "/teams/{team_gid}/addUser".replace("{team_gid}", teamGid);
 
-            ItemRequest<User> req = new ItemRequest<User>(this, User.class, path, "POST")
+            ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
                 .query("opt_pretty", optPretty)
                 .query("opt_fields", optFields);
 
             return req;
         }
 
-        public ItemRequest<User> addUserForTeam(String teamGid) throws IOException {
+        public ItemRequest<JsonElement> addUserForTeam(String teamGid) throws IOException {
             return addUserForTeam(teamGid, null, false);
         }
         /**
