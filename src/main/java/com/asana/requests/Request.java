@@ -196,7 +196,7 @@ public abstract class Request {
 
                 String message = String.format("This request is affected by the \"%s\" deprecation. " +
                         "Please visit this url for more info: %s\n" +
-                        "Adding \"%s\" to your \"Asana-Enable\" or \"Asana-Disable\" header " +
+                        "Adding \"%s\" to your \"asana-enable\" or \"asana-disable\" header " +
                         "will opt in/out to this deprecation and suppress this warning.",
                         name, info, name);
 
