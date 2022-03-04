@@ -153,6 +153,18 @@ projectsbase:
         JsonElement result = client.projects.getTaskCountsForProject(projectGid)
             .option("pretty", true)
             .execute();
+    projectSaveAsTemplate: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        Job result = client.projects.projectSaveAsTemplate(projectGid)
+            .data("field", "value")
+            .data("field", "value")
+            .option("pretty", true)
+            .execute();
     removeCustomFieldSettingForProject: >-
         import com.asana.Client;
 
