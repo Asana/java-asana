@@ -1,0 +1,15 @@
+name: Publish to GitHub Releases
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build-n-publish-to-github:
+    name: Build and publish to GitHub Releases
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish to GitHub Releases
+        uses: softprops/action-gh-release@v1
