@@ -1,4 +1,4 @@
-# Asana [![Build Status][travis-image]][travis-url] [![Maven Version][mvn-image]][mvn-url]
+# Asana [![Build Status][github-actions-image]][github-actions-url] [![Maven Version][mvn-image]][mvn-url]
 
 Java client library for the Asana API.
 
@@ -225,8 +225,8 @@ Before you do this, you must set a few environment variables to authenticate:
 
 You can [log in](https://oss.sonatype.org/) to verify the new version landed, and after some time it will be deployed to maven.
 
-[travis-url]: http://travis-ci.org/Asana/java-asana
-[travis-image]: http://img.shields.io/travis/Asana/java-asana.svg?style=flat-square
+[github-actions-url]: https://github.com/Asana/java-asana/actions
+[github-actions-image]: https://github.com/Asana/java-asana/workflows/Build/badge.svg
 
 [mvn-url]: http://search.maven.org/#browse|-135285720
 [mvn-image]: https://img.shields.io/maven-central/v/com.asana/asana.svg
