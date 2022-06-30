@@ -6,7 +6,7 @@ workspacesbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        User result = client.workspaces.addUserForWorkspace(workspaceGid)
+        JsonElement result = client.workspaces.addUserForWorkspace(workspaceGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)

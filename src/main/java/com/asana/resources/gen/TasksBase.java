@@ -20,7 +20,7 @@ import java.util.List;
 
         /**
         * Set dependencies for a task
-        * Marks a set of tasks as dependencies of this task, if they are not already dependencies. *A task can have at most 15 dependencies*.
+        * Marks a set of tasks as dependencies of this task, if they are not already dependencies. *A task can have at most 30 dependents and dependencies combined*.
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
@@ -42,7 +42,7 @@ import java.util.List;
         }
         /**
         * Set dependents for a task
-        * Marks a set of tasks as dependents of this task, if they are not already dependents. *A task can have at most 30 dependents*.
+        * Marks a set of tasks as dependents of this task, if they are not already dependents. *A task can have at most 30 dependents and dependencies combined*.
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
@@ -323,7 +323,7 @@ import java.util.List;
             * @param workspace The workspace to filter tasks on. *Note: If you specify &#x60;workspace&#x60;, you must also specify the &#x60;assignee&#x60; to filter on.* (optional)
             * @param section The section to filter tasks on. *Note: Currently, this is only supported in board views.* (optional)
             * @param project The project to filter tasks on. (optional)
-            * @param assignee The assignee to filter tasks on. *Note: If you specify &#x60;assignee&#x60;, you must also specify the &#x60;workspace&#x60; to filter on.* (optional)
+            * @param assignee The assignee to filter tasks on. If searching for unassigned tasks, assignee.any &#x3D; null can be specified. *Note: If you specify &#x60;assignee&#x60;, you must also specify the &#x60;workspace&#x60; to filter on.* (optional)
             * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
@@ -356,6 +356,7 @@ import java.util.List;
         * Get tasks from a project
         * Returns the compact task records for all tasks within the given project, ordered by their priority within the project. Tasks can exist in more than one project at a time.
             * @param projectGid Globally unique identifier for the project. (required)
+            * @param completedSince Only return tasks that are either incomplete or that have been completed since this time. Accepts a date-time string or the keyword *now*.  (optional)
             * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
@@ -363,10 +364,11 @@ import java.util.List;
         * @return CollectionRequest(Task)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public CollectionRequest<Task> getTasksForProject(String projectGid, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
+        public CollectionRequest<Task> getTasksForProject(String projectGid, String completedSince, String offset, Integer limit, List<String> optFields, Boolean optPretty) throws IOException {
             String path = "/projects/{project_gid}/tasks".replace("{project_gid}", projectGid);
 
             CollectionRequest<Task> req = new CollectionRequest<Task>(this, Task.class, path, "GET")
+                .query("completed_since", completedSince)
                 .query("opt_pretty", optPretty)
                 .query("opt_fields", optFields)
                 .query("limit", limit)
@@ -375,8 +377,8 @@ import java.util.List;
             return req;
         }
 
-        public CollectionRequest<Task> getTasksForProject(String projectGid) throws IOException {
-            return getTasksForProject(projectGid, null, (int)Client.DEFAULTS.get("page_size"), null, false);
+        public CollectionRequest<Task> getTasksForProject(String projectGid, String completedSince) throws IOException {
+            return getTasksForProject(projectGid, completedSince, null, (int)Client.DEFAULTS.get("page_size"), null, false);
         }
         /**
         * Get tasks from a section
