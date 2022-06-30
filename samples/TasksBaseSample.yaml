@@ -162,7 +162,7 @@ tasksbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        List<Task> result = client.tasks.getTasksForProject(projectGid)
+        List<Task> result = client.tasks.getTasksForProject(projectGid, completedSince)
             .option("pretty", true)
             .execute();
     getTasksForSection: >-

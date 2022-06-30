@@ -6,7 +6,7 @@ goalsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.goals.addFollowers()
+        JsonElement result = client.goals.addFollowers(goalGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -18,7 +18,7 @@ goalsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.goals.addSubgoal()
+        JsonElement result = client.goals.addSubgoal(goalGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -30,7 +30,7 @@ goalsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.goals.addSupportingWorkForGoal()
+        JsonElement result = client.goals.addSupportingWorkForGoal(goalGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -54,7 +54,7 @@ goalsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.goals.createGoalMetric()
+        JsonElement result = client.goals.createGoalMetric(goalGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -96,7 +96,7 @@ goalsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        List<JsonElement> result = client.goals.getParentGoalsForGoal()
+        List<JsonElement> result = client.goals.getParentGoalsForGoal(goalGid)
             .option("pretty", true)
             .execute();
     getSubgoalsForGoal: >-
@@ -106,7 +106,7 @@ goalsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        List<JsonElement> result = client.goals.getSubgoalsForGoal()
+        List<JsonElement> result = client.goals.getSubgoalsForGoal(goalGid)
             .option("pretty", true)
             .execute();
     removeFollowers: >-
@@ -116,7 +116,7 @@ goalsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.goals.removeFollowers()
+        JsonElement result = client.goals.removeFollowers(goalGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -128,7 +128,7 @@ goalsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.goals.removeSubgoal()
+        JsonElement result = client.goals.removeSubgoal(goalGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -140,7 +140,7 @@ goalsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.goals.removeSupportingWorkForGoal()
+        JsonElement result = client.goals.removeSupportingWorkForGoal(goalGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -152,7 +152,7 @@ goalsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        List<Project> result = client.goals.supportingWork()
+        List<Project> result = client.goals.supportingWork(goalGid)
             .option("pretty", true)
             .execute();
     updateGoal: >-
@@ -174,7 +174,7 @@ goalsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.goals.updateGoalMetric()
+        JsonElement result = client.goals.updateGoalMetric(goalGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)

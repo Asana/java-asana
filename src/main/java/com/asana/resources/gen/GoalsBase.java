@@ -21,13 +21,14 @@ import java.util.List;
         /**
         * Add a collaborator to a goal
         * Adds followers to a goal. Returns the goal the followers were added to. Each goal can be associated with zero or more followers in the system. Requests to add/remove followers, if successful, will return the complete updated goal record, described above.
+            * @param goalGid Globally unique identifier for the goal. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> addFollowers(List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/goals/{goal_gid}/addFollowers";
+        public ItemRequest<JsonElement> addFollowers(String goalGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/goals/{goal_gid}/addFollowers".replace("{goal_gid}", goalGid);
 
             ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
                 .query("opt_pretty", optPretty)
@@ -36,19 +37,20 @@ import java.util.List;
             return req;
         }
 
-        public ItemRequest<JsonElement> addFollowers() throws IOException {
-            return addFollowers(null, false);
+        public ItemRequest<JsonElement> addFollowers(String goalGid) throws IOException {
+            return addFollowers(goalGid, null, false);
         }
         /**
         * Add a subgoal to a parent goal
         * Adds a subgoal to a parent goal. *A goal can have at most 100 subgoals, and a subgoal can have at most 4 parent goals.  Returns an empty data block.
+            * @param goalGid Globally unique identifier for the goal. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> addSubgoal(List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/goals/{goal_gid}/addSubgoal";
+        public ItemRequest<JsonElement> addSubgoal(String goalGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/goals/{goal_gid}/addSubgoal".replace("{goal_gid}", goalGid);
 
             ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
                 .query("opt_pretty", optPretty)
@@ -57,19 +59,20 @@ import java.util.List;
             return req;
         }
 
-        public ItemRequest<JsonElement> addSubgoal() throws IOException {
-            return addSubgoal(null, false);
+        public ItemRequest<JsonElement> addSubgoal(String goalGid) throws IOException {
+            return addSubgoal(goalGid, null, false);
         }
         /**
         * Add a project/portfolio as supporting work for a goal.
         * Adds a project or portfolio as supporting work for a goal. *A goal can have at most 10 supporting projects/portfolios, and a project/portfolio can support at most 10 goals*.
+            * @param goalGid Globally unique identifier for the goal. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> addSupportingWorkForGoal(List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/goals/{goal_gid}/addSupportingWork";
+        public ItemRequest<JsonElement> addSupportingWorkForGoal(String goalGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/goals/{goal_gid}/addSupportingWork".replace("{goal_gid}", goalGid);
 
             ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
                 .query("opt_pretty", optPretty)
@@ -78,8 +81,8 @@ import java.util.List;
             return req;
         }
 
-        public ItemRequest<JsonElement> addSupportingWorkForGoal() throws IOException {
-            return addSupportingWorkForGoal(null, false);
+        public ItemRequest<JsonElement> addSupportingWorkForGoal(String goalGid) throws IOException {
+            return addSupportingWorkForGoal(goalGid, null, false);
         }
         /**
         * Create a goal
@@ -109,13 +112,14 @@ import java.util.List;
         /**
         * Create a goal metric
         * Creates and adds a goal metric to a specified goal. Note that this replaces an existing goal metric if one already exists.
+            * @param goalGid Globally unique identifier for the goal. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> createGoalMetric(List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/goals/{goal_gid}/setMetric";
+        public ItemRequest<JsonElement> createGoalMetric(String goalGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/goals/{goal_gid}/setMetric".replace("{goal_gid}", goalGid);
 
             ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
                 .query("opt_pretty", optPretty)
@@ -124,8 +128,8 @@ import java.util.List;
             return req;
         }
 
-        public ItemRequest<JsonElement> createGoalMetric() throws IOException {
-            return createGoalMetric(null, false);
+        public ItemRequest<JsonElement> createGoalMetric(String goalGid) throws IOException {
+            return createGoalMetric(goalGid, null, false);
         }
         /**
         * Delete a goal
@@ -211,13 +215,14 @@ import java.util.List;
         /**
         * Get parent goals from a goal
         * Returns a compact representation of all of the parent goals of a goal.
+            * @param goalGid Globally unique identifier for the goal. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return CollectionRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public CollectionRequest<JsonElement> getParentGoalsForGoal(List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/goals/{goal_gid}/parentGoals";
+        public CollectionRequest<JsonElement> getParentGoalsForGoal(String goalGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/goals/{goal_gid}/parentGoals".replace("{goal_gid}", goalGid);
 
             CollectionRequest<JsonElement> req = new CollectionRequest<JsonElement>(this, JsonElement.class, path, "GET")
                 .query("opt_pretty", optPretty)
@@ -226,19 +231,20 @@ import java.util.List;
             return req;
         }
 
-        public CollectionRequest<JsonElement> getParentGoalsForGoal() throws IOException {
-            return getParentGoalsForGoal(null, false);
+        public CollectionRequest<JsonElement> getParentGoalsForGoal(String goalGid) throws IOException {
+            return getParentGoalsForGoal(goalGid, null, false);
         }
         /**
         * Get subgoals from a goal
         * Returns a compact representation of all of the subgoals of a goal.
+            * @param goalGid Globally unique identifier for the goal. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return CollectionRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public CollectionRequest<JsonElement> getSubgoalsForGoal(List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/goals/{goal_gid}/subgoals";
+        public CollectionRequest<JsonElement> getSubgoalsForGoal(String goalGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/goals/{goal_gid}/subgoals".replace("{goal_gid}", goalGid);
 
             CollectionRequest<JsonElement> req = new CollectionRequest<JsonElement>(this, JsonElement.class, path, "GET")
                 .query("opt_pretty", optPretty)
@@ -247,19 +253,20 @@ import java.util.List;
             return req;
         }
 
-        public CollectionRequest<JsonElement> getSubgoalsForGoal() throws IOException {
-            return getSubgoalsForGoal(null, false);
+        public CollectionRequest<JsonElement> getSubgoalsForGoal(String goalGid) throws IOException {
+            return getSubgoalsForGoal(goalGid, null, false);
         }
         /**
         * Remove a collaborator from a goal
         * Removes followers from a goal. Returns the goal the followers were removed from. Each goal can be associated with zero or more followers in the system. Requests to add/remove followers, if successful, will return the complete updated goal record, described above.
+            * @param goalGid Globally unique identifier for the goal. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> removeFollowers(List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/goals/{goal_gid}/removeFollowers";
+        public ItemRequest<JsonElement> removeFollowers(String goalGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/goals/{goal_gid}/removeFollowers".replace("{goal_gid}", goalGid);
 
             ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
                 .query("opt_pretty", optPretty)
@@ -268,19 +275,20 @@ import java.util.List;
             return req;
         }
 
-        public ItemRequest<JsonElement> removeFollowers() throws IOException {
-            return removeFollowers(null, false);
+        public ItemRequest<JsonElement> removeFollowers(String goalGid) throws IOException {
+            return removeFollowers(goalGid, null, false);
         }
         /**
         * Remove a subgoal from a goal
         * Removes a goal as a subgoal of a specified parent goal.
+            * @param goalGid Globally unique identifier for the goal. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> removeSubgoal(List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/goals/{goal_gid}/removeSubgoal";
+        public ItemRequest<JsonElement> removeSubgoal(String goalGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/goals/{goal_gid}/removeSubgoal".replace("{goal_gid}", goalGid);
 
             ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
                 .query("opt_pretty", optPretty)
@@ -289,19 +297,20 @@ import java.util.List;
             return req;
         }
 
-        public ItemRequest<JsonElement> removeSubgoal() throws IOException {
-            return removeSubgoal(null, false);
+        public ItemRequest<JsonElement> removeSubgoal(String goalGid) throws IOException {
+            return removeSubgoal(goalGid, null, false);
         }
         /**
         * Remove a project/portfolio as supporting work for a goal.
         * Removes a project or portfolio as supporting work for a goal.
+            * @param goalGid Globally unique identifier for the goal. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> removeSupportingWorkForGoal(List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/goals/{goal_gid}/removeSupportingWork";
+        public ItemRequest<JsonElement> removeSupportingWorkForGoal(String goalGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/goals/{goal_gid}/removeSupportingWork".replace("{goal_gid}", goalGid);
 
             ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
                 .query("opt_pretty", optPretty)
@@ -310,19 +319,20 @@ import java.util.List;
             return req;
         }
 
-        public ItemRequest<JsonElement> removeSupportingWorkForGoal() throws IOException {
-            return removeSupportingWorkForGoal(null, false);
+        public ItemRequest<JsonElement> removeSupportingWorkForGoal(String goalGid) throws IOException {
+            return removeSupportingWorkForGoal(goalGid, null, false);
         }
         /**
         * Get supporting work from a goal
         * Returns any portfolios or projects associated with specified goal.
+            * @param goalGid Globally unique identifier for the goal. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return CollectionRequest(Project)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public CollectionRequest<Project> supportingWork(List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/goals/{goal_gid}/supportingWork";
+        public CollectionRequest<Project> supportingWork(String goalGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/goals/{goal_gid}/supportingWork".replace("{goal_gid}", goalGid);
 
             CollectionRequest<Project> req = new CollectionRequest<Project>(this, Project.class, path, "GET")
                 .query("opt_pretty", optPretty)
@@ -331,8 +341,8 @@ import java.util.List;
             return req;
         }
 
-        public CollectionRequest<Project> supportingWork() throws IOException {
-            return supportingWork(null, false);
+        public CollectionRequest<Project> supportingWork(String goalGid) throws IOException {
+            return supportingWork(goalGid, null, false);
         }
         /**
         * Update a goal
@@ -359,13 +369,14 @@ import java.util.List;
         /**
         * Update a goal metric
         * Updates a goal&#x27;s existing metric&#x27;s &#x60;current_number_value&#x60; if one exists, otherwise responds with a 400 status code.  Returns the complete updated goal metric record.
+            * @param goalGid Globally unique identifier for the goal. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> updateGoalMetric(List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/goals/{goal_gid}/setMetricCurrentValue";
+        public ItemRequest<JsonElement> updateGoalMetric(String goalGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/goals/{goal_gid}/setMetricCurrentValue".replace("{goal_gid}", goalGid);
 
             ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
                 .query("opt_pretty", optPretty)
@@ -374,7 +385,7 @@ import java.util.List;
             return req;
         }
 
-        public ItemRequest<JsonElement> updateGoalMetric() throws IOException {
-            return updateGoalMetric(null, false);
+        public ItemRequest<JsonElement> updateGoalMetric(String goalGid) throws IOException {
+            return updateGoalMetric(goalGid, null, false);
         }
     }

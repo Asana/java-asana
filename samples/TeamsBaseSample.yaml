@@ -33,16 +33,6 @@ teamsbase:
         Team result = client.teams.getTeam(teamGid)
             .option("pretty", true)
             .execute();
-    getTeamsForOrganization: >-
-        import com.asana.Client;
-
-
-        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
-
-
-        List<Team> result = client.teams.getTeamsForOrganization(workspaceGid)
-            .option("pretty", true)
-            .execute();
     getTeamsForUser: >-
         import com.asana.Client;
 
@@ -51,6 +41,16 @@ teamsbase:
 
 
         List<Team> result = client.teams.getTeamsForUser(userGid, organization)
+            .option("pretty", true)
+            .execute();
+    getTeamsForWorkspace: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<Team> result = client.teams.getTeamsForWorkspace(workspaceGid)
             .option("pretty", true)
             .execute();
     removeUserForTeam: >-

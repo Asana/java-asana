@@ -6,7 +6,7 @@ attachmentsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        Attachment result = client.attachments.createAttachmentForTask(taskGid, file, parent, url, name)
+        Attachment result = client.attachments.createAttachmentForTask(file, parent, url, name)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -31,13 +31,13 @@ attachmentsbase:
         Attachment result = client.attachments.getAttachment(attachmentGid)
             .option("pretty", true)
             .execute();
-    getAttachmentsForTask: >-
+    getAttachmentsForObject: >-
         import com.asana.Client;
 
 
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        List<Attachment> result = client.attachments.getAttachmentsForTask(taskGid)
+        List<Attachment> result = client.attachments.getAttachmentsForObject(parent)
             .option("pretty", true)
             .execute();
