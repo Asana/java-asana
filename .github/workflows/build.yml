@@ -3,10 +3,10 @@ name: Build
 on:
   push:
     branches:
-      - master
+      - wip
   pull_request:
     branches:
-      - master
+      - wip
 
 jobs:
   build-openjdk:
