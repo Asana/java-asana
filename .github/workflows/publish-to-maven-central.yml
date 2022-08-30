@@ -18,7 +18,6 @@ jobs:
           server-id: ossrh
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
-          gpg-private-key: "${{ secrets.OSSRH_GPG_SECRET_KEY }}"
       - id: install-secret-key
         name: Install gpg secret key
         run: |
@@ -34,5 +33,4 @@ jobs:
             --no-transfer-progress \
             --batch-mode \
             -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
-            -X
             clean deploy
