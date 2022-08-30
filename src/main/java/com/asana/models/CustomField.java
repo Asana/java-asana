@@ -28,6 +28,11 @@ public class CustomField extends ResourceWithSubtype {
     // Only for type "enum"
     @SerializedName("enum_options")
     public Collection<EnumOption> enumOptions;
+
+    // Only for type "multi_enum"
+    @SerializedName("multi_enum_values")
+    public Collection<EnumOption> multiEnumValues;
+
     @SerializedName("enum_value")
     public EnumOption enumValue;
 }
