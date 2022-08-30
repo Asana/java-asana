@@ -7,9 +7,9 @@ import java.util.Collection;
 public class CustomField extends ResourceWithSubtype {
 
     public static class EnumOption extends ResourceWithSubtype {
-      public String name;
-      public Boolean enabled;
-      public String color;
+        public String name;
+        public Boolean enabled;
+        public String color;
     }
 
     public String name;
@@ -30,4 +30,8 @@ public class CustomField extends ResourceWithSubtype {
     public Collection<EnumOption> enumOptions;
     @SerializedName("enum_value")
     public EnumOption enumValue;
+
+    // Only for type "multi_enum"
+    @SerializedName("multi_enum_values")
+    public Collection<EnumOption> multiEnumValues;
 }
