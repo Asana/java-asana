@@ -23,19 +23,19 @@ import java.util.List;
         * Custom fields are associated with portfolios by way of custom field settings.  This method creates a setting for the portfolio.
             * @param portfolioGid Globally unique identifier for the portfolio. (required)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest(JsonElement)
+        * @return ItemRequest(CustomFieldSetting)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> addCustomFieldSettingForPortfolio(String portfolioGid, Boolean optPretty) throws IOException {
+        public ItemRequest<CustomFieldSetting> addCustomFieldSettingForPortfolio(String portfolioGid, Boolean optPretty) throws IOException {
             String path = "/portfolios/{portfolio_gid}/addCustomFieldSetting".replace("{portfolio_gid}", portfolioGid);
 
-            ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
+            ItemRequest<CustomFieldSetting> req = new ItemRequest<CustomFieldSetting>(this, CustomFieldSetting.class, path, "POST")
                 .query("opt_pretty", optPretty);
 
             return req;
         }
 
-        public ItemRequest<JsonElement> addCustomFieldSettingForPortfolio(String portfolioGid) throws IOException {
+        public ItemRequest<CustomFieldSetting> addCustomFieldSettingForPortfolio(String portfolioGid) throws IOException {
             return addCustomFieldSettingForPortfolio(portfolioGid, false);
         }
         /**
@@ -66,20 +66,20 @@ import java.util.List;
             * @param portfolioGid Globally unique identifier for the portfolio. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest(JsonElement)
+        * @return ItemRequest(Portfolio)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> addMembersForPortfolio(String portfolioGid, List<String> optFields, Boolean optPretty) throws IOException {
+        public ItemRequest<Portfolio> addMembersForPortfolio(String portfolioGid, List<String> optFields, Boolean optPretty) throws IOException {
             String path = "/portfolios/{portfolio_gid}/addMembers".replace("{portfolio_gid}", portfolioGid);
 
-            ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
+            ItemRequest<Portfolio> req = new ItemRequest<Portfolio>(this, Portfolio.class, path, "POST")
                 .query("opt_pretty", optPretty)
                 .query("opt_fields", optFields);
 
             return req;
         }
 
-        public ItemRequest<JsonElement> addMembersForPortfolio(String portfolioGid) throws IOException {
+        public ItemRequest<Portfolio> addMembersForPortfolio(String portfolioGid) throws IOException {
             return addMembersForPortfolio(portfolioGid, null, false);
         }
         /**
@@ -250,20 +250,20 @@ import java.util.List;
             * @param portfolioGid Globally unique identifier for the portfolio. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest(JsonElement)
+        * @return ItemRequest(Portfolio)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> removeMembersForPortfolio(String portfolioGid, List<String> optFields, Boolean optPretty) throws IOException {
+        public ItemRequest<Portfolio> removeMembersForPortfolio(String portfolioGid, List<String> optFields, Boolean optPretty) throws IOException {
             String path = "/portfolios/{portfolio_gid}/removeMembers".replace("{portfolio_gid}", portfolioGid);
 
-            ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
+            ItemRequest<Portfolio> req = new ItemRequest<Portfolio>(this, Portfolio.class, path, "POST")
                 .query("opt_pretty", optPretty)
                 .query("opt_fields", optFields);
 
             return req;
         }
 
-        public ItemRequest<JsonElement> removeMembersForPortfolio(String portfolioGid) throws IOException {
+        public ItemRequest<Portfolio> removeMembersForPortfolio(String portfolioGid) throws IOException {
             return removeMembersForPortfolio(portfolioGid, null, false);
         }
         /**

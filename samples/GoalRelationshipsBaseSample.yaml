@@ -1,78 +1,56 @@
-teamsbase: 
-    addUserForTeam: >-
+goalrelationshipsbase: 
+    addSupportingRelationship: >-
         import com.asana.Client;
 
 
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.teams.addUserForTeam(teamGid)
+        JsonElement result = client.goalrelationships.addSupportingRelationship(goalGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
             .execute();
-    createTeam: >-
+    getGoalRelationship: >-
         import com.asana.Client;
 
 
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        Team result = client.teams.createTeam()
+        JsonElement result = client.goalrelationships.getGoalRelationship(goalRelationshipGid)
+            .option("pretty", true)
+            .execute();
+    getGoalRelationships: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        List<JsonElement> result = client.goalrelationships.getGoalRelationships(resourceSubtype, supportedGoal)
+            .option("pretty", true)
+            .execute();
+    removeSupportingRelationship: >-
+        import com.asana.Client;
+
+
+        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+        JsonElement result = client.goalrelationships.removeSupportingRelationship(goalGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
             .execute();
-    getTeam: >-
+    updateGoalRelationship: >-
         import com.asana.Client;
 
 
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        Team result = client.teams.getTeam(teamGid)
-            .option("pretty", true)
-            .execute();
-    getTeamsForUser: >-
-        import com.asana.Client;
-
-
-        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
-
-
-        List<Team> result = client.teams.getTeamsForUser(userGid, organization)
-            .option("pretty", true)
-            .execute();
-    getTeamsForWorkspace: >-
-        import com.asana.Client;
-
-
-        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
-
-
-        List<Team> result = client.teams.getTeamsForWorkspace(workspaceGid)
-            .option("pretty", true)
-            .execute();
-    removeUserForTeam: >-
-        import com.asana.Client;
-
-
-        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
-
-
-        JsonElement result = client.teams.removeUserForTeam(teamGid)
-            .data("field", "value")
-            .data("field", "value")
-            .option("pretty", true)
-            .execute();
-    updateTeam: >-
-        import com.asana.Client;
-
-
-        Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
-
-
-        Team result = client.teams.updateTeam()
+        JsonElement result = client.goalrelationships.updateGoalRelationship(goalRelationshipGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)

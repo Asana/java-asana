@@ -66,7 +66,7 @@ import java.util.List;
         /**
         * Get attachments from an object
         * Returns the compact records for all attachments on the object.
-            * @param parent Globally unique identifier for object to fetch statuses from. Must be a GID for a task or project_brief. (required)
+            * @param parent Globally unique identifier for object to fetch statuses from. Must be a GID for a task, project, or project_brief. (required)
             * @param offset Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. &#x27;Note: You can only pass in an offset that was returned to you via a previously paginated request.&#x27; (optional)
             * @param limit Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)

@@ -44,20 +44,20 @@ import java.util.List;
             * @param projectGid Globally unique identifier for the project. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest(JsonElement)
+        * @return ItemRequest(Project)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> addFollowersForProject(String projectGid, List<String> optFields, Boolean optPretty) throws IOException {
+        public ItemRequest<Project> addFollowersForProject(String projectGid, List<String> optFields, Boolean optPretty) throws IOException {
             String path = "/projects/{project_gid}/addFollowers".replace("{project_gid}", projectGid);
 
-            ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
+            ItemRequest<Project> req = new ItemRequest<Project>(this, Project.class, path, "POST")
                 .query("opt_pretty", optPretty)
                 .query("opt_fields", optFields);
 
             return req;
         }
 
-        public ItemRequest<JsonElement> addFollowersForProject(String projectGid) throws IOException {
+        public ItemRequest<Project> addFollowersForProject(String projectGid) throws IOException {
             return addFollowersForProject(projectGid, null, false);
         }
         /**
@@ -66,20 +66,20 @@ import java.util.List;
             * @param projectGid Globally unique identifier for the project. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest(JsonElement)
+        * @return ItemRequest(Project)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> addMembersForProject(String projectGid, List<String> optFields, Boolean optPretty) throws IOException {
+        public ItemRequest<Project> addMembersForProject(String projectGid, List<String> optFields, Boolean optPretty) throws IOException {
             String path = "/projects/{project_gid}/addMembers".replace("{project_gid}", projectGid);
 
-            ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
+            ItemRequest<Project> req = new ItemRequest<Project>(this, Project.class, path, "POST")
                 .query("opt_pretty", optPretty)
                 .query("opt_fields", optFields);
 
             return req;
         }
 
-        public ItemRequest<JsonElement> addMembersForProject(String projectGid) throws IOException {
+        public ItemRequest<Project> addMembersForProject(String projectGid) throws IOException {
             return addMembersForProject(projectGid, null, false);
         }
         /**
@@ -400,20 +400,20 @@ import java.util.List;
             * @param projectGid Globally unique identifier for the project. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest(JsonElement)
+        * @return ItemRequest(Project)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> removeFollowersForProject(String projectGid, List<String> optFields, Boolean optPretty) throws IOException {
+        public ItemRequest<Project> removeFollowersForProject(String projectGid, List<String> optFields, Boolean optPretty) throws IOException {
             String path = "/projects/{project_gid}/removeFollowers".replace("{project_gid}", projectGid);
 
-            ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
+            ItemRequest<Project> req = new ItemRequest<Project>(this, Project.class, path, "POST")
                 .query("opt_pretty", optPretty)
                 .query("opt_fields", optFields);
 
             return req;
         }
 
-        public ItemRequest<JsonElement> removeFollowersForProject(String projectGid) throws IOException {
+        public ItemRequest<Project> removeFollowersForProject(String projectGid) throws IOException {
             return removeFollowersForProject(projectGid, null, false);
         }
         /**
@@ -422,20 +422,20 @@ import java.util.List;
             * @param projectGid Globally unique identifier for the project. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return ItemRequest(JsonElement)
+        * @return ItemRequest(Project)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> removeMembersForProject(String projectGid, List<String> optFields, Boolean optPretty) throws IOException {
+        public ItemRequest<Project> removeMembersForProject(String projectGid, List<String> optFields, Boolean optPretty) throws IOException {
             String path = "/projects/{project_gid}/removeMembers".replace("{project_gid}", projectGid);
 
-            ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
+            ItemRequest<Project> req = new ItemRequest<Project>(this, Project.class, path, "POST")
                 .query("opt_pretty", optPretty)
                 .query("opt_fields", optFields);
 
             return req;
         }
 
-        public ItemRequest<JsonElement> removeMembersForProject(String projectGid) throws IOException {
+        public ItemRequest<Project> removeMembersForProject(String projectGid) throws IOException {
             return removeMembersForProject(projectGid, null, false);
         }
         /**
