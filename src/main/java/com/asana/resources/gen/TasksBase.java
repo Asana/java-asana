@@ -46,33 +46,11 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest(Task)
-        * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
-        */
-        public CollectionRequest<Task> addDependentsForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/tasks/{task_gid}/addDependents".replace("{task_gid}", taskGid);
-
-            CollectionRequest<Task> req = new CollectionRequest<Task>(this, Task.class, path, "POST")
-                .query("opt_pretty", optPretty)
-                .query("opt_fields", optFields);
-
-            return req;
-        }
-
-        public CollectionRequest<Task> addDependentsForTask(String taskGid) throws IOException {
-            return addDependentsForTask(taskGid, null, false);
-        }
-        /**
-        * Add followers to a task
-        * Adds followers to a task. Returns an empty data block. Each task can be associated with zero or more followers in the system. Requests to add/remove followers, if successful, will return the complete updated task record, described above.
-            * @param taskGid The task to operate on. (required)
-            * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
-            * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> addFollowersForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/tasks/{task_gid}/addFollowers".replace("{task_gid}", taskGid);
+        public ItemRequest<JsonElement> addDependentsForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/tasks/{task_gid}/addDependents".replace("{task_gid}", taskGid);
 
             ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
                 .query("opt_pretty", optPretty)
@@ -81,7 +59,29 @@ import java.util.List;
             return req;
         }
 
-        public ItemRequest<JsonElement> addFollowersForTask(String taskGid) throws IOException {
+        public ItemRequest<JsonElement> addDependentsForTask(String taskGid) throws IOException {
+            return addDependentsForTask(taskGid, null, false);
+        }
+        /**
+        * Add followers to a task
+        * Adds followers to a task. Returns an empty data block. Each task can be associated with zero or more followers in the system. Requests to add/remove followers, if successful, will return the complete updated task record, described above.
+            * @param taskGid The task to operate on. (required)
+            * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+            * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+        * @return ItemRequest(Task)
+        * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
+        */
+        public ItemRequest<Task> addFollowersForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/tasks/{task_gid}/addFollowers".replace("{task_gid}", taskGid);
+
+            ItemRequest<Task> req = new ItemRequest<Task>(this, Task.class, path, "POST")
+                .query("opt_pretty", optPretty)
+                .query("opt_fields", optFields);
+
+            return req;
+        }
+
+        public ItemRequest<Task> addFollowersForTask(String taskGid) throws IOException {
             return addFollowersForTask(taskGid, null, false);
         }
         /**
@@ -466,55 +466,11 @@ import java.util.List;
             * @param taskGid The task to operate on. (required)
             * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
             * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest(JsonElement)
-        * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
-        */
-        public CollectionRequest<JsonElement> removeDependenciesForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/tasks/{task_gid}/removeDependencies".replace("{task_gid}", taskGid);
-
-            CollectionRequest<JsonElement> req = new CollectionRequest<JsonElement>(this, JsonElement.class, path, "POST")
-                .query("opt_pretty", optPretty)
-                .query("opt_fields", optFields);
-
-            return req;
-        }
-
-        public CollectionRequest<JsonElement> removeDependenciesForTask(String taskGid) throws IOException {
-            return removeDependenciesForTask(taskGid, null, false);
-        }
-        /**
-        * Unlink dependents from a task
-        * Unlinks a set of dependents from this task.
-            * @param taskGid The task to operate on. (required)
-            * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
-            * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
-        * @return CollectionRequest(JsonElement)
-        * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
-        */
-        public CollectionRequest<JsonElement> removeDependentsForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/tasks/{task_gid}/removeDependents".replace("{task_gid}", taskGid);
-
-            CollectionRequest<JsonElement> req = new CollectionRequest<JsonElement>(this, JsonElement.class, path, "POST")
-                .query("opt_pretty", optPretty)
-                .query("opt_fields", optFields);
-
-            return req;
-        }
-
-        public CollectionRequest<JsonElement> removeDependentsForTask(String taskGid) throws IOException {
-            return removeDependentsForTask(taskGid, null, false);
-        }
-        /**
-        * Remove followers from a task
-        * Removes each of the specified followers from the task if they are following. Returns the complete, updated record for the affected task.
-            * @param taskGid The task to operate on. (required)
-            * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
-            * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
         * @return ItemRequest(JsonElement)
         * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
         */
-        public ItemRequest<JsonElement> removeFollowerForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
-            String path = "/tasks/{task_gid}/removeFollowers".replace("{task_gid}", taskGid);
+        public ItemRequest<JsonElement> removeDependenciesForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/tasks/{task_gid}/removeDependencies".replace("{task_gid}", taskGid);
 
             ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
                 .query("opt_pretty", optPretty)
@@ -523,7 +479,51 @@ import java.util.List;
             return req;
         }
 
-        public ItemRequest<JsonElement> removeFollowerForTask(String taskGid) throws IOException {
+        public ItemRequest<JsonElement> removeDependenciesForTask(String taskGid) throws IOException {
+            return removeDependenciesForTask(taskGid, null, false);
+        }
+        /**
+        * Unlink dependents from a task
+        * Unlinks a set of dependents from this task.
+            * @param taskGid The task to operate on. (required)
+            * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+            * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+        * @return ItemRequest(JsonElement)
+        * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
+        */
+        public ItemRequest<JsonElement> removeDependentsForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/tasks/{task_gid}/removeDependents".replace("{task_gid}", taskGid);
+
+            ItemRequest<JsonElement> req = new ItemRequest<JsonElement>(this, JsonElement.class, path, "POST")
+                .query("opt_pretty", optPretty)
+                .query("opt_fields", optFields);
+
+            return req;
+        }
+
+        public ItemRequest<JsonElement> removeDependentsForTask(String taskGid) throws IOException {
+            return removeDependentsForTask(taskGid, null, false);
+        }
+        /**
+        * Remove followers from a task
+        * Removes each of the specified followers from the task if they are following. Returns the complete, updated record for the affected task.
+            * @param taskGid The task to operate on. (required)
+            * @param optFields Defines fields to return. Some requests return *compact* representations of objects in order to conserve resources and complete the request more efficiently. Other times requests return more information than you may need. This option allows you to list the exact set of fields that the API should be sure to return for the objects. The field names should be provided as paths, described below. The id of included objects will always be returned, regardless of the field options. (optional)
+            * @param optPretty Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging. (optional)
+        * @return ItemRequest(Task)
+        * @throws IOException If we fail to call the API, e.g. server error or cannot deserialize the response body
+        */
+        public ItemRequest<Task> removeFollowerForTask(String taskGid, List<String> optFields, Boolean optPretty) throws IOException {
+            String path = "/tasks/{task_gid}/removeFollowers".replace("{task_gid}", taskGid);
+
+            ItemRequest<Task> req = new ItemRequest<Task>(this, Task.class, path, "POST")
+                .query("opt_pretty", optPretty)
+                .query("opt_fields", optFields);
+
+            return req;
+        }
+
+        public ItemRequest<Task> removeFollowerForTask(String taskGid) throws IOException {
             return removeFollowerForTask(taskGid, null, false);
         }
         /**
@@ -572,7 +572,7 @@ import java.util.List;
         }
         /**
         * Search tasks in a workspace
-        * To mirror the functionality of the Asana web app&#x27;s advanced search feature, the Asana API has a task search endpoint that allows you to build complex filters to find and retrieve the exact data you need. #### Premium access Like the Asana web product&#x27;s advance search feature, this search endpoint will only be available to premium Asana users. A user is premium if any of the following is true:  - The workspace in which the search is being performed is a premium workspace - The user is a member of a premium team inside the workspace  Even if a user is only a member of a premium team inside a non-premium workspace, search will allow them to find data anywhere in the workspace, not just inside the premium team. Making a search request using credentials of a non-premium user will result in a &#x60;402 Payment Required&#x60; error. #### Pagination Search results are not stable; repeating the same query multiple times may return the data in a different order, even if the data do not change. Because of this, the traditional [pagination](https://developers.asana.com/docs/#pagination) available elsewhere in the Asana API is not available here. However, you can paginate manually by sorting the search results by their creation time and then modifying each subsequent query to exclude data you have already seen. Page sizes are limited to a maximum of 100 items, and can be specified by the &#x60;limit&#x60; query parameter. #### Eventual consistency Changes in Asana (regardless of whether they’re made though the web product or the API) are forwarded to our search infrastructure to be indexed. This process can take between 10 and 60 seconds to complete under normal operation, and longer during some production incidents. Making a change to a task that would alter its presence in a particular search query will not be reflected immediately. This is also true of the advanced search feature in the web product. #### Rate limits You may receive a &#x60;429 Too Many Requests&#x60; response if you hit any of our [rate limits](https://developers.asana.com/docs/#rate-limits). #### Custom field parameters | Parameter name | Custom field type | Accepted type | |---|---|---| | custom_fields.{gid}.is_set | All | Boolean | | custom_fields.{gid}.value | Text | String | | custom_fields.{gid}.value | Number | Number | | custom_fields.{gid}.value | Enum | Enum option ID | | custom_fields.{gid}.starts_with | Text only | String | | custom_fields.{gid}.ends_with | Text only | String | | custom_fields.{gid}.contains | Text only | String | | custom_fields.{gid}.less_than | Number only | Number | | custom_fields.{gid}.greater_than | Number only | Number |   For example, if the gid of the custom field is 12345, these query parameter to find tasks where it is set would be &#x60;custom_fields.12345.is_set&#x3D;true&#x60;. To match an exact value for an enum custom field, use the gid of the desired enum option and not the name of the enum option: &#x60;custom_fields.12345.value&#x3D;67890&#x60;.  Searching for multiple exact matches of a custom field is not supported.  *Note: If you specify &#x60;projects.any&#x60; and &#x60;sections.any&#x60;, you will receive tasks for the project **and** tasks for the section. If you&#x27;re looking for only tasks in a section, omit the &#x60;projects.any&#x60; from the request.*
+        * To mirror the functionality of the Asana web app&#x27;s advanced search feature, the Asana API has a task search endpoint that allows you to build complex filters to find and retrieve the exact data you need. #### Premium access Like the Asana web product&#x27;s advance search feature, this search endpoint will only be available to premium Asana users. A user is premium if any of the following is true:  - The workspace in which the search is being performed is a premium workspace - The user is a member of a premium team inside the workspace  Even if a user is only a member of a premium team inside a non-premium workspace, search will allow them to find data anywhere in the workspace, not just inside the premium team. Making a search request using credentials of a non-premium user will result in a &#x60;402 Payment Required&#x60; error. #### Pagination Search results are not stable; repeating the same query multiple times may return the data in a different order, even if the data do not change. Because of this, the traditional [pagination](https://developers.asana.com/docs/#pagination) available elsewhere in the Asana API is not available here. However, you can paginate manually by sorting the search results by their creation time and then modifying each subsequent query to exclude data you have already seen. Page sizes are limited to a maximum of 100 items, and can be specified by the &#x60;limit&#x60; query parameter. #### Eventual consistency Changes in Asana (regardless of whether they’re made though the web product or the API) are forwarded to our search infrastructure to be indexed. This process can take between 10 and 60 seconds to complete under normal operation, and longer during some production incidents. Making a change to a task that would alter its presence in a particular search query will not be reflected immediately. This is also true of the advanced search feature in the web product. #### Rate limits You may receive a &#x60;429 Too Many Requests&#x60; response if you hit any of our [rate limits](https://developers.asana.com/docs/#rate-limits). #### Custom field parameters | Parameter name | Custom field type | Accepted type | |---|---|---| | custom_fields.{gid}.is_set | All | Boolean | | custom_fields.{gid}.value | Text | String | | custom_fields.{gid}.value | Number | Number | | custom_fields.{gid}.value | Enum | Enum option ID | | custom_fields.{gid}.starts_with | Text only | String | | custom_fields.{gid}.ends_with | Text only | String | | custom_fields.{gid}.contains | Text only | String | | custom_fields.{gid}.less_than | Number only | Number | | custom_fields.{gid}.greater_than | Number only | Number |   For example, if the gid of the custom field is 12345, these query parameter to find tasks where it is set would be &#x60;custom_fields.12345.is_set&#x3D;true&#x60;. To match an exact value for an enum custom field, use the gid of the desired enum option and not the name of the enum option: &#x60;custom_fields.12345.value&#x3D;67890&#x60;.  **Not Supported**: searching for multiple exact matches of a custom field, searching for multi-enum custom field  *Note: If you specify &#x60;projects.any&#x60; and &#x60;sections.any&#x60;, you will receive tasks for the project **and** tasks for the section. If you&#x27;re looking for only tasks in a section, omit the &#x60;projects.any&#x60; from the request.*
             * @param workspaceGid Globally unique identifier for the workspace or organization. (required)
             * @param sortAscending Default &#x60;false&#x60; (optional)
             * @param sortBy One of &#x60;due_date&#x60;, &#x60;created_at&#x60;, &#x60;completed_at&#x60;, &#x60;likes&#x60;, or &#x60;modified_at&#x60;, defaults to &#x60;modified_at&#x60; (optional)

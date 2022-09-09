@@ -18,7 +18,7 @@ tasksbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        List<Task> result = client.tasks.addDependentsForTask(taskGid)
+        JsonElement result = client.tasks.addDependentsForTask(taskGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -30,7 +30,7 @@ tasksbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.tasks.addFollowersForTask(taskGid)
+        Task result = client.tasks.addFollowersForTask(taskGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -202,7 +202,7 @@ tasksbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        List<JsonElement> result = client.tasks.removeDependenciesForTask(taskGid)
+        JsonElement result = client.tasks.removeDependenciesForTask(taskGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -214,7 +214,7 @@ tasksbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        List<JsonElement> result = client.tasks.removeDependentsForTask(taskGid)
+        JsonElement result = client.tasks.removeDependentsForTask(taskGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -226,7 +226,7 @@ tasksbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.tasks.removeFollowerForTask(taskGid)
+        Task result = client.tasks.removeFollowerForTask(taskGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
