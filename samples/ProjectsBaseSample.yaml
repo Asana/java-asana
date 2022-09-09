@@ -18,7 +18,7 @@ projectsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.projects.addFollowersForProject(projectGid)
+        Project result = client.projects.addFollowersForProject(projectGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -30,7 +30,7 @@ projectsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.projects.addMembersForProject(projectGid)
+        Project result = client.projects.addMembersForProject(projectGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -184,7 +184,7 @@ projectsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.projects.removeFollowersForProject(projectGid)
+        Project result = client.projects.removeFollowersForProject(projectGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -196,7 +196,7 @@ projectsbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.projects.removeMembersForProject(projectGid)
+        Project result = client.projects.removeMembersForProject(projectGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)

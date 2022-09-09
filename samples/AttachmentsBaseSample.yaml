@@ -1,12 +1,12 @@
 attachmentsbase: 
-    createAttachmentForTask: >-
+    createAttachmentForObject: >-
         import com.asana.Client;
 
 
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        Attachment result = client.attachments.createAttachmentForTask(file, parent, url, name)
+        Attachment result = client.attachments.createAttachmentForObject(file, parent, url, name)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)

@@ -6,7 +6,7 @@ portfoliosbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.portfolios.addCustomFieldSettingForPortfolio(portfolioGid)
+        CustomFieldSetting result = client.portfolios.addCustomFieldSettingForPortfolio(portfolioGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -30,7 +30,7 @@ portfoliosbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.portfolios.addMembersForPortfolio(portfolioGid)
+        Portfolio result = client.portfolios.addMembersForPortfolio(portfolioGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
@@ -118,7 +118,7 @@ portfoliosbase:
         Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
 
-        JsonElement result = client.portfolios.removeMembersForPortfolio(portfolioGid)
+        Portfolio result = client.portfolios.removeMembersForPortfolio(portfolioGid)
             .data("field", "value")
             .data("field", "value")
             .option("pretty", true)
