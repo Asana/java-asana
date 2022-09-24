@@ -1,7 +1,5 @@
 package com.asana.models;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Job extends ResourceWithSubtype {
     public String name;
 
