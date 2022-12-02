@@ -24,7 +24,7 @@ public class ExampleCreateProjectAndStreamEvents {
 
         // find your "Personal Projects" project
         Workspace personalProjects = null;
-        for (Workspace workspace : client.workspaces.findAll()) {
+        for (Workspace workspace : client.workspaces.getWorkspaces()) {
             if (workspace.name.equals("Personal Projects")) {
                 personalProjects = workspace;
                 break;
@@ -32,7 +32,7 @@ public class ExampleCreateProjectAndStreamEvents {
         }
 
         // create a "demo project" if it doesn't exist
-        List<Project> projects = client.projects.findByWorkspace(personalProjects.gid).execute();
+        List<Project> projects = client.projects.getProjectsForWorkspace(personalProjects.gid, false).execute();
         Project demoProject = null;
         for (Project project : projects) {
             if (project.name.equals("demo project")) {
@@ -41,7 +41,7 @@ public class ExampleCreateProjectAndStreamEvents {
             }
         }
         if (demoProject == null) {
-            demoProject = client.projects.createInWorkspace(personalProjects.gid)
+            demoProject = client.projects.createProjectForWorkspace(personalProjects.gid)
                     .data("name", "demo project")
                     .execute();
         }

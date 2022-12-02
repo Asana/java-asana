@@ -15,91 +15,91 @@ import static org.junit.Assert.assertEquals;
 
 public class ResourcesTest extends AsanaTest {
     @Test
-    public void testAttachmentsFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/attachments/1").code(200).content("{ \"data\": { \"name\": \"name\" }}");
-        assertEquals("name", client.attachments.findById("1").execute().name);
+    public void testAttachmentsGetAttachment() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/attachments/1?opt_pretty=false").code(200).content("{ \"data\": { \"name\": \"name\" }}");
+        assertEquals("name", client.attachments.getAttachment("1").execute().name);
     }
 
     @Test
-    public void testJobsFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/jobs/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
-        assertEquals("1", client.jobs.findById("1").execute().gid);
+    public void testJobsGetJob() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/jobs/1?opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.jobs.getJob("1").execute().gid);
     }
 
     @Test
-    public void testPortfoliosFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/portfolios/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
-        assertEquals("1", client.portfolios.findById("1").execute().gid);
+    public void testPortfoliosGetPortfolio() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/portfolios/1?opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.portfolios.getPortfolio("1").execute().gid);
     }
 
     @Test
-    public void testProjectsFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/projects/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
-        assertEquals("1", client.projects.findById("1").execute().gid);
+    public void testProjectsGetProject() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/projects/1?opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.projects.getProject("1").execute().gid);
     }
 
     @Test
-    public void testPortfolioMembershipsFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/portfolio_memberships/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+    public void testPortfolioMembershipsGetPortfolioMembership() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/portfolio_memberships/1?opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
         System.out.println(client.toString());
         System.out.println(client.portfolioMemberships);
-        System.out.println(client.portfolioMemberships.findById("1"));
-        assertEquals("1", client.portfolioMemberships.findById("1").execute().gid);
+        System.out.println(client.portfolioMemberships.getPortfolioMembership("1"));
+        assertEquals("1", client.portfolioMemberships.getPortfolioMembership("1").execute().gid);
     }
 
     @Test
-    public void testProjectMembershipsFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/project_memberships/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
-        assertEquals("1", client.projectMemberships.findById("1").execute().gid);
+    public void testProjectMembershipsGetProjectMembership() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/project_memberships/1?opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.projectMemberships.getProjectMembership("1").execute().gid);
     }
 
     @Test
-    public void testStoriesFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/stories/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
-        assertEquals("1", client.stories.findById("1").execute().gid);
+    public void testStoriesGetStory() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/stories/1?limit=50&opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.stories.getStory("1").execute().gid);
     }
 
     @Test
-    public void testTagsFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/tags/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
-        assertEquals("1", client.tags.findById("1").execute().gid);
+    public void testTagsGetTag() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/tags/1?limit=50&opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.tags.getTag("1").execute().gid);
     }
 
     @Test
-    public void testTasksFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/tasks/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
-        assertEquals("1", client.tasks.findById("1").execute().gid);
+    public void testTasksGetTask() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/tasks/1?opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.tasks.getTask("1").execute().gid);
     }
 
     @Test
-    public void testTeamsFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/teams/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
-        assertEquals("1", client.teams.findById("1").execute().gid);
+    public void testTeamsGetTeam() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/teams/1?limit=50&opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.teams.getTeam("1").execute().gid);
     }
 
     @Test
-    public void testUsersFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/users/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
-        assertEquals("1", client.users.findById("1").execute().gid);
+    public void testUsersGetUser() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/users/1?opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.users.getUser("1").execute().gid);
     }
 
     @Test
-    public void testUserTaskListsFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/user_task_lists/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
-        assertEquals("1", client.userTaskLists.findById("1").execute().gid);
+    public void testUserTaskListsGetUserTaskList() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/user_task_lists/1?opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.userTaskLists.getUserTaskList("1").execute().gid);
     }
 
     @Test
-    public void testWorkspacesFindById() throws IOException {
-        dispatcher.registerResponse("GET", "http://app/workspaces/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
-        assertEquals("1", client.workspaces.findById("1").execute().gid);
+    public void testWorkspacesGetWorkspace() throws IOException {
+        dispatcher.registerResponse("GET", "http://app/workspaces/1?opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        assertEquals("1", client.workspaces.getWorkspace("1").execute().gid);
     }
 
     @Test
     public void testParseTaskWithDateFields() throws IOException {
         String taskContent = IOUtils.toString(new FileInputStream(Resources.getResource("taskWithDueAt.json").getFile()));
-        dispatcher.registerResponse("GET", "http://app/tasks/1").code(200).content(taskContent);
-        Task task = client.tasks.findById("1").execute();
+        dispatcher.registerResponse("GET", "http://app/tasks/1?opt_pretty=false").code(200).content(taskContent);
+        Task task = client.tasks.getTask("1").execute();
 
         assertEquals("task.dueOn", task.dueOn.toString(), "2015-10-05");
         assertEquals("task.dueAt", task.dueAt.toString(), "2015-10-05T16:30:00.000Z");

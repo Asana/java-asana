@@ -25,8 +25,8 @@ public class OptionsTest extends AsanaTest
     @Test
     public void testOptionPrettyPOST() throws IOException
     {
-        dispatcher.registerResponse("POST", "http://app/tasks").code(200).content("{ \"data\": { \"name\": \"task\" } }");
-        Task task = client.tasks.create()
+        dispatcher.registerResponse("POST", "http://app/tasks?opt_pretty=false").code(200).content("{ \"data\": { \"name\": \"task\" } }");
+        Task task = client.tasks.createTask()
                 .option("pretty", true)
                 .execute();
         assertEquals("task", task.name);
@@ -48,8 +48,8 @@ public class OptionsTest extends AsanaTest
     {
         JsonElement req = parser.parse("{\"data\":{},\"options\":{\"fields\":[\"name\",\"notes\"]}}");
 
-        dispatcher.registerResponse("POST", "http://app/tasks").code(200).content("{ \"data\": { \"name\": \"task\" } }");
-        Task task = client.tasks.create()
+        dispatcher.registerResponse("POST", "http://app/tasks?opt_pretty=false").code(200).content("{ \"data\": { \"name\": \"task\" } }");
+        Task task = client.tasks.createTask()
                 .option("fields", Arrays.asList("name", "notes"))
                 .execute();
         assertEquals("task", task.name);
@@ -61,8 +61,8 @@ public class OptionsTest extends AsanaTest
     {
         JsonElement req = parser.parse("{\"data\":{\"assignee\":\"1234\"},\"options\":{\"expand\":[\"projects\"]}}");
 
-        dispatcher.registerResponse("PUT", "http://app/tasks/1001").code(200).content("{ \"data\": { \"name\": \"me\" } }");
-        Task task = client.tasks.update("1001")
+        dispatcher.registerResponse("PUT", "http://app/tasks/1001?opt_pretty=false").code(200).content("{ \"data\": { \"name\": \"me\" } }");
+        Task task = client.tasks.updateTask("1001")
                 .data("assignee", "1234")
                 .option("expand", Arrays.asList("projects"))
                 .execute();

@@ -15,10 +15,10 @@ public class IteratorTest extends AsanaTest
     @Test
     public void testItemIteratorEmpty() throws IOException
     {
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2").code(200)
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2&opt_pretty=false").code(200)
                 .content("{\"data\": []}");
 
-        Iterator<Task> iter = client.tasks.findByProject("1")
+        Iterator<Task> iter = client.tasks.getTasksForProject("1", null)
                 .option("item_limit", 2).option("page_size", 2)
                 .iterator();
         assertEquals(false, iter.hasNext());
@@ -27,10 +27,10 @@ public class IteratorTest extends AsanaTest
     @Test
     public void testItemIteratorItemLimitLessThanItems() throws IOException
     {
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2").code(200)
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2&opt_pretty=false").code(200)
                 .content("{\"data\": [{\"gid\":1},{\"gid\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
 
-        Iterator<Task> iter = client.tasks.findByProject("1")
+        Iterator<Task> iter = client.tasks.getTasksForProject("1", null)
                 .option("item_limit", 2).option("page_size", 2)
                 .iterator();
         assertEquals(true, iter.hasNext());
@@ -48,12 +48,12 @@ public class IteratorTest extends AsanaTest
         // of the first request there was another page, but at the time of actually requesting the next page all
         // remaining items have meanwhile been removed. In the spirit of loose coupling, it is probably good not to
         // overly rely on backend implementation details and verify this case, too.
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2").code(200)
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2&opt_pretty=false").code(200)
                 .content("{\"data\": [{\"gid\":1},{\"gid\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=1&offset=a").code(200)
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=1&offset=a&opt_pretty=false").code(200)
                 .content("{ \"data\": [], \"next_page\": null }");
 
-        Iterator<Task> iter = client.tasks.findByProject("1")
+        Iterator<Task> iter = client.tasks.getTasksForProject("1", null)
                 .option("item_limit", 3).option("page_size", 2)
                 .iterator();
         assertEquals(true, iter.hasNext());
@@ -66,12 +66,12 @@ public class IteratorTest extends AsanaTest
     @Test
     public void testItemIteratorItemLimitEqualItems() throws IOException
     {
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2").code(200)
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2&opt_pretty=false").code(200)
                 .content("{\"data\": [{\"gid\":1},{\"gid\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=1&offset=a").code(200)
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=1&offset=a&opt_pretty=false").code(200)
                 .content("{ \"data\": [{\"gid\":3}], \"next_page\": null }");
 
-        Iterator<Task> iter = client.tasks.findByProject("1")
+        Iterator<Task> iter = client.tasks.getTasksForProject("1", null)
                 .option("item_limit", 3).option("page_size", 2)
                 .iterator();
         assertEquals(true, iter.hasNext());
@@ -86,12 +86,12 @@ public class IteratorTest extends AsanaTest
     @Test
     public void testItemIteratorItemLimitGreaterThanItems() throws IOException
     {
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2").code(200)
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2&opt_pretty=false").code(200)
                 .content("{\"data\": [{\"gid\":1},{\"gid\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2&offset=a").code(200)
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2&offset=a&opt_pretty=false").code(200)
                 .content("{ \"data\": [{\"gid\":3}], \"next_page\": null }");
 
-        Iterator<Task> iter = client.tasks.findByProject("1")
+        Iterator<Task> iter = client.tasks.getTasksForProject("1", null)
                 .option("item_limit", 4).option("page_size", 2)
                 .iterator();
         assertEquals(true, iter.hasNext());
@@ -106,12 +106,12 @@ public class IteratorTest extends AsanaTest
     @Test
     public void testItemIteratorPreserveOptFields() throws IOException
     {
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2&opt_fields=foo").code(200)
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=2&opt_pretty=false").code(200)
                 .content("{\"data\": [{\"gid\":1},{\"gid\":2}],\"next_page\": { \"offset\": \"a\", \"path\": \"/projects/1/tasks?limit=2&offset=a\" }}");
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=1&offset=a&opt_fields=foo").code(200)
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=1&offset=a&opt_pretty=false").code(200)
                 .content("{ \"data\": [{\"gid\":3}], \"next_page\": null }");
 
-        Iterator<Task> iter = client.tasks.findByProject("1")
+        Iterator<Task> iter = client.tasks.getTasksForProject("1", null)
                 .option("fields", Arrays.asList("foo"))
                 .option("item_limit", 3).option("page_size", 2)
                 .iterator();

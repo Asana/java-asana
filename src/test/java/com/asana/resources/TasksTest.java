@@ -18,12 +18,12 @@ public class TasksTest extends AsanaTest {
     String res = "{ \"data\": {\"gid\": 1, \"name\": \"test task\", \"attachments\": " +
         "[{\"gid\": 2, \"name\": \"test attachment\"}] } }";
     dispatcher
-        .registerResponse("GET", "http://app/tasks/1?opt_fields=gid,name,attachments.name")
+        .registerResponse("GET", "http://app/tasks/1?opt_pretty=false")
         .code(200)
         .content(res);
 
     Task task = client.tasks
-        .findById("1")
+        .getTask("1")
         .option("fields", Arrays.asList("gid", "name", "attachments.name"))
         .execute();
 

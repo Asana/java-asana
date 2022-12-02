@@ -28,7 +28,7 @@ public class ExampleCreateTaskAndUpload {
 
         // find your "Personal Projects" project
         Workspace personalProjects = null;
-        for (Workspace workspace : client.workspaces.findAll()) {
+        for (Workspace workspace : client.workspaces.getWorkspaces()) {
             if (workspace.name.equals("Personal Projects")) {
                 personalProjects = workspace;
                 break;
@@ -36,7 +36,7 @@ public class ExampleCreateTaskAndUpload {
         }
 
         // create a "demo project" if it doesn't exist
-        List<Project> projects = client.projects.findByWorkspace(personalProjects.gid).execute();
+        List<Project> projects = client.projects.getProjectsForWorkspace(personalProjects.gid, false).execute();
         Project demoProject = null;
         for (Project project : projects) {
             if (project.name.equals("demo project")) {
@@ -45,13 +45,13 @@ public class ExampleCreateTaskAndUpload {
             }
         }
         if (demoProject == null) {
-            demoProject = client.projects.createInWorkspace(personalProjects.gid)
+            demoProject = client.projects.createProjectForWorkspace(personalProjects.gid)
                     .data("name", "demo project")
                     .execute();
         }
 
         // create a task in the project
-        Task demoTask = client.tasks.createInWorkspace(personalProjects.gid)
+        Task demoTask = client.tasks.createProjectForWorkspace(personalProjects.gid)
                 .data("name", "demo task created at " + new Date())
                 .data("projects", Arrays.asList(demoProject.gid))
                 .execute();

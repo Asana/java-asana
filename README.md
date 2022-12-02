@@ -114,13 +114,13 @@ Methods that return a single object return that object directly:
     User me = client.users.me().execute();
     System.out.println("Hello " + me.name);
 
-    String workspaceId = me.workspaces.get(0).gid;
+    String workspaceId = me.workspaces.getWorkspace(0).gid;
     Project project = client.projects.createInWorkspace(workspaceId)
         .data("name", "new project")
         .execute();
     System.out.println("Created project with id: " + project.gid);
 
-Methods that return multiple items (e.x. `findAll`) return an `Iterable` object. See the "Collections" section
+Methods that return multiple items (e.x. `getTasks`, `getProjects`, `getPortfolios`, etc.) return an `Iterable` object. See the "Collections" section
 
 Options
 -------
@@ -135,7 +135,7 @@ Various options can be set globally on the `Client.DEFAULTS` object, per-client 
     client.options.put("page_size", 1000);
 
     // per-request:
-    client.tasks.findAll().query("project", 1234).option("page_size", 1000).execute();
+    client.tasks.getTasks(null, null, null, null, "1234", null).execute();
 
 ### Available options
 
@@ -187,7 +187,7 @@ Collections
 
 APIs that return a collection return a CollectionsRequest, which is an iterable:
 
-    Iterable<Workspace> workspaces = client.workspaces.findAll();
+    Iterable<Workspace> workspaces = client.workspaces.getWorkspaces();
     for (Workspace workspace: workspaces) {
         System.out.println("Workspace: " + workspace.name);
     }
@@ -200,7 +200,7 @@ You can also use the raw API to fetch a page at a time:
 
     String offset = null;
     while (true) {
-        ResultBodyCollection<Workspace> page = client.workspaces.findAll()
+        ResultBodyCollection<Workspace> page = client.workspaces.getWorkspaces()
                 .option("offset", offset)
                 .option("limit", 2)
                 .executeRaw();
