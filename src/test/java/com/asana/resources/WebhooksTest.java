@@ -36,8 +36,8 @@ public class WebhooksTest extends AsanaTest
     public void testWebhooksCreate() throws IOException
     {
         final String response = "{\"data\": " + RESPONSE + "}";
-        dispatcher.registerResponse("POST", "http://app/webhooks").code(200).content(response);
-        verifyResponse(client.webhooks.create().data("resource", 111).data("target", "https://foo/123").execute());
+        dispatcher.registerResponse("POST", "http://app/webhooks?opt_pretty=false").code(200).content(response);
+        verifyResponse(client.webhooks.createWebhook().data("resource", 111).data("target", "https://foo/123").execute());
     }
 
     @Test
@@ -52,19 +52,18 @@ public class WebhooksTest extends AsanaTest
     }
 
     @Test
-    public void testWebhooksGetById() throws IOException
+    public void testWebhooksGetWebhook() throws IOException
     {
         final String response = "{\"data\": " + RESPONSE + "}";
-        dispatcher.registerResponse("GET", "http://app/webhooks/222").code(200).content(response);
-        verifyResponse(client.webhooks.getById("222").execute());
+        dispatcher.registerResponse("GET", "http://app/webhooks/222?opt_pretty=false").code(200).content(response);
+        verifyResponse(client.webhooks.getWebhook("222").execute());
     }
 
     @Test
-    public void testWebhooksDeleteById() throws IOException
+    public void testWebhooksDeleteWebhook() throws IOException
     {
-        dispatcher.registerResponse("DELETE", "http://app/webhooks/222").code(200).content("{\"data\": {}}");
-        final Webhook w = client.webhooks.deleteById("222").execute();
-        assertEquals(null, w.gid);
+        dispatcher.registerResponse("DELETE", "http://app/webhooks/222?opt_pretty=false").code(200).content("{\"data\": {}}");
+        assertEquals(null, client.webhooks.deleteWebhook("222", null, false).execute().getAsJsonObject().get("gid"));
     }
 
 }

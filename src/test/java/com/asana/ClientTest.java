@@ -39,9 +39,9 @@ public class ClientTest extends AsanaTest
     public void testClientGetCollectionList() throws IOException
     {
         String req = "{ \"data\": [ { \"gid\": 1 } ]}";
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks").code(200).content(req);
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=50&opt_pretty=false").code(200).content(req);
 
-        List<Task> tasks = client.tasks.findByProject("1").execute();
+        List<Task> tasks = client.tasks.getTasksForProject("1", null).execute();
         assertEquals(1, tasks.size());
         assertEquals("1", tasks.get(0).gid);
     }
@@ -50,9 +50,9 @@ public class ClientTest extends AsanaTest
     public void testClientGetCollectionListWithNonEnglishCharacters() throws IOException
     {
         String req = "{ \"data\": [ { \"gid\": 1, \"name\": \"öäüßsøθæîó\" } ]}";
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks").code(200).content(req);
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=50&opt_pretty=false").code(200).content(req);
 
-        List<Task> tasks = client.tasks.findByProject("1").execute();
+        List<Task> tasks = client.tasks.getTasksForProject("1", null).execute();
         assertEquals(1, tasks.size());
         assertEquals("1", tasks.get(0).gid);
         assertEquals("öäüßsøθæîó", tasks.get(0).name);
@@ -62,9 +62,9 @@ public class ClientTest extends AsanaTest
     public void testClientGetCollectionIterator() throws IOException
     {
         String req = "{ \"data\": [ { \"gid\": 1 } ]}";
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=50").code(200).content(req);
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=50&opt_pretty=false").code(200).content(req);
 
-        Iterator<Task> tasks = client.tasks.findByProject("1").iterator();
+        Iterator<Task> tasks = client.tasks.getTasksForProject("1", null).iterator();
         assertEquals(true, tasks.hasNext());
         assertEquals("1", tasks.next().gid);
         assertEquals(false, tasks.hasNext());
@@ -73,36 +73,33 @@ public class ClientTest extends AsanaTest
     @Test
     public void testClientPost() throws IOException
     {
-        dispatcher.registerResponse("POST", "http://app/tasks").code(201).content("{ \"data\": { \"gid\": \"1\" }}");
+        dispatcher.registerResponse("POST", "http://app/tasks?opt_pretty=false").code(201).content("{ \"data\": { \"gid\": \"1\" }}");
 
-        assertEquals("1", client.tasks.create().execute().gid);
+        assertEquals("1", client.tasks.createTask().execute().gid);
     }
 
     @Test
     public void testClientPut() throws IOException
     {
-        dispatcher.registerResponse("PUT", "http://app/tasks/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        dispatcher.registerResponse("PUT", "http://app/tasks/1?opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
 
-        assertEquals("1", client.tasks.update("1").execute().gid);
+        assertEquals("1", client.tasks.updateTask("1").execute().gid);
     }
 
     @Test
     public void testClientDelete() throws IOException
     {
-        dispatcher.registerResponse("DELETE", "http://app/tasks/1").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        dispatcher.registerResponse("DELETE", "http://app/tasks/1?opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
 
-        assertEquals("1", client.tasks.delete("1").execute().gid);
+        assertEquals("1", client.tasks.deleteTask("1").execute().getAsJsonObject().get("gid").getAsString());
     }
 
     @Test
     public void testGetNamedParameters() throws IOException
     {
-        dispatcher.registerResponse("GET", "http://app/tasks?workspace=14916&assignee=me").code(200).content("{ \"data\": [{ \"gid\": \"1\" }]}");
+        dispatcher.registerResponse("GET", "http://app/tasks?assignee=me&limit=50&opt_pretty=false&workspace=14916").code(200).content("{ \"data\": [{ \"gid\": \"1\" }]}");
 
-        Collection<Task> result = client.tasks.findAll()
-                .query("workspace", "14916")
-                .query("assignee", "me")
-                .execute();
+        Collection<Task> result = client.tasks.getTasks(null, null, "14916", null, null, "me").execute();
         assertEquals("1", result.iterator().next().gid);
     }
 
@@ -111,9 +108,9 @@ public class ClientTest extends AsanaTest
     {
         JsonElement req = parser.parse("{ \"data\": { \"assignee\": \"1235\", \"followers\": [\"5678\"],\"name\": \"Hello, world.\"}}");
 
-        dispatcher.registerResponse("POST", "http://app/tasks").code(201).content("{ \"data\": { \"gid\": \"1\" }}");
+        dispatcher.registerResponse("POST", "http://app/tasks?opt_pretty=false").code(201).content("{ \"data\": { \"gid\": \"1\" }}");
 
-        Task result = client.tasks.create()
+        Task result = client.tasks.createTask()
                 .data("assignee", "1235")
                 .data("followers", Arrays.asList("5678"))
                 .data("name", "Hello, world.")
@@ -127,9 +124,9 @@ public class ClientTest extends AsanaTest
     {
         JsonElement req = parser.parse("{ \"data\": {\"assignee\": \"1235\", \"followers\": [\"5678\"],\"name\": \"Hello, world.\"}}");
 
-        dispatcher.registerResponse("PUT", "http://app/tasks/1001").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
+        dispatcher.registerResponse("PUT", "http://app/tasks/1001?opt_pretty=false").code(200).content("{ \"data\": { \"gid\": \"1\" }}");
 
-        Task result = client.tasks.update("1001")
+        Task result = client.tasks.updateTask("1001")
                 .data("assignee", "1235")
                 .data("followers", Arrays.asList("5678"))
                 .data("name", "Hello, world.")
@@ -144,8 +141,7 @@ public class ClientTest extends AsanaTest
         String req = "{ \"data\": [ { \"gid\": 1 }],\"next_page\": {\"offset\": \"b\",\"path\": \"/tasks?project=1&limit=5&offset=b\",\"uri\": \"https://app.asana.com/api/1.0/tasks?project=1&limit=5&offset=b\"}}";
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=5&offset=a").code(200).content(req);
 
-        ResultBodyCollection<Task> result = client.tasks.findByProject("1")
-                .option("limit", 5).option("offset", "a")
+        ResultBodyCollection<Task> result = client.tasks.getTasksForProject("1", null, "a", 5, null, null)
                 .executeRaw();
 
         assertEquals("1", result.data.get(0).gid);
@@ -169,8 +165,7 @@ public class ClientTest extends AsanaTest
                 .header("asana-change","name=string_ids;info=something;affected=true")
                 .header("asana-change", "name=new_sections;info=something;affected=true");
 
-        client.tasks.findByProject("1")
-                .option("limit", 5).option("offset", "a")
+        client.tasks.getTasksForProject("1", null, "a", 5, null, null)
                 .executeRaw();
 
         assertEquals("Log level as expected?", Level.WARNING, handler.checkLevel() );
@@ -187,10 +182,10 @@ public class ClientTest extends AsanaTest
         logger.setLevel(Level.ALL);
 
         String req = "{ \"data\": [ { \"gid\": 1 }],\"next_page\": {\"offset\": \"b\",\"path\": \"/tasks?project=1&limit=5&offset=b\",\"uri\": \"https://app.asana.com/api/1.0/tasks?project=1&limit=5&offset=b\"}}";
-        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=5&offset=a").code(200).content(req)
+        dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=50&opt_pretty=false").code(200).content(req)
                 .header("AsANa-ChaNge","name=new_sections;info=something;affected=true");
 
-        client.tasks.findByProject("1")
+        client.tasks.getTasksForProject("1", null)
                 .option("limit", 5).option("offset", "a")
                 .executeRaw();
 
@@ -211,8 +206,7 @@ public class ClientTest extends AsanaTest
         dispatcher.registerResponse("GET", "http://app/projects/1/tasks?limit=5&offset=a").code(200).content(req)
                 .header("asana-change", "name=new_sections;info=something");
 
-        client.tasks.findByProject("1")
-                .option("limit", 5).option("offset", "a")
+        client.tasks.getTasksForProject("1", null, "a", 5, null, null)
                 .executeRaw();
 
         assertNotEquals("Log level as expected?", Level.WARNING, handler.checkLevel() );
