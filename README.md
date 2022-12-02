@@ -100,7 +100,7 @@ When the user is redirected back to your callback, check the `state` URL paramet
       // error! possible CSRF attack
     }
 
-Note: if you're writing a non-browser-based application (e.x. a command line tool) you can use the special redirect URI `urn:ietf:wg:oauth:2.0:oob` to prompt the user to copy and paste the code into the application.
+Note: if you are writing a non-browser-based application (e.x. a command line tool) you can use the special redirect URI `urn:ietf:wg:oauth:2.0:oob` to prompt the user to copy and paste the code into the application.
 
 Usage
 -----
