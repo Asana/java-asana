@@ -19,10 +19,16 @@ public class Task extends ResourceWithSubtype {
     @SerializedName("created_at")
     public DateTime createdAt;
 
+    @SerializedName("created_by")
+    public User createdBy;
+
     public boolean completed;
 
     @SerializedName("completed_at")
     public DateTime completedAt;
+
+    @SerializedName("completed_by")
+    public User completedBy;
 
     @SerializedName("custom_fields")
     public Collection<CustomField> customFields;
@@ -63,6 +69,9 @@ public class Task extends ResourceWithSubtype {
     public int numSubtasks;
 
     public Task parent;
+
+    @SerializedName("permalink_url")
+    public String permalinkUrl;
 
     public Collection<Project> projects;
 
