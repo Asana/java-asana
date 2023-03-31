@@ -49,6 +49,7 @@ public class Client {
     public Dispatcher dispatcher;
 
     public Attachments attachments;
+    public BatchApis batchApis;
     public CustomFields customFields;
     public CustomFieldSettings customFieldSettings;
     public Events events;
@@ -112,6 +113,7 @@ public class Client {
         }
 
         this.attachments = new Attachments(this);
+        this.batchApis = new BatchApis(this);
         this.customFields = new CustomFields(this);
         this.customFieldSettings = new CustomFieldSettings(this);
         this.events = new Events(this);
