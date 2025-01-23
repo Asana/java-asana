@@ -1,5 +1,8 @@
 # Asana [![Build Status][github-actions-image]][github-actions-url] [![Maven Version][mvn-image]][mvn-url]
 
+> [!CAUTION]
+> The Asana Java SDK is no longer supported. While it remains available on [Maven Central Repository](https://central.sonatype.com/artifact/com.asana/asana), it will not receive bug fixes or enhancements (including new endpoints or data model changes). We recommend using Java's HttpClient or similar HTTP libraries to make direct API requests instead.
+
 Java client library for the Asana API.
 
 Installation
